@@ -16,7 +16,6 @@ class Item extends MY_Controller {
         $this->layout_dir = 'layout/';
         $this->page_dir = 'item/';
         $this->load->model('item_model', 'item');
-        $this->load->model('user_item_model', 'user_item');
         $this->data['active_menu'] = 'item';
     }
 
@@ -113,12 +112,9 @@ class Item extends MY_Controller {
 
     function detail() {
         $this->data['id'] = $this->uri->segment(3);
-        $this->load->model('user_item_model', 'user_item');
         $this->data ['rec_data'] = $this->item->get_data(null, array('id' => $this->data['id']), null, null, null, null, 'row');
         if ($this->data ['rec_data'] == array())
             redirect(site_url('item'));
-
-        $this->data['user_item'] = $this->user_item->get_data(null, array('item_id' => $this->data['id']));
         $this->data ['page_icon'] = 'icomoon-icon-plus';
         $this->data ['page_title'] = 'Detail PO';
         $this->data ['page'] = $this->load->view($this->get_page('detail'), $this->data, true);
