@@ -92,7 +92,7 @@ CREATE TABLE `ci_sessions` (
 /*Data for the table `ci_sessions` */
 
 insert  into `ci_sessions`(`session_id`,`ip_address`,`user_agent`,`last_activity`,`user_data`) values 
-('8f97d0a4ab178df5beab582652bb7570','::1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',1719561220,'a:7:{s:9:\"user_data\";s:0:\"\";s:7:\"sess-id\";s:5:\"admin\";s:9:\"sess-name\";s:5:\"Admin\";s:9:\"sess-role\";s:5:\"admin\";s:15:\"sess-personalid\";N;s:13:\"sess-loggedin\";b:1;s:14:\"sess-starttime\";s:19:\"2024-06-28 14:53:56\";}');
+('b658c9dc34ca2573780b27342a822bc9','::1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',1719562067,'a:7:{s:9:\"user_data\";s:0:\"\";s:7:\"sess-id\";s:5:\"admin\";s:9:\"sess-name\";s:5:\"Admin\";s:9:\"sess-role\";s:5:\"admin\";s:15:\"sess-personalid\";N;s:13:\"sess-loggedin\";b:1;s:14:\"sess-starttime\";s:19:\"2024-06-28 14:53:56\";}');
 
 /*Table structure for table `configs` */
 
@@ -114,7 +114,7 @@ insert  into `configs`(`config_id`,`config_name`,`config_value`,`config_type`,`i
 (1,'app_su',NULL,'json','2014-03-13 11:53:30','2014-03-13 11:53:30'),
 (2,'app_name','D\'Mantis - PT Kalimantan Prima Persada','text','2014-03-13 11:53:30','2014-03-13 11:53:30'),
 (3,'app_meta','[{\"charset\":\"UTF-8\"},{\"name\":\"author\",\"content\":\"Hunter Nainggolan\r\n\"},{\"name\":\"title\",\"content\":\"Whats On In Indonesia\"},{\"name\":\"description\",\"content\":\"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.\"},{\"name\":\"keywords\",\"content\":\"efaktur, pajak\"},{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1.0\"}]','json','2014-03-13 11:53:30','2014-03-13 11:53:30'),
-(4,'app_base_url','http://localhost/dmantis/','text','2014-03-13 11:53:30','2014-03-13 11:53:30'),
+(4,'app_base_url','http://localhost/kpp/','text','2014-03-13 11:53:30','2014-03-13 11:53:30'),
 (5,'app_assets_path','{app_base_url}assets','text','2014-03-13 11:53:30','2014-03-13 11:53:30'),
 (6,'app_manual','{app_base_url}manuals','text','2014-03-13 11:53:30','2014-03-13 11:53:30'),
 (7,'app_default_timezone','Asia/Jakarta','text','2014-03-13 11:53:30','2014-03-13 11:53:30'),
@@ -406,108 +406,12 @@ DROP TABLE IF EXISTS `view_item`;
  `update_user` int(11) 
 )*/;
 
-/*Table structure for table `v_stock_take` */
-
-DROP TABLE IF EXISTS `v_stock_take`;
-
-/*!50001 DROP VIEW IF EXISTS `v_stock_take` */;
-/*!50001 DROP TABLE IF EXISTS `v_stock_take` */;
-
-/*!50001 CREATE TABLE  `v_stock_take`(
- `id` int(11) ,
- `start_date` datetime ,
- `start_user` int(11) ,
- `end_date` datetime ,
- `end_user` int(11) ,
- `status` tinyint(4) ,
- `s_user_name` varchar(101) ,
- `e_user_name` varchar(101) 
-)*/;
-
-/*Table structure for table `v_stock_take_detail` */
-
-DROP TABLE IF EXISTS `v_stock_take_detail`;
-
-/*!50001 DROP VIEW IF EXISTS `v_stock_take_detail` */;
-/*!50001 DROP TABLE IF EXISTS `v_stock_take_detail` */;
-
-/*!50001 CREATE TABLE  `v_stock_take_detail`(
- `id` int(11) ,
- `stock_take_id` int(11) ,
- `item_id` int(11) ,
- `item_qrcode` varchar(50) ,
- `status` tinyint(4) ,
- `is_checked` tinyint(1) ,
- `location` varchar(255) ,
- `condition` enum('good','lost','broken','service') ,
- `picture` varchar(50) ,
- `check_date` datetime ,
- `check_user` int(11) ,
- `check_user_name` varchar(101) ,
- `item_name` varchar(50) ,
- `asset_number` varchar(50) ,
- `serial_number` varchar(50) ,
- `category_name` varchar(50) ,
- `dic` int(2) ,
- `filename` varchar(255) 
-)*/;
-
-/*Table structure for table `v_user_item` */
-
-DROP TABLE IF EXISTS `v_user_item`;
-
-/*!50001 DROP VIEW IF EXISTS `v_user_item` */;
-/*!50001 DROP TABLE IF EXISTS `v_user_item` */;
-
-/*!50001 CREATE TABLE  `v_user_item`(
- `id` int(11) ,
- `item_id` int(11) ,
- `user_id` int(11) ,
- `user_name` varchar(50) ,
- `detail` varchar(255) ,
- `location` varchar(50) ,
- `item_name` varchar(50) ,
- `item_image` varchar(255) ,
- `serial_number` varchar(50) ,
- `dic` int(2) ,
- `received_date` date ,
- `return_date` date ,
- `insert_date` datetime ,
- `insert_user` int(11) ,
- `update_date` datetime ,
- `update_user` int(11) ,
- `return_user` int(11) ,
- `receive_doc` varchar(50) ,
- `return_doc` varchar(50) 
-)*/;
-
 /*View structure for view view_item */
 
 /*!50001 DROP TABLE IF EXISTS `view_item` */;
 /*!50001 DROP VIEW IF EXISTS `view_item` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_item` AS (select `i`.`id` AS `id`,`i`.`area_id` AS `area_id`,`a`.`name` AS `area_name`,`i`.`name` AS `name`,`i`.`size` AS `item_size`,`i`.`quantity` AS `quantity`,`i`.`stock` AS `stock`,`i`.`icondition` AS `icondition`,`i`.`qrcode` AS `qrcode`,`i`.`insert_date` AS `insert_date`,`i`.`insert_user` AS `insert_user`,`i`.`update_date` AS `update_date`,`i`.`update_user` AS `update_user` from (`item` `i` left join `areas` `a` on(`i`.`area_id` = `a`.`id`))) */;
-
-/*View structure for view v_stock_take */
-
-/*!50001 DROP TABLE IF EXISTS `v_stock_take` */;
-/*!50001 DROP VIEW IF EXISTS `v_stock_take` */;
-
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_stock_take` AS (select `s`.`id` AS `id`,`s`.`start_date` AS `start_date`,`s`.`start_user` AS `start_user`,`s`.`end_date` AS `end_date`,`s`.`end_user` AS `end_user`,`s`.`status` AS `status`,`su`.`name` AS `s_user_name`,`eu`.`name` AS `e_user_name` from ((`inventory`.`stock_take` `s` left join `acl`.`view_users` `su` on(`s`.`start_user` = `su`.`id`)) left join `acl`.`view_users` `eu` on(`s`.`end_user` = `eu`.`id`))) */;
-
-/*View structure for view v_stock_take_detail */
-
-/*!50001 DROP TABLE IF EXISTS `v_stock_take_detail` */;
-/*!50001 DROP VIEW IF EXISTS `v_stock_take_detail` */;
-
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_stock_take_detail` AS (select `sd`.`id` AS `id`,`sd`.`stock_take_id` AS `stock_take_id`,`sd`.`item_id` AS `item_id`,`sd`.`item_qrcode` AS `item_qrcode`,`sd`.`status` AS `status`,`sd`.`is_checked` AS `is_checked`,`sd`.`location` AS `location`,`sd`.`condition` AS `condition`,`sd`.`picture` AS `picture`,`sd`.`check_date` AS `check_date`,`sd`.`check_user` AS `check_user`,`u`.`name` AS `check_user_name`,`i`.`name` AS `item_name`,`i`.`asset_number` AS `asset_number`,`i`.`serial_number` AS `serial_number`,`i`.`category_name` AS `category_name`,`i`.`dic` AS `dic`,`i`.`filename` AS `filename` from ((`inventory`.`stock_take_detail` `sd` left join `inventory`.`v_item` `i` on(`sd`.`item_id` = `i`.`id`)) left join `acl`.`view_users` `u` on(`sd`.`check_user` = `u`.`id`))) */;
-
-/*View structure for view v_user_item */
-
-/*!50001 DROP TABLE IF EXISTS `v_user_item` */;
-/*!50001 DROP VIEW IF EXISTS `v_user_item` */;
-
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_user_item` AS (select `ui`.`id` AS `id`,`ui`.`item_id` AS `item_id`,`ui`.`user_id` AS `user_id`,`u`.`first_name` AS `user_name`,`ui`.`detail` AS `detail`,`ui`.`location` AS `location`,`i`.`name` AS `item_name`,`i`.`filename` AS `item_image`,`i`.`serial_number` AS `serial_number`,`i`.`dic` AS `dic`,`ui`.`received_date` AS `received_date`,`ui`.`return_date` AS `return_date`,`ui`.`insert_date` AS `insert_date`,`ui`.`insert_user` AS `insert_user`,`ui`.`update_date` AS `update_date`,`ui`.`update_user` AS `update_user`,`ui`.`return_user` AS `return_user`,`ui`.`receive_doc` AS `receive_doc`,`ui`.`return_doc` AS `return_doc` from ((`inventory`.`user_item` `ui` left join `inventory`.`item` `i` on(`ui`.`item_id` = `i`.`id`)) left join `hris`.`employee` `u` on(`ui`.`user_id` = `u`.`id`))) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
