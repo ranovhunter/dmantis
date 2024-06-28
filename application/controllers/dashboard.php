@@ -24,8 +24,8 @@ class Dashboard extends MY_Controller {
     function index() {
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'MY Request Info';
-        $this->load->model('user_item_model', 'user_item');
-        $this->data['list_item'] = $this->user_item->get_data(null, array('user_id' => $this->session->userdata('sess-id')));
+//        $this->load->model('user_item_model', 'user_item');
+//        $this->data['list_item'] = $this->user_item->get_data(null, array('user_id' => $this->session->userdata('sess-id')));
         $this->data ['page'] = $this->load->view($this->get_page(), $this->data, true);
         $this->render();
     }
