@@ -6,7 +6,7 @@
         <a class="nav-link w-100 <?= $curr_poss == 'active' ? 'active' : '' ?>" id="active-tab" href="<?= site_url('item/index'); ?>" type="button" aria-controls="profile" aria-selected="false">Active Item</a>
     </li>
     <li class="nav-item flex-fill" role="presentation">
-        <a class="nav-link w-100 <?= $curr_poss == 'stored' ? 'active' : '' ?>" id="stored-tab" href="<?= site_url('item/stored'); ?>" type="button" aria-controls="contact" aria-selected="false">Stored Item</a>
+        <a class="nav-link w-100 <?= $curr_poss == 'inactive' ? 'active' : '' ?>" id="stored-tab" href="<?= site_url('item/inactive'); ?>" type="button" aria-controls="contact" aria-selected="false">Inactive Item</a>
     </li>
     <!--
     <li class="nav-item flex-fill" role="presentation">

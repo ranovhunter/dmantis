@@ -20,7 +20,11 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">qrcode</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Condition</th>
+                                <th scope="col">Location</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -33,7 +37,11 @@
                                     <tr>
                                         <td><?= $i; ?></td>
                                         <td><?= $row->name; ?></td>
-                                        <td><?= $row->qrcode; ?></td>
+                                        <td><?= $row->size; ?></td>
+                                        <td><?= $row->quantity; ?></td>
+                                        <td><?= $row->stock; ?></td>
+                                        <td><?= $row->icondition; ?></td>
+                                        <td><?= $row->area_name; ?></td>
                                         <td class="text-center">
                                             <a href="<?php echo site_url('item/detail/' . $row->id); ?>" type="button" class="btn btn-primary"><i class="bi bi-gear me-1"></i> View Detail</a>
                                         </td>

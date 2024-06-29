@@ -38,15 +38,10 @@ class Item extends MY_Controller {
         $this->render();
     }
 
-    function stored() {
-        $this->data ['enable_search'] = true;
-        $this->data ['action_search'] = site_url('item/index/');
-        if ($this->input->post('search')) {
-            redirect(site_url('item/search/' . str_rot13($this->input->post('tx_search'))));
-        }
+    function inactive() {
         $page = $this->uri->rsegment(3, 0);
         $this->data['offset'] = get_offset($page, $this->data['max_rows']);
-        $this->data ['curr_poss'] = 'stored';
+        $this->data ['curr_poss'] = 'inactive';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Item - Stored';
         $this->data ['page_icon'] = 'icomoon-icon-list';
@@ -60,16 +55,22 @@ class Item extends MY_Controller {
     function add() {
         $this->load->library('Ciqrcode');
         $this->data ['curr_poss'] = 'new';
+        $this->load->model('area_model', 'area');
+        $this->data['list_area'] = $this->area->get_data();
         if ($this->input->post('submit')) {
             $this->form_validation->set_rules('txt_name', 'Name', 'trim|xss_clean|required');
-            $this->form_validation->set_rules('txt_detail', 'Detail', 'trim|xss_clean');
-            $this->form_validation->set_rules('txt_sn', 'Serial Number', 'trim|xss_clean|required');
+            $this->form_validation->set_rules('cmb_area', 'Area', 'trim|xss_clean');
+            $this->form_validation->set_rules('cmb_condition', 'Condition', 'trim|xss_clean');
+            $this->form_validation->set_rules('txt_size', 'Size', 'trim|xss_clean');
+            $this->form_validation->set_rules('txt_quantity', 'Quantity', 'trim|xss_clean|required');
             if ($this->form_validation->run() == TRUE) {
                 $data = array(
                     'name' => $this->input->post('txt_name'),
                     'qrcode' => 'ITM' . date('ymdHis'),
-                    'serial_number' => $this->input->post('txt_sn'),
-                    'details' => $this->input->post('txt_detail'),
+                    'quantity' => $this->input->post('txt_quantity'),
+                    'size' => $this->input->post('txt_size'),
+                    'icondition' => $this->input->post('cmb_condition'),
+                    'area_id' => $this->input->post('cmb_area'),
                     'insert_user' => $this->session->userdata('sess-id'),
                     'insert_date' => date("Y-m-d H:i:s")
                 );
@@ -123,46 +124,50 @@ class Item extends MY_Controller {
 
     function update() {
         $this->data['id'] = $this->uri->segment(3);
+        $this->load->model('area_model', 'area');
+        $this->data['list_area'] = $this->area->get_data();
         $this->data ['rec_data'] = $this->item->get_data(null, array('id' => $this->data['id']), null, null, null, null, 'row');
         if ($this->data ['rec_data'] == array())
             redirect(site_url('item'));
         if ($this->input->post('submit')) {
             $this->form_validation->set_rules('txt_name', 'Name', 'trim|xss_clean|required');
-            $this->form_validation->set_rules('txt_detail', 'Detail', 'trim|xss_clean');
-            $this->form_validation->set_rules('txt_sn', 'Serial Number', 'trim|xss_clean');
-            if ($this->form_validation->run() == TRUE) {
-                $data = array(
-                    'name' => $this->input->post('txt_name'),
-                    'serial_number' => $this->input->post('txt_sn'),
-                    'details' => $this->input->post('txt_detail'),
-                    'update_user' => $this->session->userdata('sess-id'),
-                    'update_date' => date("Y-m-d H:i:s")
-                );
-                $config = array(
-                    'upload_path' => UPLOAD_PATH_ITEM,
-                    'allowed_types' => 'jpg|jpeg|png',
-                    'overwrite' => true,
-                    'remove_spaces' => true
-                );
-                $this->load->library('upload', $config);
-                if ($this->upload->do_upload('img_item')) {
-                    $uploaddata = $this->upload->data();
-                    $info = pathinfo($_FILES ['img_item'] ['name']);
-                    $rawname = 'ITM' . date('ymdHis');
-                    $this->data['filename'] = $rawname . '.' . $info ['extension'];
-                    rename($uploaddata ['full_path'], $uploaddata ['file_path'] . $this->data['filename']);
-                    $data['filename'] = $this->data['filename'];
-                }
-                if ($this->item->edit_data($data, array('id' => $this->data['id']))) {
-                    $this->session->set_flashdata('info_messages', 'Inventory  successfully updated ');
-                    redirect(site_url('item/detail/' . $this->data['id']));
-                } else {
-                    $this->session->set_flashdata('err_messages', 'Failed to Update Inventory. Please Try again, or contact system administrator');
-                    redirect(site_url('item/update/' . $this->data['id']));
-                }
-            } else {
-                $this->data ['error_messages'] = validation_errors() ? get_messages(validation_errors()) : '';
+            $this->form_validation->set_rules('cmb_area', 'Area', 'trim|xss_clean');
+            $this->form_validation->set_rules('cmb_condition', 'Condition', 'trim|xss_clean');
+            $this->form_validation->set_rules('txt_size', 'Size', 'trim|xss_clean');
+            $this->form_validation->set_rules('txt_quantity', 'Quantity', 'trim|xss_clean|required');
+            $data = array(
+                'name' => $this->input->post('txt_name'),
+                'quantity' => $this->input->post('txt_quantity'),
+                'size' => $this->input->post('txt_size'),
+                'icondition' => $this->input->post('cmb_condition'),
+                'area_id' => $this->input->post('cmb_area'),
+                'update_user' => $this->session->userdata('sess-id'),
+                'update_date' => date("Y-m-d H:i:s")
+            );
+            $config = array(
+                'upload_path' => UPLOAD_PATH_ITEM,
+                'allowed_types' => 'jpg|jpeg|png',
+                'overwrite' => true,
+                'remove_spaces' => true
+            );
+            $this->load->library('upload', $config);
+            if ($this->upload->do_upload('img_item')) {
+                $uploaddata = $this->upload->data();
+                $info = pathinfo($_FILES ['img_item'] ['name']);
+                $rawname = 'ITM' . date('ymdHis');
+                $this->data['filename'] = $rawname . '.' . $info ['extension'];
+                rename($uploaddata ['full_path'], $uploaddata ['file_path'] . $this->data['filename']);
+                $data['filename'] = $this->data['filename'];
             }
+            if ($this->item->edit_data($data, array('id' => $this->data['id']))) {
+                $this->session->set_flashdata('info_messages', 'Inventory  successfully updated ');
+                redirect(site_url('item/detail/' . $this->data['id']));
+            } else {
+                $this->session->set_flashdata('err_messages', 'Failed to Update Inventory. Please Try again, or contact system administrator');
+                redirect(site_url('item/update/' . $this->data['id']));
+            }
+        } else {
+            $this->data ['error_messages'] = validation_errors() ? get_messages(validation_errors()) : '';
         }
         $this->data ['page_icon'] = 'icomoon-icon-plus';
         $this->data ['page_title'] = 'Update Item';
@@ -400,7 +405,6 @@ class Item extends MY_Controller {
         $this->data ['page'] = $this->load->view($this->get_page('ireturn'), $this->data, true);
         $this->render();
     }
-
 }
 
 /**

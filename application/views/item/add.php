@@ -1,4 +1,4 @@
-<div class="card">
+-<div class="card">
     <div class="card-body">
         <h5 class="card-title">Add New Item</h5>
         <?php $this->load->view('item/linktab'); ?>
@@ -21,14 +21,33 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating">
-                            <input type="text" name="txt_sn" class="form-control" id="floatingSerialNumber" placeholder="Serial Number" value ="<?= set_value('txt_sn') ?>" required>
-                            <label for="floatingSerialNumber">Serial Number</label>
+                            <input type="text" name="txt_quantity" class="form-control" id="floatingQuantitty" placeholder="Quantity" value ="<?= set_value('txt_quantity') ?>" required>
+                            <label for="floatingSerialNumber">Quantity</label>
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-md-4">
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="Details" name="txt_detail" id="floatingTextarea" style="height: 100px;"><?= set_value('txt_detail'); ?></textarea>
-                            <label for="floatingTextarea">Details</label>
+                            <input type="text" name="txt_size" class="form-control" id="floatingSize" placeholder="Quantity" value ="<?= set_value('txt_size') ?>">
+                            <label for="floatingSerialNumber">Size</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="floatingSelect" aria-label="Type" name="cmb_condition">
+                                <option value="good">Good</option>
+                                <option value="incomplete">Good (Incomplete)</option>
+                            </select>
+                            <label for="floatingSelect">Condition</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <select class="form-select" id="floatingSelect" aria-label="Location" name="cmb_area">
+                                <?php foreach ($list_area as $row) { ?>
+                                    <option value="<?= $row->id; ?>"><?= $row->name; ?></option>
+                                <?php } ?>
+                            </select>
+                            <label for="floatingName">Location</label>
                         </div>
                     </div>
                     <div class="col-md-4">
