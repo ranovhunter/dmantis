@@ -36,14 +36,19 @@ class Home extends MY_Controller {
     function detail() {
         $this->data['active_menu'] = 'dashboard';
         $this->data ['html_title'] = 'Rent';
-        $id = $this->uri->segment(3);
-        $this->data['rec_user'] = $this->muser->get_data(null, array('id' => $id, 'roles' => 'user'), null, null, null, null, 'row');
+        $this->data['userid'] = $this->uri->segment(3);
+        $this->data['rec_user'] = $this->muser->get_data(null, array('id' => $this->data['userid'], 'roles' => 'user'), null, null, null, null, 'row');
+        if($this->input->post('submit')){
+            debug($this->input->post('data'));
+        }
         if ($this->data['rec_user'] == array())
             redirect(site_url('home'));
         $this->data['list_items'] = $this->item->get_data(null, "icondition IN ('good','incomplete')");
         $this->data ['page'] = $this->load->view($this->get_page('detail'), $this->data, true);
         $this->render();
     }
+    
+    
 
 }
 
