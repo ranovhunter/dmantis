@@ -19,7 +19,7 @@ if (!empty($error_messages)) {
             <div class="card-body">
                 <h5 class="card-title itemname"><?= $row->name; ?></h5>
                 <p class="card-text itemsize">Size : <?= $row->size; ?></p>
-                <a href="#" class="btn btn-primary" onclick="addToCart(this)">Add to Cart</a>
+                <a href="javascript:void(0)" class="btn btn-primary" onclick="addToCart(this)">Add to Cart</a>
             </div>
         </div>
     </div>
@@ -27,7 +27,11 @@ if (!empty($error_messages)) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
                 $(document).ready(function () {
+                    //emptyCart();
                     showCartTable();
+
+                    removeCartItem(1);
+//                    alert(JSON.parse(sessionStorage.getItem('rent-cart')));
                 });
                 function addToCart(element) {
                     var productParent = $(element).closest('div.toolscard');
@@ -58,21 +62,22 @@ if (!empty($error_messages)) {
                     var itemCount = 0;
 
                     var quantity = 0;
-                    var subTotal = 0;
 
                     if (sessionStorage.getItem('rent-cart')) {
                         var shoppingCart = JSON.parse(sessionStorage.getItem('rent-cart'));
                         itemCount = shoppingCart.length;
-
+                        var index = 0;
                         //Iterate javascript shopping cart array
                         shoppingCart.forEach(function (item) {
+
                             var cartItem = JSON.parse(item);
                             quantity = parseInt(cartItem.quantity);
 
                             cartRowHTML += '<li class="dropdown-header">' +
                                     "<h6>" + cartItem.productName + "</h6>" +
-                                    "<span>" + cartItem.size + "</span>" +
+                                    "<span>" + cartItem.size + "</span><a href='javascript:void(0)' onclick='removeCartItem(" + index + ")'><i class='bi bi-trash'></i></a>" +
                                     "</li>";
+                            index++;
 
                         });
                     }
@@ -87,6 +92,20 @@ if (!empty($error_messages)) {
                     if (sessionStorage.getItem('rent-cart')) {
                         // Clear JavaScript sessionStorage by index
                         sessionStorage.removeItem('rent-cart');
+                        showCartTable();
+                    }
+                }
+                function removeCartItem(index) {
+                    if (sessionStorage.getItem('rent-cart')) {
+                        var RentCart = JSON.parse(sessionStorage.getItem('rent-cart'));
+                        delete RentCart[index];
+                        var cartArray = new Array();
+                        //sessionStorage.removeItem('rent-cart');
+                        RentCart.forEach(function (item) {
+                            cartArray.push(item);
+                            var cartJSON = JSON.stringify(cartArray);
+                            sessionStorage.setItem('rent-cart', cartJSON);
+                        });
                         showCartTable();
                     }
                 }
