@@ -138,6 +138,7 @@ class Item extends MY_Controller {
             $data = array(
                 'name' => $this->input->post('txt_name'),
                 'quantity' => $this->input->post('txt_quantity'),
+                'stock' => $this->input->post('txt_quantity'),
                 'size' => $this->input->post('txt_size'),
                 'icondition' => $this->input->post('cmb_condition'),
                 'area_id' => $this->input->post('cmb_area'),
