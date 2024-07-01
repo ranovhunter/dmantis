@@ -32,6 +32,8 @@ if (!empty($error_messages)) {
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0 itemsize">Size : <?= $row->size; ?></h5>
                         <span class="h2 font-weight-bold mb-0 itemname"><?= $row->name; ?></span>
+                        <input type="number" value="<?= $row->quantity;?>" class="itemquantity" />
+                        <input type="hidden" value="<?= $row->id;?>" class="itemID" />
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-info-light text-white rounded-circle shadow">
@@ -55,11 +57,14 @@ if (!empty($error_messages)) {
 
                                     var size = $(productParent).find('.itemsize').text();
                                     var productName = $(productParent).find('.itemname').text();
-                                    //var quantity = $(productParent).find('.product-quantity').val();
+                                    var quantity = $(productParent).find('.itemquantity').val();
+                                    var itemID = $(productParent).find('.itemID').val();
 
                                     var cartItem = {
+                                        itemID: itemID,
                                         productName: productName,
-                                        size: size
+                                        size: size,
+                                        quantity: quantity
                                     };
                                     var cartItemJSON = JSON.stringify(cartItem);
 
@@ -98,11 +103,15 @@ if (!empty($error_messages)) {
 
                                         });
                                     }
-                                    cartRowHTML += '<li><hr class="dropdown-divider"></li>' +
-                                            '<li><a class="dropdown-item d-flex align-items-center" ' +
-                                            'href="#" onclick="emptyCart()"><i class="bi bi-cart-x"></i><span>Clear Cart</span></a></li>' +
-                                            '<li><a class="dropdown-item d-flex align-items-center"href="#" onclick="confirmCart()"><i class="bi bi-cart-check-fill"></i><span>Confirm</span></a></li>';
-
+                                    cartRowHTML += '<li><hr class="dropdown-divider"></li>';
+                                    if (itemCount > 0) {
+                                        cartRowHTML += '<li><a class="dropdown-item d-flex align-items-center" ' +
+                                                'href="#" onclick="emptyCart()"><i class="bi bi-cart-x"></i><span>Clear Cart</span></a></li>' +
+                                                '<li><a class="dropdown-item d-flex align-items-center"href="#" onclick="confirmCart()"><i class="bi bi-cart-check-fill"></i><span>Confirm</span></a></li>';
+                                    } else {
+                                        cartRowHTML += '<li><a class="dropdown-item d-flex align-items-center" ' +
+                                                'href="#"><i class="bi bi-cart2"></i><span>Cart Empty</span></a></li>';
+                                    }
                                     $('#cartTableBody').html(cartRowHTML);
                                     $('#itemCount').text(itemCount);
                                 }
@@ -130,7 +139,7 @@ if (!empty($error_messages)) {
                                 function confirmCart() {
                                     var url = '<?= site_url('home/detail/' . $userid) ?>';
                                     if (sessionStorage.getItem('rent-cart')) {
-                                        var rentItem = JSON.parse(sessionStorage.getItem('rent-cart'));
+                                        var rentItem = sessionStorage.getItem('rent-cart');
                                         const form = document.createElement('form');
                                         form.method = 'post';
                                         form.action = url;
@@ -140,9 +149,14 @@ if (!empty($error_messages)) {
                                         hiddenField.value = rentItem;
                                         form.appendChild(hiddenField);
 
-                                       
+                                        const hiddenField2 = document.createElement('input');
+                                        hiddenField2.type = 'hidden';
+                                        hiddenField2.name = 'confirm';
+                                        hiddenField2.value = 'confirm';
+                                        form.appendChild(hiddenField2);
 
                                         document.body.appendChild(form);
+                                        emptyCart();
                                         form.submit();
 
                                     }

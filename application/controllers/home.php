@@ -38,18 +38,32 @@ class Home extends MY_Controller {
         $this->data ['html_title'] = 'Rent';
         $this->data['userid'] = $this->uri->segment(3);
         $this->data['rec_user'] = $this->muser->get_data(null, array('id' => $this->data['userid'], 'roles' => 'user'), null, null, null, null, 'row');
-        if($this->input->post('submit')){
-            debug($this->input->post('data'));
+        if ($this->input->post('confirm')) {
+            $insertdata = json_decode($this->input->post('data'));
+            debug($insertdata);
+
+            //Load Database
+//            $this->load->model('')
+            //Insert into database
+//            foreach ($insertdata as $row) {
+//                $detail_data = json_decode($row);
+//                $arr_data = array(
+//                    'item_id' => $row['itemID'], //Belum di kirim
+//                    'qty' => $row['quantity'], //Belum di kirim
+//                    'request_date' => date('Y-m-d H:i:s'), 
+//                    'request_user' => $this->data['userid']
+//                );
+//                $this->rent->add_data();
+//            }
+            exit();
         }
         if ($this->data['rec_user'] == array())
             redirect(site_url('home'));
+
         $this->data['list_items'] = $this->item->get_data(null, "icondition IN ('good','incomplete')");
         $this->data ['page'] = $this->load->view($this->get_page('detail'), $this->data, true);
         $this->render();
     }
-    
-    
-
 }
 
 /**
