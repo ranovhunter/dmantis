@@ -850,6 +850,34 @@ h6 {
   background: #ffecdf;
 }
 
+.dashboard .danger-card .card-icon {
+    color: #ff0000;
+    background: #fef6f6;
+}
+
+.dashboard .success-card .card-icon {
+    color: #2eca6a;
+    background: #e0f8e9;
+}
+
+.dashboard .primary-card .card-icon {
+    color: #ff771d;
+    background: #ffecdf;
+}
+.dashboard .warning-card .card-icon {
+    color: #ff771d;
+    background: #ffecdf;
+}
+.dashboard .light-card .card-icon {
+    color: #b9babb;
+    background: #f3f3f9;
+}
+.dashboard .secondary-card .card-icon {
+    color: #3c3c3c;
+    background: #dddddd;
+}
+
+
 /* Activity */
 .dashboard .activity {
   font-size: 14px;

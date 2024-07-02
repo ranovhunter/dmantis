@@ -1,62 +1,48 @@
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Inventory History</h5>
-        <?php
-        if (!empty($err_messages)) {
-            echo $err_messages;
-        }
-        if (!empty($info_messages)) {
-            echo $info_messages;
-        }
-        if (!empty($error_messages)) {
-            echo $error_messages;
-        }
-        ?>
-        <!-- Table with hoverable rows -->
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Item</th>
-                        <th scope="col">Inventory Image</th>
-                        <th scope="col">Detail</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Receive Date/<br/>Return Date</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (!empty($list_item)) { ?>
-                        <?php foreach ($list_item as $row) { ?>
-                            <tr>
-                                <td scope="row"><?= $row->id; ?></td>
-                                <td><?= $row->item_name; ?></td>
-                                <td><a href="<?= ITEM_PATH . $row->item_image; ?>" target="_blank"><img src="<?= ITEM_PATH . $row->item_image; ?>" class="img img-responsive"  height="100px"/></a></td>
-                                <td><?= $row->detail; ?></td>
-                                <td>
-                                    <?php if ($row->location != '') { ?>
-                                        <a href="<?= LOCATION_PATH . $row->location; ?>" target="_blank"><img src="<?= LOCATION_PATH . $row->location; ?>" class="img img-responsive"  height="100px"/></a>
-                                    <?php } ?>
-                                </td>
-                                <td><?= $row->received_date; ?>/<br/><?= $row->return_date; ?></td>
-                                <td>
-                                    <?php if ($row->return_date == '') { ?>
-                                        <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
-                                    <?php } else { ?>
-                                        <span class="badge bg-secondary"><i class="bi bi-info me-1"></i> Returned</span>
-                                    <?php } ?>
-                                </td>
-                            </tr>
-                            <?php
-                        }
-                    }
-                    ?>
+<section class="section dashboard">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card success-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><span>New Request</span></h5>
 
-                </tbody>
-            </table>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-list-check"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>2 Request</h6>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <a href="<?= site_url('rent/new'); ?>" class="text-success mr-2"><i class="fa fa-arrow-up"></i> View more..</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card success-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><span>Total Tools</span></h5>
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-list-check"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>2 Request</h6>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <a href="<?= site_url('rent/new'); ?>" class="text-success mr-2"><i class="fa fa-arrow-up"></i> View more..</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- End Table with hoverable rows -->
-
     </div>
-</div>
+</section>
