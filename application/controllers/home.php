@@ -40,30 +40,36 @@ class Home extends MY_Controller {
         $this->data['rec_user'] = $this->muser->get_data(null, array('id' => $this->data['userid'], 'roles' => 'user'), null, null, null, null, 'row');
         if ($this->input->post('confirm')) {
             $insertdata = json_decode($this->input->post('data'));
-            debug($insertdata);
-
-            //Load Database
-//            $this->load->model('')
+            $this->load->model('rent_model', 'rent');
             //Insert into database
-//            foreach ($insertdata as $row) {
-//                $detail_data = json_decode($row);
-//                $arr_data = array(
-//                    'item_id' => $row['itemID'], //Belum di kirim
-//                    'qty' => $row['quantity'], //Belum di kirim
-//                    'request_date' => date('Y-m-d H:i:s'), 
-//                    'request_user' => $this->data['userid']
-//                );
-//                $this->rent->add_data();
-//            }
-            exit();
+
+            foreach ($insertdata as $row) {
+                $detail_data = json_decode($row);
+                $item_d = $this->item->get_data(array('id', 'stock', 'icondition'), array('id' => $detail_data->itemID), null, null, null, null, 'row');
+                $arr_data = array(
+                    'item_id' => $detail_data->itemID, //Belum di kirim
+                    'quantity' => $detail_data->quantity, //Belum di kirim
+                    'request_date' => date('Y-m-d H:i:s'),
+                    'icondition' => $item_d->icondition,
+                    'status' => 2,
+                    'rent_user' => $this->data['userid']
+                );
+//                debug($arr_data);
+                $stock_u = $detail_data->stock - $arr_data['quantity'];
+                if ($this->rent->add_data($arr_data)) {
+                    $this->item->edit_data(array('stock' => $stock_u), array('id' => $arr_data['item_id']));
+                }
+            }
+            redirect(site_url('home/history/' . $this->data['userid']));
         }
         if ($this->data['rec_user'] == array())
             redirect(site_url('home'));
 
-        $this->data['list_items'] = $this->item->get_data(null, "icondition IN ('good','incomplete')");
+        $this->data['list_items'] = $this->item->get_data(null, "icondition IN ('good','incomplete') and stock > 0");
         $this->data ['page'] = $this->load->view($this->get_page('detail'), $this->data, true);
         $this->render();
     }
+
 }
 
 /**

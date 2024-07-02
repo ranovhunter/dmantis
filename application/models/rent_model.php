@@ -5,22 +5,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Class Info_model
  * created by : Hunter Nainggolan <hunter.nainggolan@gmail.com>
- * date : April 04th, 2015
+ * date : April 04th, 2019
  */
-class Department_model extends MY_Model {
+class Rent_model extends MY_Model {
 
     function __construct() {
         parent::__construct();
-        $this->db = $this->load->database('asistencia', TRUE);
-        $this->set_table('department');
-        
+        $this->set_table('rent');
     }
 
     /**
      * function add_data
      * to add data to company table
      * @author hunter.nainggolan
-     * @date April 4, 2015
+     * @date April 4, 2019
      * @access public
      * 
      * @param array $data  
@@ -83,19 +81,10 @@ class Department_model extends MY_Model {
             return false;
         }
     }
-    
-    public function get_department(){
-        $result = array();
-        $data = $this->get_data(array('id','name'));
-        foreach ($data as $row){
-            $result[$row->id] = $row->name;
-        }
-        return $result;
-    }
 
 }
 
 /**
- * End of file info_model.php
- * Location: ./application/models/info_model.php
+ * End of file rent_model.php
+ * Location: ./application/models/rent_model.php
  */
