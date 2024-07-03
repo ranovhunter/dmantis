@@ -1,8 +1,8 @@
 <section class="section dashboard">
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <div class="row">
-                <div class="col-xxl-4 col-md-6">
+                <div class="col-xxl-6 col-md-12">
                     <div class="card info-card primary-card">
                         <div class="card-body">
                             <h5 class="card-title"><span>Requested List</span></h5>
@@ -12,7 +12,7 @@
                                     <i class="bi bi-send-exclamation"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>2 Request</h6>
+                                    <h6><?= $count_req; ?> Request<?= $count_req > 1 ? 's' : ''; ?></h6>
                                 </div>
                             </div>
                             <p class="mt-3 mb-0 text-sm">
@@ -22,7 +22,7 @@
 
                     </div>
                 </div>
-                <div class="col-xxl-4 col-md-6">
+                <div class="col-xxl-6 col-md-12">
                     <div class="card info-card success-card">
                         <div class="card-body">
                             <h5 class="card-title"><span>Tools Borrowed</span></h5>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-md-6">
+                <div class="col-xxl-6 col-md-12">
                     <div class="card info-card danger-card">
                         <div class="card-body">
                             <h5 class="card-title"><span>Unreturned Tools</span></h5>
@@ -60,30 +60,82 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="card" style="margin-left: 0.8rem">
-            <div class="card-body">
-                <h5 class="card-title">Renters List</h5>
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered">
-                        <thead>
-                            <tr class="text-center">
-                                <th scope="col" class="text-center">#</th>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Phone Number</th>
-                                <th scope="col">Request Date</th>
-                                <th scope="col">Tools Count</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
+                <div class="col-xxl-6 col-md-12">
+                    <div class="card info-card success-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><span>Total Tools</span></h5>
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-tools"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6><?= $all_tools; ?></h6>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <a href="<?= site_url('item'); ?>" class="text-success mr-2"><i class="fa fa-arrow-up"></i> View Detail</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <!-- End Table with hoverable rows -->
+
+
+
+                <div class="col-xxl-6 col-md-12">
+                    <div class="card info-card success-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><span>Total Users</span></h5>
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-person"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6><?= $total_user ?> Users</h6>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <a href="<?= site_url('users'); ?>" class="text-success mr-2"><i class="fa fa-arrow-up"></i> View Detail</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tools <span>| Condition</span></h5>
+                    <canvas id="doughnutChart" style="max-height: 400px;"></canvas>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                            new Chart(document.querySelector('#doughnutChart'), {
+                                type: 'doughnut',
+                                data: {
+                                    labels: [
+                                        'Good',
+                                        'Good(Incomplete)',
+                                        'Broken',
+                                        'Lost'
+                                    ],
+                                    datasets: [{
+                                            label: 'Tools Condition',
+                                            data: [<?= $good_tools; ?>, <?= $incomplete_tools; ?>, <?= $broken_tools; ?>,<?= $lost_tools; ?>],
+                                            backgroundColor: [
+                                                'rgb(149, 203, 104)',
+                                                'rgb(255, 228, 104)',
+                                                'rgb(255, 127, 104)',
+                                                'rgb(230, 107, 104)'
+                                            ],
+                                            hoverOffset: 4
+                                        }]
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

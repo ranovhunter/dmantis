@@ -83,6 +83,12 @@ class Rent_model extends MY_Model {
         }
     }
 
+    public function get_req_user_rent() {
+        $query = $this->db->query('call get_request_rent');
+        $this->total_rows = $query->num_rows();
+        return $query->result_array();
+    }
+
 }
 
 /**

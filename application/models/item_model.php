@@ -88,6 +88,29 @@ class Item_model extends MY_Model {
         $query = $this->db->query($sql);
         return $query->result_array();
     }
+
+    public function get_tools_by_condition($condition = 'all') {
+        $where = null;
+        switch ($condition) {
+            case 'good' :
+                $where = array('icondition' => 'good');
+                break;
+            case 'incomplete':
+                $where = array('icondition' => 'incomplete');
+                break;
+            case 'broken':
+                $where = array('icondition' => 'broken');
+                break;
+            case 'lost':
+                $where = array('icondition' => 'lost');
+                break;
+            default :
+                $where = null;
+        }
+        $result = $this->get_data('SUM(quantity) AS total_tools', $where, null, null, null, null, 'row');
+        return $result->total_tools;
+    }
+
 }
 
 /**

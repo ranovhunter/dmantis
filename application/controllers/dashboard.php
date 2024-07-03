@@ -24,6 +24,18 @@ class Dashboard extends MY_Controller {
     function index() {
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'MY Request Info';
+        $this->load->model('user_model', 'user');
+        $this->load->model('item_model', 'item');
+        $this->load->model('rent_model', 'rent');
+        $this->data['total_user'] = $this->user->get_total_user();
+        $this->data['good_tools'] = $this->item->get_tools_by_condition('good');
+        $this->data['incomplete_tools'] = $this->item->get_tools_by_condition('incomplete');
+        $this->data['broken_tools'] = $this->item->get_tools_by_condition('broken');
+        $this->data['lost_tools'] = $this->item->get_tools_by_condition('lost');
+        $this->data['all_tools'] = $this->item->get_tools_by_condition();
+        $this->data['rec_req_rent'] = $this->rent->get_req_user_rent();
+        $this->data['count_req'] = $this->rent->total_rows;
+
 //        $this->load->model('user_item_model', 'user_item');
 //        $this->data['list_item'] = $this->user_item->get_data(null, array('user_id' => $this->session->userdata('sess-id')));
         $this->data ['page'] = $this->load->view($this->get_page(), $this->data, true);

@@ -45,6 +45,7 @@ class Area extends MY_Controller {
                 );
 
                 if ($this->area->add_data($data)) {
+                    $this->session->set_flashdata('info_messages', 'Area  successfully registered ');
                     redirect('area');
                 } else {
                     $this->data ['error_messages'] = get_messages('Failed to add Area');

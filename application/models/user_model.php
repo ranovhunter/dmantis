@@ -90,20 +90,16 @@ class User_model extends MY_Model {
      * 
      * @return array
      */
-    public function get_total($utype = 'all') {
+    public function get_total_user($utype = 'user') {
         switch ($utype) {
-            case 'all':
-                $data = $this->get_data(array('id'));
-                break;
             case 'user':
-                $data = $this->get_data(array('id'), array('role' => 2));
+                $data = $this->get_data(array('id'), array('roles' => 'user'));
                 break;
             case 'admin':
-                $data = $this->get_data(array('id'), array('role' => 1));
+                $data = $this->get_data(array('id'), array('roles' => 'admin'));
                 break;
         }
         return $this->num_rows;
-        ;
     }
 
 }

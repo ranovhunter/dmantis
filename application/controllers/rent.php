@@ -20,89 +20,44 @@ class Rent extends MY_Controller {
     }
 
     function index() {
-        $page = $this->uri->rsegment(3, 0);
-        $this->data['offset'] = get_offset($page, $this->data['max_rows']);
-        $this->data ['curr_poss'] = 'active';
+        $this->data ['curr_poss'] = 'request';
+        $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->data ['page_title'] = 'Item - Index';
+        $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->data ['page_title'] = 'Requset Rent';
+        $this->data ['rec_req_rent'] = $this->rent->get_req_user_rent();
+        $this->data ['page'] = $this->load->view($this->get_page(), $this->data, true);
+        $this->render();
+    }
+
+    function request() {
+        $user_id = $this->uri->segment(3);
+        $this->data ['curr_poss'] = 'request';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Item - Index';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Daftar Inventory';
-        $this->data ['list_data'] = $this->rent->get_data(null, "status =2", $this->data['max_rows'], $this->data['offset']);
-        $this->data['pagination'] = $this->build_pagination(site_url() . '/rent/index', $this->uri->total_segments(), $this->rent->total_rows, $this->data['max_rows'], $this->data['numlinks']);
-        $this->data ['page'] = $this->load->view($this->get_page(), $this->data, true);
-        $this->render();
-    }
-
-    function inactive() {
-        $page = $this->uri->rsegment(3, 0);
-        $this->data['offset'] = get_offset($page, $this->data['max_rows']);
-        $this->data ['curr_poss'] = 'inactive';
-        $this->data ['page_icon'] = 'icomoon-icon-list';
-        $this->data ['page_title'] = 'Item - Stored';
-        $this->data ['page_icon'] = 'icomoon-icon-list';
-        $this->data ['page_title'] = 'Daftar Inventory';
-        $this->data ['list_data'] = $this->item->get_data(null, "icondition IN('broken','lost')", $this->data['max_rows'], $this->data['offset']);
-        $this->data['pagination'] = $this->build_pagination(site_url() . '/item/stored/', $this->uri->total_segments(), $this->item->total_rows, $this->data['max_rows'], $this->data['numlinks']);
-        $this->data ['page'] = $this->load->view($this->get_page(), $this->data, true);
-        $this->render();
-    }
-
-    function add() {
-        $this->load->library('Ciqrcode');
-        $this->data ['curr_poss'] = 'new';
-        $this->load->model('area_model', 'area');
-        $this->data['list_area'] = $this->area->get_data();
+        $this->load->model('item_model', 'item');
+        $this->data ['list_data'] = $this->rent->get_data(null, array('status' => 2, 'rent_user' => $user_id));
+        if ($this->data ['list_data'] == array())
+            redirect(site_url('rent'));
         if ($this->input->post('submit')) {
-            $this->form_validation->set_rules('txt_name', 'Name', 'trim|xss_clean|required');
-            $this->form_validation->set_rules('cmb_area', 'Area', 'trim|xss_clean');
-            $this->form_validation->set_rules('cmb_condition', 'Condition', 'trim|xss_clean');
-            $this->form_validation->set_rules('txt_size', 'Size', 'trim|xss_clean');
-            $this->form_validation->set_rules('txt_quantity', 'Quantity', 'trim|xss_clean|required');
-            if ($this->form_validation->run() == TRUE) {
-                $data = array(
-                    'name' => $this->input->post('txt_name'),
-                    'qrcode' => 'ITM' . date('ymdHis'),
-                    'quantity' => $this->input->post('txt_quantity'),
-                    'size' => $this->input->post('txt_size'),
-                    'icondition' => $this->input->post('cmb_condition'),
-                    'area_id' => $this->input->post('cmb_area'),
-                    'insert_user' => $this->session->userdata('sess-id'),
-                    'insert_date' => date("Y-m-d H:i:s")
-                );
-                $config = array(
-                    'upload_path' => UPLOAD_PATH_ITEM,
-                    'allowed_types' => 'jpg|jpeg|png',
-                    'overwrite' => true,
-                    'remove_spaces' => true
-                );
-                $this->load->library('upload', $config);
-                if ($this->upload->do_upload('img_item')) {
-                    $uploaddata = $this->upload->data();
-                    $info = pathinfo($_FILES ['img_item'] ['name']);
-                    $rawname = 'ITM' . date('ymdHis');
-                    $this->data['filename'] = $rawname . '.' . $info ['extension'];
-                    rename($uploaddata ['full_path'], $uploaddata ['file_path'] . $this->data['filename']);
-                    $data['filename'] = $this->data['filename'];
-                }
-                if ($this->item->add_data($data)) {
-                    $params['data'] = $data['qrcode'];
-                    $params['level'] = 'H';
-                    $params['size'] = 20;
-                    $params['savename'] = QR_PATH . DIRECTORY_SEPARATOR . $data['qrcode'] . '.png';
-                    $this->ciqrcode->generate($params);
-                    $this->session->set_flashdata('info_messages', 'Inventory  successfully registered ');
-                    redirect(site_url('item'));
-                } else {
-                    $this->session->set_flashdata('err_messages', 'Failed to Add Inventory. Please Try again, or contact system administrator');
-                    redirect(site_url('item/add/'));
-                }
+            $item_qr = $this->input->post('item_qr');
+            $item = $this->item->get_data('id,name', array('qrcode' => $item_qr), null, null, null, null, 'row');
+            if ($item == array()) {
+                $this->data ['err_messages'] = get_messages('Your QR Code is not registered');
             } else {
-                $this->data ['error_messages'] = validation_errors() ? get_messages(validation_errors()) : '';
+                $cek_rent = $this->rent->get_data('id', array('item_id' => $item->id, 'rent_user' => $user_id), null, null, null, null, 'row');
+                if ($cek_rent == array()) {
+                    $this->data ['err_messages'] = get_messages('Your ID not have any Rent Request');
+                } else {
+                    $this->rent->edit_data(array('status' => 1, 'rent_date' => date('Y-m-d H:i:s')), array('id' => $cek_rent->id));
+                    $this->session->set_flashdata('info_messages', $item->name . ' Scan Out  successfull');
+                    redirect(site_url('rent/request/' . $user_id));
+                }
             }
         }
-        $this->data ['page_icon'] = 'icomoon-icon-plus';
-        $this->data ['page_title'] = 'add Item';
-        $this->data ['page'] = $this->load->view($this->get_page('add'), $this->data, true);
+        $this->data ['page'] = $this->load->view($this->get_page('request'), $this->data, true);
         $this->render();
     }
 
