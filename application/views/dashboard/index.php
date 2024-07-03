@@ -123,10 +123,10 @@
                                             label: 'Tools Condition',
                                             data: [<?= $good_tools; ?>, <?= $incomplete_tools; ?>, <?= $broken_tools; ?>,<?= $lost_tools; ?>],
                                             backgroundColor: [
-                                                'rgb(149, 203, 104)',
-                                                'rgb(255, 228, 104)',
-                                                'rgb(255, 127, 104)',
-                                                'rgb(230, 107, 104)'
+                                                'rgb(57, 201, 32)',
+                                                'rgb(235, 226, 32)',
+                                                'rgb(255, 174, 32)',
+                                                'rgb(255, 0, 32)'
                                             ],
                                             hoverOffset: 4
                                         }]

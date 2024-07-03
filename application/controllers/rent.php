@@ -24,9 +24,20 @@ class Rent extends MY_Controller {
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Item - Index';
         $this->data ['page_icon'] = 'icomoon-icon-list';
-        $this->data ['page_title'] = 'Requset Rent';
+        $this->data ['page_title'] = 'Request Rent';
         $this->data ['rec_req_rent'] = $this->rent->get_req_user_rent();
         $this->data ['page'] = $this->load->view($this->get_page(), $this->data, true);
+        $this->render();
+    }
+    
+    function active() {
+        $this->data ['curr_poss'] = 'active';
+        $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->data ['page_title'] = 'Item - Index';
+        $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->data ['page_title'] = 'Active Rent';
+        $this->data ['rec_active_rent'] = $this->rent->get_active_user_rent();
+        $this->data ['page'] = $this->load->view($this->get_page('active'), $this->data, true);
         $this->render();
     }
 
@@ -52,12 +63,43 @@ class Rent extends MY_Controller {
                     $this->data ['err_messages'] = get_messages('Your ID not have any Rent Request');
                 } else {
                     $this->rent->edit_data(array('status' => 1, 'rent_date' => date('Y-m-d H:i:s')), array('id' => $cek_rent->id));
-                    $this->session->set_flashdata('info_messages', $item->name . ' Scan Out  successfull');
+                    $this->session->set_flashdata('info_messages', $item->name . ' Scan Out Successfull');
                     redirect(site_url('rent/request/' . $user_id));
                 }
             }
         }
         $this->data ['page'] = $this->load->view($this->get_page('request'), $this->data, true);
+        $this->render();
+    }
+    
+    function return() {
+        $user_id = $this->uri->segment(3);
+        $this->data ['curr_poss'] = 'return';
+        $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->data ['page_title'] = 'Item - Index';
+        $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->data ['page_title'] = 'Daftar Inventory';
+        $this->load->model('item_model', 'item');
+        $this->data ['list_data'] = $this->rent->get_data(null, array('status' => 1, 'rent_user' => $user_id));
+        if ($this->data ['list_data'] == array())
+            redirect(site_url('rent'));
+        if ($this->input->post('submit')) {
+            $item_qr = $this->input->post('item_qr');
+            $item = $this->item->get_data('id,name', array('qrcode' => $item_qr), null, null, null, null, 'row');
+            if ($item == array()) {
+                $this->data ['err_messages'] = get_messages('Your QR Code is not registered');
+            } else {
+                $cek_rent = $this->rent->get_data('id', array('item_id' => $item->id, 'rent_user' => $user_id), null, null, null, null, 'row');
+                if ($cek_rent == array()) {
+                    $this->data ['err_messages'] = get_messages('Your ID not have any Rent Request');
+                } else {
+                    $this->rent->edit_data(array('status' => 0, 'return_date' => date('Y-m-d H:i:s')), array('id' => $cek_rent->id));
+                    $this->session->set_flashdata('info_messages', $item->name . ' Scan Succesfull');
+                    redirect(site_url('rent/return/' . $user_id));
+                }
+            }
+        }
+        $this->data ['page'] = $this->load->view($this->get_page('return'), $this->data, true);
         $this->render();
     }
 
@@ -356,7 +398,6 @@ class Rent extends MY_Controller {
         $this->data ['page'] = $this->load->view($this->get_page('ireturn'), $this->data, true);
         $this->render();
     }
-
 }
 
 /**
