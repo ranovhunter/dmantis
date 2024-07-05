@@ -29,7 +29,7 @@ class Rent extends MY_Controller {
         $this->data ['page'] = $this->load->view($this->get_page(), $this->data, true);
         $this->render();
     }
-    
+
     function active() {
         $this->data ['curr_poss'] = 'active';
         $this->data ['page_icon'] = 'icomoon-icon-list';
@@ -42,14 +42,14 @@ class Rent extends MY_Controller {
     }
 
     function request() {
-        $user_id = $this->uri->segment(3);
+        $this->data['user_id'] = $this->uri->segment(3);
         $this->data ['curr_poss'] = 'request';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Item - Index';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Daftar Inventory';
         $this->load->model('item_model', 'item');
-        $this->data ['list_data'] = $this->rent->get_data(null, array('status' => 2, 'rent_user' => $user_id));
+        $this->data ['list_data'] = $this->rent->get_data(null, array('status' => 2, 'rent_user' => $this->data['user_id']));
         if ($this->data ['list_data'] == array())
             redirect(site_url('rent'));
         if ($this->input->post('submit')) {
@@ -58,20 +58,20 @@ class Rent extends MY_Controller {
             if ($item == array()) {
                 $this->data ['err_messages'] = get_messages('Your QR Code is not registered');
             } else {
-                $cek_rent = $this->rent->get_data('id', array('item_id' => $item->id, 'rent_user' => $user_id), null, null, null, null, 'row');
+                $cek_rent = $this->rent->get_data('id', array('item_id' => $item->id, 'rent_user' => $this->data['user_id']), null, null, null, null, 'row');
                 if ($cek_rent == array()) {
                     $this->data ['err_messages'] = get_messages('Your ID not have any Rent Request');
                 } else {
                     $this->rent->edit_data(array('status' => 1, 'rent_date' => date('Y-m-d H:i:s')), array('id' => $cek_rent->id));
                     $this->session->set_flashdata('info_messages', $item->name . ' Scan Out Successfull');
-                    redirect(site_url('rent/request/' . $user_id));
+                    redirect(site_url('rent/request/' . $this->data['user_id']));
                 }
             }
         }
         $this->data ['page'] = $this->load->view($this->get_page('request'), $this->data, true);
         $this->render();
     }
-    
+
     function return() {
         $user_id = $this->uri->segment(3);
         $this->data ['curr_poss'] = 'return';
@@ -398,6 +398,7 @@ class Rent extends MY_Controller {
         $this->data ['page'] = $this->load->view($this->get_page('ireturn'), $this->data, true);
         $this->render();
     }
+
 }
 
 /**

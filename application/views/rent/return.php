@@ -40,7 +40,7 @@
                                 <td><img style="width: 8rem;" src="<?= $image; ?>" class="img img-responsive"></td>
                                 <td><?= $row->item_name; ?></td>
                                 <td><?= $row->item_size; ?></td>
-                                <td><?= $row->quantity; ?></td>
+                                <td><?= $row->quantity; ?><img src="<?= QR_UPLOADED . $row->qrcode; ?>.png"></td>
                                 <td><?= $row->icondition; ?></td>
                                 <td><?= $row->rent_date; ?></td>
                                 <td class="text-center">
