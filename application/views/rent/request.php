@@ -42,7 +42,7 @@
                                     <td><img style="width: 8rem;" src="<?= $image; ?>" class="img img-responsive"></td>
                                     <td><?= $row->item_name; ?></td>
                                     <td><?= $row->item_size; ?></td>
-                                    <td><input type="number" value="<?= set_value('txt_qty', $row->quantity); ?>" min="0" max="<?= $row->quantity ?>"></td>
+                                    <td><input name="item[<?= $row->id; ?>]" type="number" value="<?= set_value('txt_qty', $row->quantity); ?>" min="0" max="<?= $row->quantity ?>"></td>
                                     <td><?= $row->icondition; ?></td>
                                     <td><?= $row->request_date; ?></td>
                                     <td><?= $row->area_name; ?></td>

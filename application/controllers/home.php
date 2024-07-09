@@ -51,7 +51,7 @@ class Home extends MY_Controller {
                     'quantity' => $detail_data->quantity, //Belum di kirim
                     'request_date' => date('Y-m-d H:i:s'),
                     'icondition' => $item_d->icondition,
-                    'status' => 2,
+                    'status' => 3,
                     'rent_user' => $this->data['userid']
                 );
 //                debug($arr_data);

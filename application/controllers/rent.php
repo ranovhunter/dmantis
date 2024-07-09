@@ -49,7 +49,34 @@ class Rent extends MY_Controller {
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Daftar Inventory';
         $this->load->model('item_model', 'item');
-        $this->data ['list_data'] = $this->rent->get_data(null, array('status' => 2, 'rent_user' => $this->data['user_id']));
+        $this->data ['list_data'] = $this->rent->get_data(null, array('status' => 3, 'rent_user' => $this->data['user_id']));
+        if ($this->data ['list_data'] == array())
+            redirect(site_url('rent'));
+        if ($this->input->post('submit')) {
+            $data = $this->input->post('item');
+            foreach ($this->data['list_data'] as $row){
+                debug($row);
+                if($row->quantity == $data[$row->id]){
+                    //$this->rent->edit_data(array('status'=>2),array('id'=>$row->id));
+                }else{
+                    echo $row->item_name.' update item';
+                }
+            }
+            exit();
+        }
+        $this->data ['page'] = $this->load->view($this->get_page('request'), $this->data, true);
+        $this->render();
+    }
+
+    function approved() {
+        $this->data['user_id'] = $this->uri->segment(3);
+        $this->data ['curr_poss'] = 'request';
+        $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->data ['page_title'] = 'Item - Index';
+        $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->data ['page_title'] = 'Daftar Inventory';
+        $this->load->model('item_model', 'item');
+        $this->data ['list_data'] = $this->rent->get_data(null, array('status' => 3, 'rent_user' => $this->data['user_id']));
         if ($this->data ['list_data'] == array())
             redirect(site_url('rent'));
         if ($this->input->post('submit')) {
@@ -398,7 +425,6 @@ class Rent extends MY_Controller {
         $this->data ['page'] = $this->load->view($this->get_page('ireturn'), $this->data, true);
         $this->render();
     }
-
 }
 
 /**
