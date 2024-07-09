@@ -21,8 +21,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Picture</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Size</th>
+                            <th scope="col">Description</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Condition</th>
                             <th scope="col">Request Date</th>
@@ -40,8 +39,7 @@
                                 <tr>
                                     <td><?= $i; ?></td>
                                     <td><img style="width: 8rem;" src="<?= $image; ?>" class="img img-responsive"></td>
-                                    <td><?= $row->item_name; ?></td>
-                                    <td><?= $row->item_size; ?></td>
+                                    <td><?= $row->item_name; ?><?= $row->item_size > 0 ? ' <br><p class="text-secondary">Size : ' . $row->item_size.'</p>' : ''; ?></td>
                                     <td><input name="item[<?= $row->id; ?>]" type="number" value="<?= set_value('txt_qty', $row->quantity); ?>" min="0" max="<?= $row->quantity ?>"></td>
                                     <td><?= $row->icondition; ?></td>
                                     <td><?= $row->request_date; ?></td>

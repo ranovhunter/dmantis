@@ -42,7 +42,7 @@
                                         <td><?= $row['request_date']; ?></td>
                                         <td><?= $row['total']; ?></td>
                                         <td class="text-center">
-                                            <a href="<?php echo site_url('rent/request/' . $row['userid']); ?>" type="button" class="btn btn-primary"><i class="bi bi-gear me-1"></i> View Detail</a>
+                                            <a href="<?php echo site_url('rent/approved/' . $row['userid']); ?>" type="button" class="btn btn-primary"><i class="bi bi-gear me-1"></i> View Detail</a>
                                         </td>
                                     </tr>
                                     <?php

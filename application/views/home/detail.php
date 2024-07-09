@@ -63,177 +63,177 @@ if (!empty($error_messages)) {
 <?php } ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
-                                $('.btn-number').click(function (e) {
-                                    e.preventDefault();
+                            $('.btn-number').click(function (e) {
+                                e.preventDefault();
 
-                                    fieldName = $(this).attr('data-field');
-                                    type = $(this).attr('data-type');
-                                    var input = $("input[name='" + fieldName + "']");
-                                    var currentVal = parseInt(input.val());
-                                    if (!isNaN(currentVal)) {
-                                        if (type == 'minus') {
+                                fieldName = $(this).attr('data-field');
+                                type = $(this).attr('data-type');
+                                var input = $("input[name='" + fieldName + "']");
+                                var currentVal = parseInt(input.val());
+                                if (!isNaN(currentVal)) {
+                                    if (type == 'minus') {
 
-                                            if (currentVal > input.attr('min')) {
-                                                input.val(currentVal - 1).change();
-                                            }
-                                            if (parseInt(input.val()) == input.attr('min')) {
-                                                $(this).attr('disabled', true);
-                                            }
-                                        } else if (type == 'plus') {
-                                            if (currentVal < input.attr('max')) {
-                                                input.val(currentVal + 1).change();
-                                            }
-                                            if (parseInt(input.val()) == input.attr('max')) {
-                                                $(this).attr('disabled', true);
-                                            }
+                                        if (currentVal > input.attr('min')) {
+                                            input.val(currentVal - 1).change();
                                         }
-                                    } else {
-                                        input.val(0);
+                                        if (parseInt(input.val()) == input.attr('min')) {
+                                            $(this).attr('disabled', true);
+                                        }
+                                    } else if (type == 'plus') {
+                                        if (currentVal < input.attr('max')) {
+                                            input.val(currentVal + 1).change();
+                                        }
+                                        if (parseInt(input.val()) == input.attr('max')) {
+                                            $(this).attr('disabled', true);
+                                        }
                                     }
-                                });
-                                $('.input-number').focusin(function () {
-                                    $(this).data('oldValue', $(this).val());
-                                });
-                                $('.input-number').change(function () {
+                                } else {
+                                    input.val(0);
+                                }
+                            });
+                            $('.input-number').focusin(function () {
+                                $(this).data('oldValue', $(this).val());
+                            });
+                            $('.input-number').change(function () {
 
-                                    minValue = parseInt($(this).attr('min'));
-                                    maxValue = parseInt($(this).attr('max'));
-                                    valueCurrent = parseInt($(this).val());
+                                minValue = parseInt($(this).attr('min'));
+                                maxValue = parseInt($(this).attr('max'));
+                                valueCurrent = parseInt($(this).val());
 
-                                    name = $(this).attr('name');
-                                    if (valueCurrent >= minValue) {
-                                        $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
-                                    } else {
-                                        alert('Sorry, the minimum value was reached');
-                                        $(this).val($(this).data('oldValue'));
-                                    }
-                                    if (valueCurrent <= maxValue) {
-                                        $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
-                                    } else {
-                                        alert('Sorry, the maximum value was reached');
-                                        $(this).val($(this).data('oldValue'));
-                                    }
-
-
-                                });
+                                name = $(this).attr('name');
+                                if (valueCurrent >= minValue) {
+                                    $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+                                } else {
+                                    alert('Sorry, the minimum value was reached');
+                                    $(this).val($(this).data('oldValue'));
+                                }
+                                if (valueCurrent <= maxValue) {
+                                    $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+                                } else {
+                                    alert('Sorry, the maximum value was reached');
+                                    $(this).val($(this).data('oldValue'));
+                                }
 
 
-                                $(document).ready(function () {
-                                    //emptyCart();
-                                    showCartTable();
+                            });
+
+
+                            $(document).ready(function () {
+                                //emptyCart();
+                                showCartTable();
 //                    alert(JSON.parse(sessionStorage.getItem('rent-cart')));
-                                });
-                                function addToCart(element) {
-                                    var productParent = $(element).closest('div.toolscard');
+                            });
+                            function addToCart(element) {
+                                var productParent = $(element).closest('div.toolscard');
 
-                                    var size = $(productParent).find('.itemsize').text();
-                                    var productName = $(productParent).find('.itemname').text();
-                                    var itemStock = $(productParent).find('.itemstock').val();
-                                    var quantity = $(productParent).find('.input-number').val();
-                                    var itemID = $(productParent).find('.itemID').val();
+                                var size = $(productParent).find('.itemsize').text();
+                                var productName = $(productParent).find('.itemname').text();
+                                var itemStock = $(productParent).find('.itemstock').val();
+                                var quantity = $(productParent).find('.input-number').val();
+                                var itemID = $(productParent).find('.itemID').val();
 
-                                    var cartItem = {
-                                        itemID: itemID,
-                                        productName: productName,
-                                        size: size,
-                                        quantity: quantity,
-                                        stock: itemStock
-                                    };
-                                    var cartItemJSON = JSON.stringify(cartItem);
+                                var cartItem = {
+                                    itemID: itemID,
+                                    productName: productName,
+                                    size: size,
+                                    quantity: quantity,
+                                    stock: itemStock
+                                };
+                                var cartItemJSON = JSON.stringify(cartItem);
 
-                                    var cartArray = new Array();
-                                    // If javascript shopping cart session is not empty
-                                    if (sessionStorage.getItem('rent-cart')) {
-                                        cartArray = JSON.parse(sessionStorage.getItem('rent-cart'));
-                                    }
-                                    cartArray.push(cartItemJSON);
+                                var cartArray = new Array();
+                                // If javascript shopping cart session is not empty
+                                if (sessionStorage.getItem('rent-cart')) {
+                                    cartArray = JSON.parse(sessionStorage.getItem('rent-cart'));
+                                }
+                                cartArray.push(cartItemJSON);
 
-                                    var cartJSON = JSON.stringify(cartArray);
-                                    sessionStorage.setItem('rent-cart', cartJSON);
+                                var cartJSON = JSON.stringify(cartArray);
+                                sessionStorage.setItem('rent-cart', cartJSON);
+                                showCartTable();
+                            }
+                            function showCartTable() {
+                                var cartRowHTML = "";
+                                var itemCount = 0;
+
+                                var quantity = 0;
+
+                                if (sessionStorage.getItem('rent-cart')) {
+                                    var shoppingCart = JSON.parse(sessionStorage.getItem('rent-cart'));
+                                    itemCount = shoppingCart.length;
+                                    var index = 0;
+                                    //Iterate javascript shopping cart array
+                                    shoppingCart.forEach(function (item) {
+
+                                        var cartItem = JSON.parse(item);
+                                        quantity = parseInt(cartItem.quantity);
+
+                                        cartRowHTML += '<li class="dropdown-header">' +
+                                                "<h6>" + cartItem.productName + " <a href='javascript:void(0)' onclick='removeCartItem(" + index + ")'><i class='text-danger bi bi-trash'></i></a></h6>" +
+                                                "<span>" + cartItem.size + " | QTY: " + cartItem.quantity + "</span>" +
+                                                "</li>";
+                                        index++;
+
+                                    });
+                                }
+                                cartRowHTML += '<li><hr class="dropdown-divider"></li>';
+                                if (itemCount > 0) {
+                                    cartRowHTML += '<li><a class="dropdown-item d-flex align-items-center" ' +
+                                            'href="#" onclick="emptyCart()"><i class="bi bi-cart-x"></i><span>Clear Cart</span></a></li>' +
+                                            '<li><a class="dropdown-item d-flex align-items-center"href="#" onclick="confirmCart()"><i class="bi bi-cart-check-fill"></i><span>Confirm</span></a></li>';
+                                } else {
+                                    cartRowHTML += '<li><a class="dropdown-item d-flex align-items-center" ' +
+                                            'href="#"><i class="bi bi-cart2"></i><span>Cart Empty</span></a></li>';
+                                }
+                                $('#cartTableBody').html(cartRowHTML);
+                                $('#itemCount').text(itemCount);
+                            }
+                            function emptyCart() {
+                                if (sessionStorage.getItem('rent-cart')) {
+                                    // Clear JavaScript sessionStorage by index
+                                    sessionStorage.removeItem('rent-cart');
                                     showCartTable();
                                 }
-                                function showCartTable() {
-                                    var cartRowHTML = "";
-                                    var itemCount = 0;
-
-                                    var quantity = 0;
-
-                                    if (sessionStorage.getItem('rent-cart')) {
-                                        var shoppingCart = JSON.parse(sessionStorage.getItem('rent-cart'));
-                                        itemCount = shoppingCart.length;
-                                        var index = 0;
-                                        //Iterate javascript shopping cart array
-                                        shoppingCart.forEach(function (item) {
-
-                                            var cartItem = JSON.parse(item);
-                                            quantity = parseInt(cartItem.quantity);
-
-                                            cartRowHTML += '<li class="dropdown-header">' +
-                                                    "<h6>" + cartItem.productName + " <a href='javascript:void(0)' onclick='removeCartItem(" + index + ")'><i class='text-danger bi bi-trash'></i></a></h6>" +
-                                                    "<span>" + cartItem.size + " | QTY: " + cartItem.quantity + "</span>" +
-                                                    "</li>";
-                                            index++;
-
-                                        });
-                                    }
-                                    cartRowHTML += '<li><hr class="dropdown-divider"></li>';
-                                    if (itemCount > 0) {
-                                        cartRowHTML += '<li><a class="dropdown-item d-flex align-items-center" ' +
-                                                'href="#" onclick="emptyCart()"><i class="bi bi-cart-x"></i><span>Clear Cart</span></a></li>' +
-                                                '<li><a class="dropdown-item d-flex align-items-center"href="#" onclick="confirmCart()"><i class="bi bi-cart-check-fill"></i><span>Confirm</span></a></li>';
-                                    } else {
-                                        cartRowHTML += '<li><a class="dropdown-item d-flex align-items-center" ' +
-                                                'href="#"><i class="bi bi-cart2"></i><span>Cart Empty</span></a></li>';
-                                    }
-                                    $('#cartTableBody').html(cartRowHTML);
-                                    $('#itemCount').text(itemCount);
+                            }
+                            function removeCartItem(index) {
+                                if (sessionStorage.getItem('rent-cart')) {
+                                    var RentCart = JSON.parse(sessionStorage.getItem('rent-cart'));
+                                    delete RentCart[index];
+                                    var cartArray = new Array();
+                                    //sessionStorage.removeItem('rent-cart');
+                                    RentCart.forEach(function (item) {
+                                        cartArray.push(item);
+                                        var cartJSON = JSON.stringify(cartArray);
+                                        sessionStorage.setItem('rent-cart', cartJSON);
+                                    });
+                                    showCartTable();
                                 }
-                                function emptyCart() {
-                                    if (sessionStorage.getItem('rent-cart')) {
-                                        // Clear JavaScript sessionStorage by index
-                                        sessionStorage.removeItem('rent-cart');
-                                        showCartTable();
-                                    }
-                                }
-                                function removeCartItem(index) {
-                                    if (sessionStorage.getItem('rent-cart')) {
-                                        var RentCart = JSON.parse(sessionStorage.getItem('rent-cart'));
-                                        delete RentCart[index];
-                                        var cartArray = new Array();
-                                        //sessionStorage.removeItem('rent-cart');
-                                        RentCart.forEach(function (item) {
-                                            cartArray.push(item);
-                                            var cartJSON = JSON.stringify(cartArray);
-                                            sessionStorage.setItem('rent-cart', cartJSON);
-                                        });
-                                        showCartTable();
-                                    }
-                                }
-                                function confirmCart() {
-                                    var url = '<?= site_url('home/detail/' . $userid) ?>';
-                                    if (sessionStorage.getItem('rent-cart')) {
-                                        var rentItem = sessionStorage.getItem('rent-cart');
-                                        const form = document.createElement('form');
-                                        form.method = 'post';
-                                        form.action = url;
-                                        const hiddenField = document.createElement('input');
-                                        hiddenField.type = 'hidden';
-                                        hiddenField.name = 'data';
-                                        hiddenField.value = rentItem;
-                                        form.appendChild(hiddenField);
+                            }
+                            function confirmCart() {
+                                var url = '<?= site_url('home/detail/' . $userid) ?>';
+                                if (sessionStorage.getItem('rent-cart')) {
+                                    var rentItem = sessionStorage.getItem('rent-cart');
+                                    const form = document.createElement('form');
+                                    form.method = 'post';
+                                    form.action = url;
+                                    const hiddenField = document.createElement('input');
+                                    hiddenField.type = 'hidden';
+                                    hiddenField.name = 'data';
+                                    hiddenField.value = rentItem;
+                                    form.appendChild(hiddenField);
 
-                                        const hiddenField2 = document.createElement('input');
-                                        hiddenField2.type = 'hidden';
-                                        hiddenField2.name = 'confirm';
-                                        hiddenField2.value = 'confirm';
-                                        form.appendChild(hiddenField2);
+                                    const hiddenField2 = document.createElement('input');
+                                    hiddenField2.type = 'hidden';
+                                    hiddenField2.name = 'confirm';
+                                    hiddenField2.value = 'confirm';
+                                    form.appendChild(hiddenField2);
 
-                                        document.body.appendChild(form);
-                                        emptyCart();
-                                        form.submit();
-
-                                    }
+                                    document.body.appendChild(form);
+                                    emptyCart();
+                                    form.submit();
 
                                 }
+
+                            }
 </script>
 
