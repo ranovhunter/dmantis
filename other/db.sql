@@ -12,9 +12,7 @@ MySQL - 10.4.22-MariaDB : Database - dmantis
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`dmantis` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
-USE `dmantis`;
 
 /*Table structure for table `areas` */
 
@@ -92,7 +90,9 @@ CREATE TABLE `ci_sessions` (
 /*Data for the table `ci_sessions` */
 
 insert  into `ci_sessions`(`session_id`,`ip_address`,`user_agent`,`last_activity`,`user_data`) values 
-('b658c9dc34ca2573780b27342a822bc9','::1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',1719562067,'a:7:{s:9:\"user_data\";s:0:\"\";s:7:\"sess-id\";s:5:\"admin\";s:9:\"sess-name\";s:5:\"Admin\";s:9:\"sess-role\";s:5:\"admin\";s:15:\"sess-personalid\";N;s:13:\"sess-loggedin\";b:1;s:14:\"sess-starttime\";s:19:\"2024-06-28 14:53:56\";}');
+('0fcc2aebd1ced6446432954e29ec3dd7','::1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',1720165965,'a:7:{s:9:\"user_data\";s:0:\"\";s:7:\"sess-id\";s:5:\"admin\";s:9:\"sess-name\";s:5:\"Admin\";s:9:\"sess-role\";s:5:\"admin\";s:15:\"sess-personalid\";N;s:13:\"sess-loggedin\";b:1;s:14:\"sess-starttime\";s:19:\"2024-07-05 13:15:57\";}'),
+('6748e580e566ff129858feeab70c859f','::1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',1720074223,'a:7:{s:9:\"user_data\";s:0:\"\";s:7:\"sess-id\";s:5:\"admin\";s:9:\"sess-name\";s:5:\"Admin\";s:9:\"sess-role\";s:5:\"admin\";s:15:\"sess-personalid\";N;s:13:\"sess-loggedin\";b:1;s:14:\"sess-starttime\";s:19:\"2024-07-04 13:03:10\";}'),
+('b20a7379ec8107019e9e8f0502e28b85','::1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',1719986624,'a:7:{s:9:\"user_data\";s:0:\"\";s:7:\"sess-id\";s:5:\"admin\";s:9:\"sess-name\";s:5:\"Admin\";s:9:\"sess-role\";s:5:\"admin\";s:15:\"sess-personalid\";N;s:13:\"sess-loggedin\";b:1;s:14:\"sess-starttime\";s:19:\"2024-07-03 09:05:42\";}');
 
 /*Table structure for table `configs` */
 
@@ -185,176 +185,83 @@ CREATE TABLE `item` (
   `update_date` datetime DEFAULT NULL,
   `update_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `item` */
 
 insert  into `item`(`id`,`name`,`qrcode`,`details`,`icondition`,`filename`,`size`,`area_id`,`quantity`,`stock`,`insert_date`,`insert_user`,`update_date`,`update_user`) values 
-(1,'EATON 9SX-8KVA/7.2KW, 1PH, R/T, 6U','ITM220630091411','UPS for Server','lost','ITM220630092557.PNG',0,1,0,0,'2022-07-22 11:08:13',5,'2024-06-27 15:45:55',0),
-(2,'Dell Latitude 5320 - DRYKPG3','ITM220630091824','','good','ITM220630094024.PNG',NULL,2,0,0,'2022-07-27 16:46:48',5,NULL,NULL),
-(3,'Dell Latitude 5320 - CFWKPG3','ITM220630092254','','good','ITM220630094024.PNG',NULL,3,0,0,'2022-07-27 16:48:59',5,NULL,NULL),
-(4,'Dell Latitude 5320 - 8FWKPG3','ITM220630094024','','good','ITM220630094024.PNG',NULL,4,0,0,'2022-06-30 09:40:24',5,NULL,NULL),
-(5,'Dell Latitude 5320 - CRYKPG3','ITM220630100736','','good','ITM220630100736.PNG',NULL,5,0,0,'2022-06-30 10:07:36',5,NULL,NULL),
-(6,'Dell Latitude 5320 - 1RYKPG3','ITM220630101337','','good','ITM220630100736.PNG',NULL,6,0,0,'2022-06-30 10:13:37',5,NULL,NULL),
-(7,'Dell Latitude 5320 - JFWKPG3','ITM220630101405','','good','ITM220630100736.PNG',NULL,7,0,0,'2022-06-30 10:14:05',5,NULL,NULL),
-(8,'Dell Latitude 5320 - 8RYKPG3','ITM220630102852','','good','ITM220630100736.PNG',NULL,8,0,0,'2022-06-30 10:28:52',5,NULL,NULL),
-(9,'Dell Latitude 5320 - 1QV5PG3','ITM220630102918','','good','ITM220630100736.PNG',NULL,2,0,0,'2022-06-30 10:29:18',5,NULL,NULL),
-(10,'Dell Latitude 5320 - HRYKPG3','ITM220630102943','','good','ITM220630100736.PNG',NULL,3,0,0,'2022-06-30 10:29:43',5,NULL,NULL),
-(11,'Dell Latitude 5320 - DFWKPG3','ITM220630103018','','good','ITM220630100736.PNG',NULL,4,0,0,'2022-06-30 10:30:18',5,NULL,NULL),
-(12,'Dell Latitude 5320 - JRYKPG3','ITM220630103309','','good','ITM220630100736.PNG',NULL,5,0,0,'2022-06-30 10:33:09',5,NULL,NULL),
-(13,'Dell Latitude 5320 - HQV5PG3','ITM220630103358','','good','ITM220630100736.PNG',NULL,6,0,0,'2022-06-30 10:33:58',5,NULL,NULL),
-(14,'Dell Latitude 7320 - 60RG3J3','ITM220630104520','','good','ITM220630104520.PNG',NULL,7,0,0,'2022-06-30 10:45:20',5,NULL,NULL),
-(15,'Dell Latitude 5320 - C6C9QG3','ITM220630104709','','good','ITM220630100736.PNG',NULL,8,0,0,'2022-06-30 10:47:09',5,NULL,NULL),
-(16,'Dell Latitude 5320 - 65C9QG3','ITM220630104936','','good','ITM220630104936.PNG',NULL,2,0,0,'2022-06-30 10:49:36',5,NULL,NULL),
-(17,'Dell P2421HE - 7504H83','ITM220630105107','','good','ITM220704094724.PNG',NULL,3,0,0,'2022-06-30 10:51:07',5,NULL,NULL),
-(18,'Dell P2421HE - H5W3H83','ITM220630105559','','good','ITM220704094724.PNG',NULL,1,0,0,'2022-06-30 10:55:59',5,NULL,NULL),
-(19,'Dell P2422HE - 7624H83','ITM220630110842','','good','ITM220704094724.PNG',NULL,5,0,0,'2022-07-04 09:47:24',5,NULL,NULL),
-(20,'Dell P2421HE - BW14H83','ITM220630110938','','good','ITM220704094724.PNG',NULL,6,0,0,'2022-06-30 11:09:38',5,NULL,NULL),
-(21,'Dell P2421HE- 12Y3H83','ITM220630111002','','good','ITM220704094724.PNG',NULL,7,0,0,'2022-06-30 11:10:02',5,NULL,NULL),
-(22,'Dell P2421HE - DCX3H83','ITM220630111050','','good','ITM220704094724.PNG',NULL,4,0,0,'2022-06-30 11:10:50',5,NULL,NULL),
-(24,'Dell P2421HE - 2024H83','ITM220704084930','','good','ITM220704094724.PNG',NULL,3,0,0,'2022-07-04 08:49:30',5,NULL,NULL),
-(25,'Dell P2421HE - 1C04H83','ITM220704085008','','good','ITM220704094724.PNG',NULL,3,0,0,'2022-07-04 08:50:08',5,NULL,NULL),
-(26,'Dell P2421HE - 4P04H83','ITM220704085120','','good','ITM220704094724.PNG',NULL,7,0,0,'2022-07-04 08:51:20',5,NULL,NULL),
-(27,'Dell P2421HE - 6Z04H83','ITM220704085211','','good','ITM220704094724.PNG',NULL,8,0,0,'2022-07-04 08:52:11',5,NULL,NULL),
-(28,'WD19TBS Docking - 1PPDQH3','ITM220704085238','','good','ITM220704102940.PNG',NULL,3,0,0,'2022-07-04 10:29:40',5,NULL,NULL),
-(29,'Dell 2719H - B9FXR83','ITM220704094404','','good','ITM220704094404.PNG',NULL,5,0,0,'2022-07-04 09:44:04',5,NULL,NULL),
-(30,'Dell P2422HE - DZZ3H83','ITM220704104939','','good','ITM220704094724.PNG',NULL,4,0,0,'2022-07-04 10:49:39',5,NULL,NULL),
-(31,'Dell P2422HE - GK14H83','ITM220704105005','','good','ITM220704094724.PNG',NULL,7,0,0,'2022-07-04 10:50:05',5,NULL,NULL),
-(32,'Dell P2422HE - 2924H83','ITM220704105030','','good','ITM220704094724.PNG',NULL,5,0,0,'2022-07-04 10:50:30',5,NULL,NULL),
-(33,'Dell P2422HE - 9JY38H3','ITM220704105111','','good','ITM220704094724.PNG',NULL,7,0,0,'2022-07-04 10:51:11',5,NULL,NULL),
-(34,'Dell P2422HE - 2WT3H83','ITM220704105130','','good','ITM220704094724.PNG',NULL,3,0,0,'2022-07-04 10:51:30',5,NULL,NULL),
-(35,'Latitude 5320 - D3C9QG3','ITM220704112142','','good','ITM220630100736.PNG',NULL,5,0,0,'2022-07-04 11:21:42',5,NULL,NULL),
-(36,'Optiplex 5080MT - HYB4SH3','ITM220704112417','','good','ITM220704112417.jpg',NULL,3,0,0,'2022-07-04 11:24:17',5,NULL,NULL),
-(37,'Optiplex 5080MT - 65C4SH3','ITM220704112453','','good','ITM220704112453.jpg',NULL,3,0,0,'2022-07-04 11:24:53',5,NULL,NULL),
-(38,'Optiplex 5080MT - 6ZB4SH3','ITM220704112517','','good','ITM220704112453.jpg',NULL,3,0,0,'2022-07-04 11:25:17',5,NULL,NULL),
-(39,'Optiplex 5090MT - 9WZHDM3','ITM220704112543','','good','ITM220704112453.jpg',NULL,3,0,0,'2022-07-04 11:25:43',5,NULL,NULL),
-(40,'WD19TBS Docking - HNPDQH3','ITM220704112659','','good','ITM220704102940.PNG',NULL,3,0,0,'2022-07-04 11:26:59',5,NULL,NULL),
-(41,'Cisco Catalyst 9300 24-port PoE+ - FOC2603YECC','ITM220704113312','','good','ITM220704113312.JPG',NULL,3,0,0,'2022-07-04 11:33:12',5,NULL,NULL),
-(42,'Cisco Catalyst 9200L 48 port PoE+ - FOC25287VUQ','ITM220704113349','','good','ITM220704113349.jpg',NULL,2,0,0,'2022-07-04 11:33:49',5,NULL,NULL),
-(43,'UniFi 6 Long Range - (K)D021F9676DD9','ITM220704113836','','good','ITM220704113836.jpg',NULL,3,0,0,'2022-07-04 11:38:36',5,NULL,NULL),
-(44,'UniFi 6 Long Range - (K)D021F967604D','ITM220704113858','','good','ITM220704113836.jpg',NULL,2,0,0,'2022-07-04 11:38:58',5,NULL,NULL),
-(45,'UniFi 6 Long Range - (K)D021F9676E0D','ITM220704113915','','good','ITM220704113836.jpg',NULL,5,0,0,'2022-07-04 11:39:15',5,NULL,NULL),
-(46,'UniFi 6 Long Range - (K)D021F9676CF9','ITM220704113934','','good','ITM220704113836.jpg',NULL,3,0,0,'2022-07-04 11:39:34',5,NULL,NULL),
-(47,'UniFi 6 Long Range - (K)D021F9676159','ITM220704113946','','good','ITM220704113836.jpg',NULL,6,0,0,'2022-07-04 11:39:46',5,NULL,NULL),
-(48,'Mac Book Pro 16','ITM220721112649','','good','ITM220721112649.JPG',NULL,5,0,0,'2022-07-21 11:26:49',5,NULL,NULL),
-(49,'Redmi Note 11 Pro 5g','ITM220802155808','','good',NULL,NULL,2,0,0,'2022-08-02 15:58:08',5,NULL,NULL);
+(1,'SOKET 3/4','ITM240701083608',NULL,'lost','ITM240701110044.jpg',36,1,1,0,'2024-07-01 08:36:08',0,'2024-07-01 11:00:44',0),
+(2,'SOKET 1 INCI','ITM240701083636',NULL,'broken','ITM240701110106.jpg',38,1,1,1,'2024-07-01 08:36:36',0,'2024-07-01 11:01:06',0),
+(3,'SOKET 1 INCI','ITM240701083649',NULL,'good',NULL,36,1,1,0,'2024-07-01 08:36:49',0,NULL,NULL),
+(4,'SOKET 1 INCI','ITM240701083725',NULL,'good',NULL,60,1,1,1,'2024-07-01 08:37:25',0,NULL,NULL),
+(5,'SOKET 1 INCI','ITM240701083752',NULL,'good',NULL,41,1,8,2,'2024-07-01 08:37:52',0,NULL,NULL),
+(6,'SOKET 1 1/2 INCI','ITM240701083810',NULL,'good',NULL,1,1,60,35,'2024-07-01 08:38:10',0,NULL,NULL),
+(7,'BIT SOKET 3/4 SEGI ENAM','ITM240701083822',NULL,'good',NULL,27,1,1,0,'2024-07-01 08:38:22',0,NULL,NULL),
+(8,'BIT SOKET 3/4 SEGI ENAM','ITM240701083832',NULL,'good',NULL,19,1,1,0,'2024-07-01 08:38:32',0,NULL,NULL),
+(9,'BOR ELECTRIK 1/2','ITM240701083925',NULL,'good',NULL,0,1,1,1,'2024-07-01 08:39:25',0,NULL,NULL),
+(10,'TOOLS BLOWBY','ITM240701083937',NULL,'incomplete',NULL,0,1,1,1,'2024-07-01 08:39:37',0,'2024-07-01 08:48:43',0),
+(11,'TOOLS FRONT SEAL HD785','ITM240701083943',NULL,'good',NULL,0,1,1,1,'2024-07-01 08:39:43',0,NULL,NULL),
+(12,'TOOL LEVELING REAR SEAL','ITM240701083957',NULL,'good',NULL,0,1,1,1,'2024-07-01 08:39:57',0,NULL,NULL),
+(13,'TOOL SEAL OUTPUT ENGINE','ITM240701084003',NULL,'good',NULL,0,1,1,1,'2024-07-01 08:40:03',0,NULL,NULL),
+(14,'TOOL CHARGING FIRE SUSPRESSION','ITM240701084009',NULL,'good','ITM240701110130.jpg',0,1,1,1,'2024-07-01 08:40:09',0,'2024-07-01 11:01:30',0),
+(15,'HYTORQUE 1 1/2 INCI','ITM240701084017',NULL,'good',NULL,0,1,1,1,'2024-07-01 08:40:17',0,NULL,NULL),
+(16,'HYTORQUE 1 INCI','ITM240701084023',NULL,'good','ITM240701110219.jpg',0,1,1,1,'2024-07-01 08:40:23',0,'2024-07-01 11:02:19',0),
+(17,'HYTORQUE 3/4 INCI','ITM240701084031',NULL,'good',NULL,0,1,1,1,'2024-07-01 08:40:31',0,NULL,NULL),
+(18,'GAGANG HYTORQUE','ITM240701084039',NULL,'good',NULL,0,1,1,0,'2024-07-01 08:40:39',0,NULL,NULL),
+(19,'TOOLS HARNES CHEKER','ITM240701084043',NULL,'good',NULL,0,1,1,1,'2024-07-01 08:40:43',0,NULL,NULL),
+(20,'RADIATOR CAP TESTER','ITM240701084051',NULL,'good','ITM240701110249.jpg',0,1,1,0,'2024-07-01 08:40:51',0,'2024-07-01 11:02:49',0),
+(21,'TAB AND DIE SET','ITM240701084057',NULL,'good',NULL,0,2,3,3,'2024-07-01 08:40:57',0,'2024-07-01 08:42:52',0),
+(22,'WEBING SLING 4 TON','ITM240701084111',NULL,'good',NULL,0,2,1,1,'2024-07-01 08:41:11',0,'2024-07-01 08:43:05',0),
+(23,'TOOLS CHARGING SUSPENSI','ITM240701084116',NULL,'good',NULL,0,2,1,1,'2024-07-01 08:41:16',0,'2024-07-01 08:43:21',0),
+(24,'TOOLS CHARGING ACCUMULATOR','ITM240701084122',NULL,'incomplete',NULL,0,2,1,1,'2024-07-01 08:41:22',0,'2024-07-01 08:49:07',0),
+(25,'TOOLS TIACKET','ITM240701084227',NULL,'incomplete',NULL,0,2,1,1,'2024-07-01 08:42:27',0,'2024-07-01 08:49:20',0),
+(26,'PRESSURE GAUGE REGULATOR','ITM240701084235',NULL,'good',NULL,0,2,3,3,'2024-07-01 08:42:35',0,NULL,NULL),
+(27,'TORQUE WRENCH 7 - 35 KG','ITM240701084350',NULL,'good',NULL,0,2,2,2,'2024-07-01 08:43:50',0,NULL,NULL),
+(28,'SLUGING WRENCH','ITM240701084405',NULL,'good',NULL,36,6,1,1,'2024-07-01 08:44:05',0,'2024-07-01 08:45:30',0),
+(29,'SLUGING WRENCH','ITM240701084429',NULL,'good',NULL,65,6,1,1,'2024-07-01 08:44:29',0,'2024-07-01 08:45:41',0),
+(30,'SLUGING WRENCH','ITM240701084438',NULL,'good',NULL,85,6,1,1,'2024-07-01 08:44:38',0,'2024-07-01 08:45:55',0),
+(31,'SLUGING WRENCH','ITM240701084447',NULL,'good',NULL,70,6,1,1,'2024-07-01 08:44:47',0,'2024-07-01 08:46:10',0),
+(32,'SLUGING WRENCH','ITM240701084502',NULL,'good',NULL,41,6,1,1,'2024-07-01 08:45:02',0,'2024-07-01 08:46:21',0),
+(33,'SLUGING WRENCH','ITM240701084511',NULL,'good','ITM240701110436.jpg',80,6,1,1,'2024-07-01 08:45:11',0,'2024-07-01 11:04:36',0),
+(34,'BODY HARNES','ITM240701084708',NULL,'good',NULL,0,6,1,0,'2024-07-01 08:47:08',0,NULL,NULL),
+(35,'CHAIN BLOK','ITM240701084725',NULL,'good',NULL,3,5,1,0,'2024-07-01 08:47:25',0,NULL,NULL),
+(36,'CHAIN BLOK','ITM240701084736',NULL,'good',NULL,5,5,1,1,'2024-07-01 08:47:36',0,NULL,NULL),
+(37,'SIMPLEX ALUMUNIUM HYD','ITM240701084751',NULL,'good',NULL,50,5,1,0,'2024-07-01 08:47:51',0,NULL,NULL),
+(38,'SIMPLEX ALUMUNIUM HYD','ITM240701084803',NULL,'good',NULL,25,5,1,1,'2024-07-01 08:48:03',0,NULL,NULL),
+(39,'TRACKER 3 KAKI','ITM240701084813',NULL,'good',NULL,0,5,1,1,'2024-07-01 08:48:13',0,NULL,NULL),
+(40,'TRACKER 3 KAKI','ITM240701084818',NULL,'good',NULL,0,5,1,1,'2024-07-01 08:48:18',0,NULL,NULL);
 
-/*Table structure for table `stock_take` */
+/*Table structure for table `rent` */
 
-DROP TABLE IF EXISTS `stock_take`;
+DROP TABLE IF EXISTS `rent`;
 
-CREATE TABLE `stock_take` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `start_date` datetime DEFAULT NULL,
-  `end_date` datetime DEFAULT NULL,
-  `start_user` int(11) DEFAULT NULL,
-  `end_user` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 1,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
-
-/*Data for the table `stock_take` */
-
-insert  into `stock_take`(`id`,`start_date`,`end_date`,`start_user`,`end_user`,`status`) values 
-(1,'2022-10-13 10:27:44',NULL,5,NULL,1);
-
-/*Table structure for table `stock_take_detail` */
-
-DROP TABLE IF EXISTS `stock_take_detail`;
-
-CREATE TABLE `stock_take_detail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `stock_take_id` int(11) DEFAULT NULL,
-  `item_id` int(11) DEFAULT NULL,
-  `item_qrcode` varchar(50) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
-  `condition` enum('good','lost','broken','service') DEFAULT NULL,
-  `picture` varchar(50) DEFAULT NULL,
-  `check_date` datetime DEFAULT NULL,
-  `check_user` int(11) DEFAULT NULL,
-  `is_checked` tinyint(1) DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
-
-/*Data for the table `stock_take_detail` */
-
-insert  into `stock_take_detail`(`id`,`stock_take_id`,`item_id`,`item_qrcode`,`status`,`location`,`condition`,`picture`,`check_date`,`check_user`,`is_checked`) values 
-(1,1,1,'ITM220630091411',1,'di ruang server','good','ST_ITM221017165143.jpg','2022-10-17 16:51:42',5,1),
-(2,1,2,'ITM220630091824',1,'masih di tempat yang sama','good','ST_ITM221014111752.PNG','2022-10-14 11:17:52',5,1),
-(3,1,3,'ITM220630092254',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(4,1,4,'ITM220630094024',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(5,1,5,'ITM220630100736',1,'Aman','good','ST_ITM221014111834.PNG','2022-10-14 11:18:34',5,1),
-(6,1,6,'ITM220630101337',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(7,1,7,'ITM220630101405',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(8,1,8,'ITM220630102852',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(9,1,9,'ITM220630102918',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(10,1,10,'ITM220630102943',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(11,1,11,'ITM220630103018',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(12,1,12,'ITM220630103309',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(13,1,13,'ITM220630103358',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(14,1,14,'ITM220630104520',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(15,1,15,'ITM220630104709',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(16,1,16,'ITM220630104936',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(17,1,17,'ITM220630105107',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(18,1,18,'ITM220630105559',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(19,1,19,'ITM220630110842',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(20,1,20,'ITM220630110938',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(21,1,21,'ITM220630111002',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(22,1,22,'ITM220630111050',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(23,1,24,'ITM220704084930',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(24,1,25,'ITM220704085008',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(25,1,26,'ITM220704085120',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(26,1,27,'ITM220704085211',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(27,1,28,'ITM220704085238',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(28,1,29,'ITM220704094404',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(29,1,30,'ITM220704104939',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(30,1,31,'ITM220704105005',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(31,1,32,'ITM220704105030',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(32,1,33,'ITM220704105111',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(33,1,34,'ITM220704105130',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(34,1,35,'ITM220704112142',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(35,1,36,'ITM220704112417',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(36,1,37,'ITM220704112453',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(37,1,38,'ITM220704112517',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(38,1,39,'ITM220704112543',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(39,1,40,'ITM220704112659',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(40,1,41,'ITM220704113312',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(41,1,42,'ITM220704113349',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(42,1,43,'ITM220704113836',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(43,1,44,'ITM220704113858',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(44,1,45,'ITM220704113915',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(45,1,46,'ITM220704113934',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(46,1,47,'ITM220704113946',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(47,1,48,'ITM220721112649',NULL,NULL,NULL,NULL,NULL,NULL,0),
-(48,1,49,'ITM220802155808',NULL,NULL,NULL,NULL,NULL,NULL,0);
-
-/*Table structure for table `user_item` */
-
-DROP TABLE IF EXISTS `user_item`;
-
-CREATE TABLE `user_item` (
+CREATE TABLE `rent` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `detail` varchar(255) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL,
-  `received_date` date DEFAULT NULL,
-  `return_date` date DEFAULT NULL,
-  `insert_date` datetime DEFAULT NULL,
-  `insert_user` int(11) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `update_user` int(11) DEFAULT NULL,
-  `return_user` int(11) DEFAULT NULL,
-  `receive_doc` varchar(50) DEFAULT NULL,
-  `return_doc` varchar(50) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `icondition` enum('good','lost','broken','incomplete') DEFAULT NULL,
+  `request_date` datetime DEFAULT NULL,
+  `rent_date` datetime DEFAULT NULL,
+  `return_date` datetime DEFAULT NULL,
+  `rent_user` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `user_item` */
+/*Data for the table `rent` */
 
-insert  into `user_item`(`id`,`item_id`,`user_id`,`detail`,`location`,`received_date`,`return_date`,`insert_date`,`insert_user`,`update_date`,`update_user`,`return_user`,`receive_doc`,`return_doc`) values 
-(8,1,154,'','LOC221110110539.png','2022-11-10','2022-11-10','2022-11-10 11:05:39',70005047,'2022-11-10 16:03:19',154,NULL,NULL,NULL);
+insert  into `rent`(`id`,`item_id`,`status`,`icondition`,`request_date`,`rent_date`,`return_date`,`rent_user`,`quantity`) values 
+(1,6,2,'good','2024-07-02 11:26:28','2024-07-03 12:02:00','2024-07-04 13:06:05',4563254,25),
+(2,5,2,'good','2024-07-02 11:26:28','2024-07-03 12:02:04','2024-07-04 13:06:21',4563254,6),
+(3,7,2,'good','2024-07-02 11:26:28','2024-07-03 12:02:02','2024-07-04 13:06:17',4563254,1),
+(4,35,2,'good','2024-07-02 13:44:22','2024-07-03 11:58:54','2024-07-04 13:05:31',1231234,1),
+(5,34,2,'good','2024-07-02 13:44:22','2024-07-03 11:59:30','2024-07-04 13:05:27',1231234,1),
+(6,37,2,'good','2024-07-02 13:44:22','2024-07-03 12:00:40','2024-07-04 13:05:35',1231234,1),
+(7,20,2,'good','2024-07-02 13:44:22','2024-07-03 12:01:48','2024-07-04 13:05:33',1231234,1),
+(8,18,2,'good','2024-07-02 13:44:22','2024-07-03 12:01:29','2024-07-04 13:05:37',1231234,1),
+(9,8,2,'good','2024-07-02 13:44:22','2024-07-03 12:01:45','2024-07-04 13:05:39',1231234,1),
+(10,1,2,'good','2024-07-02 13:44:22','2024-07-03 12:01:51','2024-07-04 13:05:52',1231234,1),
+(11,3,2,'good','2024-07-02 13:44:22','2024-07-03 12:01:49','2024-07-04 13:05:48',1231234,1);
 
 /*Table structure for table `users` */
 
@@ -376,12 +283,54 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`password`,`name`,`phonenumber`,`roles`,`insert_date`,`insert_user`,`update_date`,`update_user`) values 
-('123123','fc875e6068515962938edd80704e52994fadc0a0','User',NULL,'user',NULL,NULL,NULL,NULL),
 ('1231234',NULL,'Test dus','','user','2024-06-26 16:02:29',1,NULL,NULL),
-('321321','6293dd28a8c694b631de5fcd56fd85f25c4c93f8','Guest',NULL,'user',NULL,NULL,NULL,NULL),
+('321321',NULL,'Guest',NULL,'user',NULL,NULL,NULL,NULL),
 ('4563254',NULL,'Sustrisno Nainggolan','08455545845','user','2024-06-26 15:42:31',1,'2024-06-26 15:59:48',1),
 ('4569856',NULL,'Sutrisno','0845668541','user','2024-06-26 15:43:48',1,NULL,NULL),
-('admin','25d2d1a12f3022baf3938961d3cf76ea1f8b95ec','Admin',NULL,'admin',NULL,NULL,NULL,NULL);
+('admin','d033e22ae348aeb5660fc2140aec35850c4da997','Admin',NULL,'admin',NULL,NULL,NULL,NULL),
+('uaser1','d033e22ae348aeb5660fc2140aec35850c4da997','User','0852369741','user',NULL,NULL,'2024-06-28 16:09:41',0);
+
+/* Procedure structure for procedure `get_active_rent` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `get_active_rent` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_active_rent`()
+BEGIN
+	SELECT
+  rent_user AS userid,
+  rent_user_name AS user_name,
+  phonenumber,
+  rent_date,
+  SUM(quantity) AS total
+FROM
+  view_rent where status = 1
+GROUP BY rent_user;
+
+	END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `get_request_rent` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `get_request_rent` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_request_rent`()
+BEGIN
+	SELECT
+  rent_user AS userid,
+  rent_user_name AS user_name,
+  phonenumber,
+  request_date,
+  SUM(quantity) AS total
+FROM
+  view_rent where status = 2
+GROUP BY rent_user;
+
+	END */$$
+DELIMITER ;
 
 /*Table structure for table `view_item` */
 
@@ -395,10 +344,11 @@ DROP TABLE IF EXISTS `view_item`;
  `area_id` int(2) ,
  `area_name` varchar(50) ,
  `name` varchar(50) ,
- `item_size` decimal(10,0) ,
+ `size` decimal(10,0) ,
  `quantity` int(2) ,
  `stock` int(2) ,
  `icondition` enum('good','lost','broken','incomplete') ,
+ `filename` varchar(255) ,
  `qrcode` varchar(50) ,
  `insert_date` datetime ,
  `insert_user` int(11) ,
@@ -406,12 +356,45 @@ DROP TABLE IF EXISTS `view_item`;
  `update_user` int(11) 
 )*/;
 
+/*Table structure for table `view_rent` */
+
+DROP TABLE IF EXISTS `view_rent`;
+
+/*!50001 DROP VIEW IF EXISTS `view_rent` */;
+/*!50001 DROP TABLE IF EXISTS `view_rent` */;
+
+/*!50001 CREATE TABLE  `view_rent`(
+ `id` int(11) ,
+ `item_id` int(11) ,
+ `status` tinyint(1) ,
+ `icondition` enum('good','lost','broken','incomplete') ,
+ `request_date` datetime ,
+ `rent_date` datetime ,
+ `return_date` datetime ,
+ `rent_user` int(11) ,
+ `quantity` int(11) ,
+ `item_name` varchar(50) ,
+ `item_size` decimal(10,0) ,
+ `qrcode` varchar(50) ,
+ `filename` varchar(255) ,
+ `area_name` varchar(50) ,
+ `rent_user_name` varchar(255) ,
+ `phonenumber` varchar(14) 
+)*/;
+
 /*View structure for view view_item */
 
 /*!50001 DROP TABLE IF EXISTS `view_item` */;
 /*!50001 DROP VIEW IF EXISTS `view_item` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_item` AS (select `i`.`id` AS `id`,`i`.`area_id` AS `area_id`,`a`.`name` AS `area_name`,`i`.`name` AS `name`,`i`.`size` AS `item_size`,`i`.`quantity` AS `quantity`,`i`.`stock` AS `stock`,`i`.`icondition` AS `icondition`,`i`.`qrcode` AS `qrcode`,`i`.`insert_date` AS `insert_date`,`i`.`insert_user` AS `insert_user`,`i`.`update_date` AS `update_date`,`i`.`update_user` AS `update_user` from (`item` `i` left join `areas` `a` on(`i`.`area_id` = `a`.`id`))) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_item` AS (select `i`.`id` AS `id`,`i`.`area_id` AS `area_id`,`a`.`name` AS `area_name`,`i`.`name` AS `name`,`i`.`size` AS `size`,`i`.`quantity` AS `quantity`,`i`.`stock` AS `stock`,`i`.`icondition` AS `icondition`,`i`.`filename` AS `filename`,`i`.`qrcode` AS `qrcode`,`i`.`insert_date` AS `insert_date`,`i`.`insert_user` AS `insert_user`,`i`.`update_date` AS `update_date`,`i`.`update_user` AS `update_user` from (`item` `i` left join `areas` `a` on(`i`.`area_id` = `a`.`id`))) */;
+
+/*View structure for view view_rent */
+
+/*!50001 DROP TABLE IF EXISTS `view_rent` */;
+/*!50001 DROP VIEW IF EXISTS `view_rent` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_rent` AS (select `r`.`id` AS `id`,`r`.`item_id` AS `item_id`,`r`.`status` AS `status`,`r`.`icondition` AS `icondition`,`r`.`request_date` AS `request_date`,`r`.`rent_date` AS `rent_date`,`r`.`return_date` AS `return_date`,`r`.`rent_user` AS `rent_user`,`r`.`quantity` AS `quantity`,`v`.`name` AS `item_name`,`v`.`size` AS `item_size`,`v`.`qrcode` AS `qrcode`,`v`.`filename` AS `filename`,`v`.`area_name` AS `area_name`,`u`.`name` AS `rent_user_name`,`u`.`phonenumber` AS `phonenumber` from ((`rent` `r` left join `view_item` `v` on(`r`.`item_id` = `v`.`id`)) left join `users` `u` on(`r`.`rent_user` = `u`.`id`))) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
