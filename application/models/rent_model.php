@@ -88,18 +88,24 @@ class Rent_model extends MY_Model {
         $this->total_rows = $query->num_rows();
         return $query->result_array();
     }
-     public function get_appr_user_rent() {
+
+    public function get_appr_user_rent() {
         $query = $this->db->query('call get_approved_rent');
         $this->total_rows = $query->num_rows();
         return $query->result_array();
     }
-
 
     public function get_active_user_rent() {
         $query = $this->db->query('call get_active_rent');
         $this->total_rows = $query->num_rows();
         return $query->result_array();
     }
+
+    public function get_rent_by_qr($userid, $qrcode) {
+        $query = $this->db->query("select * from view_rent where qrcode = '" . $qrcode . "' and status=1 and rent_user='" . $userid . "' limit 0,1");
+        return $query->result() == array() ? array() : $query->result()[0];
+    }
+
 }
 
 /**

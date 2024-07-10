@@ -66,14 +66,26 @@ class Rent extends MY_Controller {
         if ($this->input->post('submit')) {
             $data = $this->input->post('item');
             foreach ($this->data['list_data'] as $row) {
+                $update_data = array();
                 if ($row->quantity == $data[$row->id]) {
-                    $this->rent->edit_data(array('status' => 2), array('id' => $row->id));
+                    $update_data = array(
+                        'status' => 2,
+                        'approve_date' => date("Y-m-d H:i:s"),
+                        'approve_user' => $this->session->userdata('sess-id')
+                    );
                 } else {
                     $cstock = $this->item->get_data(null, array('id' => $row->item_id), null, null, null, null, 'row')->stock;
                     $update_stock = $row->quantity - $data[$row->id] + $cstock;
                     $this->item->edit_data(array('stock' => $update_stock), array('id' => $row->item_id));
-                    $this->rent->edit_data(array('status' => 2, 'quantity' => $data[$row->id]), array('id' => $row->id));
+                    $status = $data[$row->id] == 0 ? 0 : 2;
+                    $update_data = array(
+                        'status' => $status,
+                        'quantity' => $data[$row->id],
+                        'approve_date' => date("Y-m-d H:i:s"),
+                        'approve_user' => $this->session->userdata('sess-id')
+                    );
                 }
+                $this->rent->edit_data($update_data, array('id' => $row->id));
             }
             $this->session->set_flashdata('info_messages', ' Request Approved');
             redirect(site_url('rent'));
@@ -109,6 +121,7 @@ class Rent extends MY_Controller {
             if ($cek_rent == array()) {
                 $this->data ['err_messages'] = get_messages('Your ID not have any Rent Request');
             } else {
+
                 $this->rent->edit_data(array('status' => 1, 'rent_date' => date('Y-m-d H:i:s')), array('id' => $cek_rent->id));
                 $this->session->set_flashdata('info_messages', $item->name . ' Scan Out Successfull');
                 redirect(site_url('rent/approved/' . $user_id));
@@ -116,10 +129,57 @@ class Rent extends MY_Controller {
         }
     }
 
-    function get_detail($qrvalue) {
+    function get_detail() {
         $user_id = $this->uri->segment(3);
-        $rec_item = $this->rent->get_data(null, array('status' => 1, 'rent_user' => $user_id, 'qrcode' => $qrvalue), null, null, null, null, 'row');
-        debug($rec_item);
+        $qrvalue = $this->input->post('qrvalue');
+        $result = $this->rent->get_rent_by_qr($user_id, $qrvalue);
+        if ($result != array()) {
+            echo "<form class='row g-3 needs-validation novalidate' action='" . site_url('rent/in/') . "' method='post' role='form' autocomplete='off'>";
+            echo '<div class="col-md-6">';
+            echo '<div class="form-floating">';
+            echo '<input type="text" class="form-control" id="floatingName" placeholder="Tools Name" value="' . $result->item_name . '" readonly>';
+            echo '<label for="floatingName">Tools Name</label>';
+            echo '</div>';
+            echo '</div>';
+            if ($result->item_size > 0) {
+                echo '<div class="col-md-6">';
+                echo '<div class="form-floating">';
+                echo '<input type="text" class = "form-control" id="floatingSize" placeholder="Tools Size" value="' . $result->item_size . '" readonly>';
+                echo '<label for="floatingSize">Item Size</label>';
+                echo '</div>';
+                echo '</div>';
+            }
+
+            echo '<div class="col-md-6">';
+            echo '<div class="form-floating">';
+            echo '<input type="text"class="form-control" id="floatingDate" placeholder="Rent Date" value="' . $result->rent_date . '" readonly> ';
+            echo '<label for="floatingDate">Rent Date</label>';
+            echo '</div>';
+            echo '</div>';
+
+            echo '<div class="col-md-6">';
+            echo '<div class="form-floating">';
+            echo '<input type="text" class="form-control" id="floatingQuantity" placeholder="Quantity" value="' . $result->quantity . '" readonly> ';
+            echo '<label for="floatingQuantitye">Quantity</label>';
+            echo '</div>';
+            echo '</div>';
+
+            echo '<div class="col-md-6">';
+            echo '<div class="form-floating">';
+            echo '<input type="text" class="form-control" id="floatingDetails" placeholder="Tools Size" value="' . $result->rent_user_name . '" readonly>';
+            echo '<label for="floatingDetails">Rent User</label>';
+            echo '</div>';
+            echo '</div>';
+            echo '<input type="hidden" name="txt_id" class="form-control" id="floatingID" placeholder="Item ID" value="' . $result->id . '" readonly>';
+
+            echo '<div class = "text-center">';
+            echo '<button type = "submit" class = "btn btn-primary" name = "submit" value = "submit">Confirm Received</button>';
+            echo '</div>';
+            echo '</form>';
+        } else {
+            echo '<h3>Your QR is not supported</h3>';
+            echo '<p>Click Cancel or close(x) button to rescan the QR</p>';
+        }
     }
 
     function return() {
@@ -132,30 +192,50 @@ class Rent extends MY_Controller {
         $this->data ['list_data'] = $this->rent->get_data(null, array('status' => 1, 'rent_user' => $this->data['user_id']));
         if ($this->data ['list_data'] == array())
             redirect(site_url('rent'));
-        if ($this->input->post('submit')) {
-//            $item_qr = $this->input->post('item_qr');
-//            $item = $this->item->get_data('id,name', array('qrcode' => $item_qr), null, null, null, null, 'row');
-//            if ($item == array()) {
-//                $this->data ['err_messages'] = get_messages('Your QR Code is not registered');
-//            } else {
-//                $cek_rent = $this->rent->get_data('id', array('item_id' => $item->id, 'rent_user' => $user_id), null, null, null, null, 'row');
-//                if ($cek_rent == array()) {
-//                    $this->data ['err_messages'] = get_messages('Your ID not have any Rent Request');
-//                } else {
-//                    $this->rent->edit_data(array('status' => 0, 'return_date' => date('Y-m-d H:i:s')), array('id' => $cek_rent->id));
-//                    $this->session->set_flashdata('info_messages', $item->name . ' Scan Succesfull');
-//                    redirect(site_url('rent/return/' . $user_id));
-//                }
-//            }
-        }
+
         $this->data ['page'] = $this->load->view($this->get_page('return'), $this->data, true);
+        $this->render();
+    }
+
+    function in() {
+        $rent_id = $this->input->post('txt_id');
+        $cek_rent = $this->rent->get_data(null, array('id' => $rent_id), null, null, null, null, 'row');
+
+        if ($cek_rent == array()) {
+            $this->session->set_flashdata('err_messages', get_messages('Your ID not have any Rent Data'));
+            redirect(site_url('rent/return/' . $cek_rent->rent_user));
+        } else {
+            $cstock = $this->item->get_data(null, array('id' => $cek_rent->item_id), null, null, null, null, 'row')->stock;
+            $update_stock = $cek_rent->quantity + $cstock;
+            $this->item->edit_data(array('stock' => $update_stock), array('id' => $cek_rent->item_id));
+            $update_data = array(
+                'status' => 0,
+                'return_date' => date("Y-m-d H:i:s"),
+                'return_user' => $this->session->userdata('sess-id')
+            );
+            $this->rent->edit_data($update_data, array('id' => $cek_rent->id));
+            $this->session->set_flashdata('info_messages', $item->name . ' Scan Out Successfull');
+            redirect(site_url('rent/return/' . $cek_rent->rent_user));
+        }
+    }
+
+    function report() {
+        $this->data['id'] = $this->uri->segment(3);
+        $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->data ['page_title'] = 'Rent - Report';
+        $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->data ['page_title'] = 'Rent Report';
+        $this->data ['rec_data'] = $this->rent->get_data(null, array('status' => 1, 'id' => $this->data['id']), null, null, null, null, 'row');
+        if ($this->data ['rec_data'] == array())
+            redirect(site_url('rent/return'));
+        $this->data ['page'] = $this->load->view($this->get_page('report'), $this->data, true);
         $this->render();
     }
 
 }
 
 /**
-     * End of file purchaseorder.php
-     * Location : ./application/controllers/purchaseorder.php
+     * End of file rent.php
+     * Location : ./application/controllers/rent.php
      */
     
