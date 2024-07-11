@@ -17,9 +17,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Picture</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Size</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">Description</th>
                         <th scope="col">Condition</th>
                         <th scope="col">Rent Date</th>
                         <th scope="col"></th>
@@ -35,10 +33,8 @@
                             <tr>
                                 <td><?= $i; ?></td>
                                 <td><img style="width: 8rem;" src="<?= $image; ?>" class="img img-responsive"></td>
-                                <td><?= $row->item_name; ?></td>
-                                <td><?= $row->item_size; ?></td>
-                                <td><?= $row->quantity; ?><img src="<?= QR_UPLOADED . $row->qrcode; ?>.png"></td>
-                                <td><?= $row->icondition; ?></td>
+                                <td><?= $row->item_name; ?><?= $row->item_size > 0 ? ' <br><p class="text-secondary">Size : ' . $row->item_size . '</p>' : ''; ?></td>
+                                <td><?= $row->icondition; ?><img src="<?= QR_UPLOADED . $row->qrcode; ?>.png"></td>
                                 <td><?= $row->rent_date; ?></td>
                                 <td class="text-center">
                                     <a onclick="shmodal('<?= $row->qrcode; ?>')" class="btn btn-primary"><i class="bi bi-arrow-bar-down me-1"></i>Manual In</a>

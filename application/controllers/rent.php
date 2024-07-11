@@ -17,6 +17,7 @@ class Rent extends MY_Controller {
         $this->page_dir = 'rent/';
         $this->load->model('rent_model', 'rent');
         $this->load->model('item_model', 'item');
+        $this->load->model('user_model', 'user');
         $this->data['active_menu'] = 'rent';
     }
 
@@ -55,35 +56,35 @@ class Rent extends MY_Controller {
 
     function request() {
         $this->data['user_id'] = $this->uri->segment(3);
+        $this->data['rec_user'] = $this->user->get_data(null, array('id' => $this->data['user_id']), null, null, null, null, 'row');
+        if ($this->data['rec_user'] == array())
+            redirect(site_url('rent'));
         $this->data ['curr_poss'] = 'request';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Item - Index';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Daftar Inventory';
-        $this->data ['list_data'] = $this->rent->get_data(null, array('status' => 3, 'rent_user' => $this->data['user_id']));
+        $this->data ['list_data'] = $this->rent->get_data(null, array('rstatus' => 3, 'rent_user' => $this->data['user_id']));
         if ($this->data ['list_data'] == array())
             redirect(site_url('rent'));
         if ($this->input->post('submit')) {
-            $data = $this->input->post('item');
+            $data = $this->input->post('cb_approve');
+
             foreach ($this->data['list_data'] as $row) {
-                $update_data = array();
-                if ($row->quantity == $data[$row->id]) {
+
+                if (array_key_exists($row->id, $data)) {
                     $update_data = array(
-                        'status' => 2,
+                        'rstatus' => 2,
                         'approve_date' => date("Y-m-d H:i:s"),
                         'approve_user' => $this->session->userdata('sess-id')
                     );
                 } else {
-                    $cstock = $this->item->get_data(null, array('id' => $row->item_id), null, null, null, null, 'row')->stock;
-                    $update_stock = $row->quantity - $data[$row->id] + $cstock;
-                    $this->item->edit_data(array('stock' => $update_stock), array('id' => $row->item_id));
-                    $status = $data[$row->id] == 0 ? 0 : 2;
                     $update_data = array(
-                        'status' => $status,
-                        'quantity' => $data[$row->id],
-                        'approve_date' => date("Y-m-d H:i:s"),
-                        'approve_user' => $this->session->userdata('sess-id')
+                        'rstatus' => 0,
+                        'reject_date' => date("Y-m-d H:i:s"),
+                        'reject_user' => $this->session->userdata('sess-id')
                     );
+                    $this->item->edit_data(array('istatus' => 1), array('id' => $row->item_id));
                 }
                 $this->rent->edit_data($update_data, array('id' => $row->id));
             }
@@ -102,7 +103,7 @@ class Rent extends MY_Controller {
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Daftar Inventory';
         $this->load->model('item_model', 'item');
-        $this->data ['list_data'] = $this->rent->get_data(null, array('status' => 2, 'rent_user' => $this->data['user_id']));
+        $this->data ['list_data'] = $this->rent->get_data(null, array('rstatus' => 2, 'rent_user' => $this->data['user_id']));
         if ($this->data ['list_data'] == array())
             redirect(site_url('rent/ready'));
         if ($this->input->post('submit')) {
@@ -122,7 +123,7 @@ class Rent extends MY_Controller {
                 $this->data ['err_messages'] = get_messages('Your ID not have any Rent Request');
             } else {
 
-                $this->rent->edit_data(array('status' => 1, 'rent_date' => date('Y-m-d H:i:s')), array('id' => $cek_rent->id));
+                $this->rent->edit_data(array('rstatus' => 1, 'rent_date' => date('Y-m-d H:i:s')), array('id' => $cek_rent->id));
                 $this->session->set_flashdata('info_messages', $item->name . ' Scan Out Successfull');
                 redirect(site_url('rent/approved/' . $user_id));
             }
@@ -159,13 +160,6 @@ class Rent extends MY_Controller {
 
             echo '<div class="col-md-6">';
             echo '<div class="form-floating">';
-            echo '<input type="text" class="form-control" id="floatingQuantity" placeholder="Quantity" value="' . $result->quantity . '" readonly> ';
-            echo '<label for="floatingQuantitye">Quantity</label>';
-            echo '</div>';
-            echo '</div>';
-
-            echo '<div class="col-md-6">';
-            echo '<div class="form-floating">';
             echo '<input type="text" class="form-control" id="floatingDetails" placeholder="Tools Size" value="' . $result->rent_user_name . '" readonly>';
             echo '<label for="floatingDetails">Rent User</label>';
             echo '</div>';
@@ -189,7 +183,7 @@ class Rent extends MY_Controller {
         $this->data ['page_title'] = 'Item - Index';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Daftar Inventory';
-        $this->data ['list_data'] = $this->rent->get_data(null, array('status' => 1, 'rent_user' => $this->data['user_id']));
+        $this->data ['list_data'] = $this->rent->get_data(null, array('rstatus' => 1, 'rent_user' => $this->data['user_id']));
         if ($this->data ['list_data'] == array())
             redirect(site_url('rent'));
 
@@ -205,16 +199,14 @@ class Rent extends MY_Controller {
             $this->session->set_flashdata('err_messages', get_messages('Your ID not have any Rent Data'));
             redirect(site_url('rent/return/' . $cek_rent->rent_user));
         } else {
-            $cstock = $this->item->get_data(null, array('id' => $cek_rent->item_id), null, null, null, null, 'row')->stock;
-            $update_stock = $cek_rent->quantity + $cstock;
-            $this->item->edit_data(array('stock' => $update_stock), array('id' => $cek_rent->item_id));
+            $this->item->edit_data(array('istatus' => 1), array('id' => $cek_rent->item_id));
             $update_data = array(
-                'status' => 0,
+                'rstatus' => 0,
                 'return_date' => date("Y-m-d H:i:s"),
                 'return_user' => $this->session->userdata('sess-id')
             );
             $this->rent->edit_data($update_data, array('id' => $cek_rent->id));
-            $this->session->set_flashdata('info_messages', $item->name . ' Scan Out Successfull');
+            $this->session->set_flashdata('info_messages', $cek_rent->item_name . ' Scan in Successfull');
             redirect(site_url('rent/return/' . $cek_rent->rent_user));
         }
     }
@@ -225,7 +217,7 @@ class Rent extends MY_Controller {
         $this->data ['page_title'] = 'Rent - Report';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Rent Report';
-        $this->data ['rec_data'] = $this->rent->get_data(null, array('status' => 1, 'id' => $this->data['id']), null, null, null, null, 'row');
+        $this->data ['rec_data'] = $this->rent->get_data(null, array('rstatus' => 1, 'id' => $this->data['id']), null, null, null, null, 'row');
         if ($this->data ['rec_data'] == array())
             redirect(site_url('rent/return'));
         $this->data ['page'] = $this->load->view($this->get_page('report'), $this->data, true);

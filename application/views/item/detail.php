@@ -28,16 +28,10 @@
                     <input type="text" class="form-control" id="floatingSN" placeholder="Quantity" value ="<?= $rec_data->size ?>" disabled>
                     <label for="floatingSN">Size</label>
                 </div>
-            </div>  
+            </div> 
             <div class="col-md-4">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingSN" placeholder="Quantity" value ="<?= $rec_data->quantity ?>" disabled>
-                    <label for="floatingSN">Quantity</label>
-                </div>
-            </div>  
-            <div class="col-md-4">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingSN" placeholder="Quantity" value ="<?= $rec_data->area_name ?>" disabled>
+                    <input type="text" class="form-control" id="floatingSN" placeholder="Area" value ="<?= $rec_data->area_name ?>" disabled>
                     <label for="floatingSN">Location</label>
                 </div>
             </div>  

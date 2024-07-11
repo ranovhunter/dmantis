@@ -45,19 +45,17 @@ class Home extends MY_Controller {
 
             foreach ($insertdata as $row) {
                 $detail_data = json_decode($row);
-                $item_d = $this->item->get_data(array('id', 'stock', 'icondition'), array('id' => $detail_data->itemID), null, null, null, null, 'row');
+                $item_d = $this->item->get_data(array('id', 'istatus', 'icondition'), array('id' => $detail_data->itemID), null, null, null, null, 'row');
                 $arr_data = array(
                     'item_id' => $detail_data->itemID, //Belum di kirim
-                    'quantity' => $detail_data->quantity, //Belum di kirim
                     'request_date' => date('Y-m-d H:i:s'),
                     'icondition' => $item_d->icondition,
-                    'status' => 3,
+                    'rstatus' => 3,
                     'rent_user' => $this->data['userid']
                 );
 //                debug($arr_data);
-                $stock_u = $detail_data->stock - $arr_data['quantity'];
                 if ($this->rent->add_data($arr_data)) {
-                    $this->item->edit_data(array('stock' => $stock_u), array('id' => $arr_data['item_id']));
+                    $this->item->edit_data(array('istatus' => 0), array('id' => $arr_data['item_id']));
                 }
             }
             redirect(site_url('home/history/' . $this->data['userid']));
@@ -65,7 +63,7 @@ class Home extends MY_Controller {
         if ($this->data['rec_user'] == array())
             redirect(site_url('home'));
 
-        $this->data['list_items'] = $this->item->get_data(null, "icondition IN ('good','incomplete') and stock > 0");
+        $this->data['list_items'] = $this->item->get_data(null, "icondition IN ('good') and istatus = 1");
         $this->data ['page'] = $this->load->view($this->get_page('detail'), $this->data, true);
         $this->render();
     }

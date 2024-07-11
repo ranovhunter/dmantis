@@ -32,7 +32,7 @@ class Item extends MY_Controller {
         $this->data ['page_title'] = 'Item - Index';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Daftar Inventory';
-        $this->data ['list_data'] = $this->item->get_data(null, "icondition IN('good','incomplete')", $this->data['max_rows'], $this->data['offset']);
+        $this->data ['list_data'] = $this->item->get_data(null, array('icondition' => 'good'), $this->data['max_rows'], $this->data['offset']);
         $this->data['pagination'] = $this->build_pagination(site_url() . '/item/index/', $this->uri->total_segments(), $this->item->total_rows, $this->data['max_rows'], $this->data['numlinks']);
         $this->data ['page'] = $this->load->view($this->get_page(), $this->data, true);
         $this->render();
@@ -46,7 +46,7 @@ class Item extends MY_Controller {
         $this->data ['page_title'] = 'Item - Stored';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Daftar Inventory';
-        $this->data ['list_data'] = $this->item->get_data(null, "icondition IN('broken','lost')", $this->data['max_rows'], $this->data['offset']);
+        $this->data ['list_data'] = $this->item->get_data(null, "icondition IN('incomplete','broken','lost')", $this->data['max_rows'], $this->data['offset']);
         $this->data['pagination'] = $this->build_pagination(site_url() . '/item/stored/', $this->uri->total_segments(), $this->item->total_rows, $this->data['max_rows'], $this->data['numlinks']);
         $this->data ['page'] = $this->load->view($this->get_page(), $this->data, true);
         $this->render();
@@ -62,12 +62,10 @@ class Item extends MY_Controller {
             $this->form_validation->set_rules('cmb_area', 'Area', 'trim|xss_clean');
             $this->form_validation->set_rules('cmb_condition', 'Condition', 'trim|xss_clean');
             $this->form_validation->set_rules('txt_size', 'Size', 'trim|xss_clean');
-            $this->form_validation->set_rules('txt_quantity', 'Quantity', 'trim|xss_clean|required');
             if ($this->form_validation->run() == TRUE) {
                 $data = array(
                     'name' => $this->input->post('txt_name'),
                     'qrcode' => 'ITM' . date('ymdHis'),
-                    'quantity' => $this->input->post('txt_quantity'),
                     'size' => $this->input->post('txt_size'),
                     'icondition' => $this->input->post('cmb_condition'),
                     'area_id' => $this->input->post('cmb_area'),
@@ -134,11 +132,8 @@ class Item extends MY_Controller {
             $this->form_validation->set_rules('cmb_area', 'Area', 'trim|xss_clean');
             $this->form_validation->set_rules('cmb_condition', 'Condition', 'trim|xss_clean');
             $this->form_validation->set_rules('txt_size', 'Size', 'trim|xss_clean');
-            $this->form_validation->set_rules('txt_quantity', 'Quantity', 'trim|xss_clean|required');
             $data = array(
                 'name' => $this->input->post('txt_name'),
-                'quantity' => $this->input->post('txt_quantity'),
-                'stock' => $this->input->post('txt_quantity'),
                 'size' => $this->input->post('txt_size'),
                 'icondition' => $this->input->post('cmb_condition'),
                 'area_id' => $this->input->post('cmb_area'),
@@ -406,6 +401,7 @@ class Item extends MY_Controller {
         $this->data ['page'] = $this->load->view($this->get_page('ireturn'), $this->data, true);
         $this->render();
     }
+
 }
 
 /**
