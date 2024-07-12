@@ -34,7 +34,7 @@ if (!empty($error_messages)) {
                             <span class="text-muted mb-0 itemsize">Size <?= $row->size; ?></span>
                         <?php } ?>
                         <br/> <label class="switch">
-                            <input type="checkbox" id="togBtn" name="cb_item[<?= $row->id; ?>]" onclick="showModal()">
+                            <input type="checkbox" name="cb_item[<?= $row->id; ?>]" value="<?= $row->id; ?>" onclick="showModal(this)" <?= array_key_exists($row->id, $data_cart) ? 'checked' : ''; ?>>
                             <div class="slider round">
                                 <!--ADDED HTML -->
                                 <span class="on">Remove from Cart</span>
@@ -216,10 +216,35 @@ if (!empty($error_messages)) {
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
-                                function showModal() {
-                                    $("#modal-notification").modal('show');
-                                    setTimeout(function () {
-                                        $("#modal-notification").modal('hide');
-                                    }, 1000);
+                            function showModal(element) {
+                                var add = element.checked;
+                                var itemID = element.value;
+                                var url = null;
+                                if (add) {
+                                    url = '<?= site_url('home/add_cart/' . $userid); ?>';
+                                } else {
+                                    url = '<?= site_url('home/remove_cart/' . $userid); ?>';
                                 }
+                                $.ajax({
+                                    type: 'POST',
+                                    url: url,
+                                    data: 'itemid=' + itemID,
+                                    success: function (response) {
+                                        if (response) {
+                                            $("#modal-notification").modal('show');
+                                            setTimeout(function () {
+                                                $("#modal-notification").modal('hide');
+                                            }, 1000);
+                                        } else {
+                                            if (element.checked) {
+                                                element.checked = false;
+                                            } else {
+                                                element.checked = true;
+                                            }
+                                        }
+
+                                    }
+                                });
+
+                            }
 </script>
