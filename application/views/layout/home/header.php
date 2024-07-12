@@ -12,15 +12,15 @@
 
             <li class="nav-item dropdown pe-3">
 
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="<?= site_url('home/cart/' . $rec_user->id); ?>">
                     <button type="button" class="btn btn-success">
                         <span class="bi bi-cart"></span>
-                        <span class="badge badge-primary" id="itemCount">0</span>
+                        <span>View Cart</span>
                     </button>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile" id="cartTableBody">
-                    
+
                 </ul><!-- End Cart Dropdown Items -->
             </li><!-- End Cart Nav -->
 

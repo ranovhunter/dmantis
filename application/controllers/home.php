@@ -13,6 +13,7 @@ class Home extends MY_Controller {
     }
 
     function index() {
+        $this->session->sess_destroy();
         $this->layout_dir = 'layout/user/';
         $this->data ['html_title'] = 'Rent';
         if ($this->input->post('submit')) {
@@ -68,9 +69,18 @@ class Home extends MY_Controller {
         $this->render();
     }
 
+    function add_cart() {
+        
+    }
+
+    function remove_cart() {
+        
+    }
+
 }
 
 /**
- * End of file login.php
- * Location : ./application/controllers/login.php
- */
+     * End of file home.php
+     * Location : ./application/controllers/home.php
+     */
+    

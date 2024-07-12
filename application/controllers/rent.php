@@ -168,6 +168,7 @@ class Rent extends MY_Controller {
 
             echo '<div class = "text-center">';
             echo '<button type = "submit" class = "btn btn-primary" name = "submit" value = "submit">Confirm Received</button>';
+            echo '&nbsp;<a href="'.site_url('rent/report/'.$result->id).'" class = "btn btn-warning"><i class="bi bi-exclamation-circle me-1"></i>Report</a>';
             echo '</div>';
             echo '</form>';
         } else {

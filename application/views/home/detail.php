@@ -28,136 +28,198 @@ if (!empty($error_messages)) {
             <img class="card-img-top" src="<?= $image; ?>" alt="Card image cap">
             <div class="card-body">
                 <div class="row">
-                    <div class="col">
-                        <span class="h2 font-weight-bold mb-0 itemname"><?= $row->name; ?></span><br/>  
-                        <div class="row">
+                    <div class="col text-center">
+                        <span class="h4 font-weight-bold mb-0 itemname"><?= $row->name; ?></span><br/>  
+                        <?php if ($row->size > 0) { ?>
                             <span class="text-muted mb-0 itemsize">Size <?= $row->size; ?></span>
-                        </div>
-                        <input type="hidden" value="<?= $row->id; ?>" class="itemID" />
-                    </div>
-                    <div class="col-auto">
-                        <div class="icon icon-shape bg-info-light text-white rounded-circle shadow">
-                            <a href="javascript:void(0)" onclick="addToCart(this)"><span class="ni ni-cart"></span></a>
-                        </div>
+                        <?php } ?>
+                        <br/> <label class="switch">
+                            <input type="checkbox" id="togBtn" name="cb_item[<?= $row->id; ?>]" onclick="showModal()">
+                            <div class="slider round">
+                                <!--ADDED HTML -->
+                                <span class="on">Remove from Cart</span>
+                                <span class="off">Add to Cart</span>
+                                <!--END-->
+                            </div>
+                        </label>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 <?php } ?>
+<div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="bi bi-check"></i>
+                </div>				
+                <h4 class="modal-title w-100">Success</h4>	
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Item Successfully add to Cart</p>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 50px;
+    }
+
+    .switch input {
+        display:none;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #9b9b9b;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #2ab934;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(55px);
+        -ms-transform: translateX(55px);
+        transform: translateX(55px);
+    }
+
+    /*------ ADDED CSS ---------*/
+    .on
+    {
+        display: none;
+    }
+
+    .on, .off
+    {
+        color: white;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    input:checked+ .slider .on
+    {
+        display: block;
+    }
+
+    input:checked + .slider .off
+    {
+        display: none;
+    }
+
+    /*--------- END --------*/
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 5px;
+    }
+
+    .slider.round:before {
+        border-radius: 100%;
+    }
+    .modal-confirm {
+        color: #636363;
+        width: 325px;
+        font-size: 14px;
+    }
+    .modal-confirm .modal-content {
+        padding: 20px;
+        border-radius: 5px;
+        border: none;
+    }
+    .modal-confirm .modal-header {
+        border-bottom: none;
+        position: relative;
+    }
+    .modal-confirm h4 {
+        text-align: center;
+        font-size: 26px;
+        margin: 30px 0 -15px;
+    }
+    .modal-confirm .form-control, .modal-confirm .btn {
+        min-height: 40px;
+        border-radius: 3px;
+    }
+    .modal-confirm .close {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+    }
+    .modal-confirm .modal-footer {
+        border: none;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 13px;
+    }
+    .modal-confirm .icon-box {
+        color: #fff;
+        position: absolute;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        top: -70px;
+        width: 95px;
+        height: 95px;
+        border-radius: 50%;
+        z-index: 9;
+        background: #82ce34;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    }
+    .modal-confirm .icon-box i {
+        font-size: 70px;
+        position: relative;
+        bottom: 17px;
+    }
+    .modal-confirm.modal-dialog {
+        margin-top: 80px;
+    }
+    .modal-confirm .btn {
+        color: #fff;
+        border-radius: 4px;
+        background: #82ce34;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        border: none;
+    }
+    .modal-confirm .btn:hover, .modal-confirm .btn:focus {
+        background: #6fb32b;
+        outline: none;
+    }
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
-                            $(document).ready(function () {
-                                //emptyCart();
-                                showCartTable();
-//                    alert(JSON.parse(sessionStorage.getItem('rent-cart')));
-                            });
-                            function addToCart(element) {
-                                var productParent = $(element).closest('div.toolscard');
-
-                                var size = $(productParent).find('.itemsize').text();
-                                var productName = $(productParent).find('.itemname').text();
-                                var itemStock = $(productParent).find('.itemstock').val();
-                                var itemID = $(productParent).find('.itemID').val();
-
-                                var cartItem = {
-                                    itemID: itemID,
-                                    productName: productName,
-                                    size: size,
-                                    stock: itemStock
-                                };
-                                var cartItemJSON = JSON.stringify(cartItem);
-
-                                var cartArray = new Array();
-                                // If javascript shopping cart session is not empty
-                                if (sessionStorage.getItem('rent-cart')) {
-                                    cartArray = JSON.parse(sessionStorage.getItem('rent-cart'));
+                                function showModal() {
+                                    $("#modal-notification").modal('show');
+                                    setTimeout(function () {
+                                        $("#modal-notification").modal('hide');
+                                    }, 1000);
                                 }
-                                cartArray.push(cartItemJSON);
-
-                                var cartJSON = JSON.stringify(cartArray);
-                                sessionStorage.setItem('rent-cart', cartJSON);
-                                showCartTable();
-                            }
-                            function showCartTable() {
-                                var cartRowHTML = "";
-                                var itemCount = 0;
-
-
-                                if (sessionStorage.getItem('rent-cart')) {
-                                    var shoppingCart = JSON.parse(sessionStorage.getItem('rent-cart'));
-                                    itemCount = shoppingCart.length;
-                                    var index = 0;
-                                    //Iterate javascript shopping cart array
-                                    shoppingCart.forEach(function (item) {
-
-                                        var cartItem = JSON.parse(item);
-
-                                        cartRowHTML += '<li class="dropdown-header">' +
-                                                "<h6>" + cartItem.productName + " <a href='javascript:void(0)' onclick='removeCartItem(" + index + ")'><i class='text-danger bi bi-trash'></i></a></h6>" +
-                                                "<span>" + cartItem.size + "</li>";
-                                        index++;
-
-                                    });
-                                }
-                                cartRowHTML += '<li><hr class="dropdown-divider"></li>';
-                                if (itemCount > 0) {
-                                    cartRowHTML += '<li><a class="dropdown-item d-flex align-items-center" ' +
-                                            'href="#" onclick="emptyCart()"><i class="bi bi-cart-x"></i><span>Clear Cart</span></a></li>' +
-                                            '<li><a class="dropdown-item d-flex align-items-center"href="#" onclick="confirmCart()"><i class="bi bi-cart-check-fill"></i><span>Confirm</span></a></li>';
-                                } else {
-                                    cartRowHTML += '<li><a class="dropdown-item d-flex align-items-center" ' +
-                                            'href="#"><i class="bi bi-cart2"></i><span>Cart Empty</span></a></li>';
-                                }
-                                $('#cartTableBody').html(cartRowHTML);
-                                $('#itemCount').text(itemCount);
-                            }
-                            function emptyCart() {
-                                if (sessionStorage.getItem('rent-cart')) {
-                                    // Clear JavaScript sessionStorage by index
-                                    sessionStorage.removeItem('rent-cart');
-                                    showCartTable();
-                                }
-                            }
-                            function removeCartItem(index) {
-                                if (sessionStorage.getItem('rent-cart')) {
-                                    var RentCart = JSON.parse(sessionStorage.getItem('rent-cart'));
-                                    delete RentCart[index];
-                                    var cartArray = new Array();
-                                    //sessionStorage.removeItem('rent-cart');
-                                    RentCart.forEach(function (item) {
-                                        cartArray.push(item);
-                                        var cartJSON = JSON.stringify(cartArray);
-                                        sessionStorage.setItem('rent-cart', cartJSON);
-                                    });
-                                    showCartTable();
-                                }
-                            }
-                            function confirmCart() {
-                                var url = '<?= site_url('home/detail/' . $userid) ?>';
-                                if (sessionStorage.getItem('rent-cart')) {
-                                    var rentItem = sessionStorage.getItem('rent-cart');
-                                    const form = document.createElement('form');
-                                    form.method = 'post';
-                                    form.action = url;
-                                    const hiddenField = document.createElement('input');
-                                    hiddenField.type = 'hidden';
-                                    hiddenField.name = 'data';
-                                    hiddenField.value = rentItem;
-                                    form.appendChild(hiddenField);
-
-                                    const hiddenField2 = document.createElement('input');
-                                    hiddenField2.type = 'hidden';
-                                    hiddenField2.name = 'confirm';
-                                    hiddenField2.value = 'confirm';
-                                    form.appendChild(hiddenField2);
-
-                                    document.body.appendChild(form);
-                                    emptyCart();
-                                    form.submit();
-
-                                }
-
-                            }
 </script>
-

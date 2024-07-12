@@ -107,7 +107,7 @@ class Item_model extends MY_Model {
             default :
                 $where = null;
         }
-        $result = $this->get_data('SUM(quantity) AS total_tools', $where, null, null, null, null, 'row');
+        $result = $this->get_data('count(id) AS total_tools', $where, null, null, null, null, 'row');
         return $result->total_tools;
     }
 
