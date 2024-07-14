@@ -224,6 +224,9 @@ class Rent extends MY_Controller {
         $this->data ['page'] = $this->load->view($this->get_page('report'), $this->data, true);
         $this->render();
     }
+    function print(){
+        $this->load->view('rent/print');
+    }
 
 }
 

@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/dmantis/application/views/rent/return.php</file>
-            <file>file:/C:/xampp/htdocs/dmantis/application/controllers/rent.php</file>
-            <file>file:/C:/xampp/htdocs/dmantis/application/controllers/home.php</file>
-            <file>file:/C:/xampp/htdocs/dmantis/application/views/home/detail.php</file>
+            <file>file:/C:/xampp/htdocs/kpp/application/config/config.php</file>
+            <file>file:/C:/xampp/htdocs/kpp/application/views/rent/request.php</file>
+            <file>file:/C:/xampp/htdocs/kpp/application/views/rent/report.php</file>
+            <file>file:/C:/xampp/htdocs/kpp/application/views/rent/print.php</file>
+            <file>file:/C:/xampp/htdocs/kpp/application/controllers/rent.php</file>
+            <file>file:/C:/xampp/htdocs/kpp/application/views/rent/index.php</file>
         </group>
     </open-files>
 </project-private>
