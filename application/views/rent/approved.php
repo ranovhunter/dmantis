@@ -37,7 +37,7 @@
                                 <td><?= $i; ?></td>
                                 <td><img style="width: 8rem;" src="<?= $image; ?>" class="img img-responsive"></td>
                                 <td><?= $row->item_name; ?><?= $row->item_size > 0 ? ' <br><p class="text-secondary">Size : ' . $row->item_size . '</p>' : ''; ?></td>
-                                <td><?= $row->icondition; ?><img src="<?= QR_UPLOADED . $row->qrcode; ?>.png"></td>
+                                <td><?= $row->icondition; ?></td>
                                 <td><?= $row->rent_date; ?></td>
                                 <td class="text-center">
                                     <a href="<?php echo site_url('rent/out/' . $user_id . '/' . $row->qrcode); ?>" type="submit" class="btn btn-primary"><i class="bi bi-arrow-bar-up me-1"></i>Manual Out</a>

@@ -34,7 +34,7 @@
                                 <td><?= $i; ?></td>
                                 <td><img style="width: 8rem;" src="<?= $image; ?>" class="img img-responsive"></td>
                                 <td><?= $row->item_name; ?><?= $row->item_size > 0 ? ' <br><p class="text-secondary">Size : ' . $row->item_size . '</p>' : ''; ?></td>
-                                <td><?= $row->icondition; ?><img src="<?= QR_UPLOADED . $row->qrcode; ?>.png"></td>
+                                <td><?= $row->icondition; ?></td>
                                 <td><?= $row->rent_date; ?></td>
                                 <td class="text-center">
                                     <a onclick="shmodal('<?= $row->qrcode; ?>')" class="btn btn-primary"><i class="bi bi-arrow-bar-down me-1"></i>Manual In</a>

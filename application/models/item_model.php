@@ -111,6 +111,12 @@ class Item_model extends MY_Model {
         return $result->total_tools;
     }
 
+    public function get_by_id($id) {
+        $sql = "Select * from item where id IN (" . $id . ")";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
 }
 
 /**

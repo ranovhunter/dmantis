@@ -6,6 +6,7 @@
         <?php $this->load->view('item/linktab'); ?>
         <div class="tab-content pt-2" id="myTabjustifiedContent">
             <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
+                <a class="btn btn-primary" href="<?= site_url('item/print'); ?>"><i class="bi bi-qr-code"></i>&nbsp;Print Item QR</a>
                 <?php
                 if (!empty($err_messages)) {
                     echo $err_messages;
