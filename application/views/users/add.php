@@ -28,6 +28,12 @@
                     <label for="floatingAssetNumber">Phone Number</label>
                 </div>
             </div>
+            <div class="col-md-8">
+                <div class="form-floating">
+                    <input type="text" name="txt_job" class="form-control" id="floatingJobPosition" placeholder="Job Position" value ="<?= set_value('txt_job') ?>" required>
+                    <label for="floatingDetails">Job Position</label>
+                </div>
+            </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary" name="submit" value="submit">Add User</button>
             </div>

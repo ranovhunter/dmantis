@@ -13,6 +13,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">User ID</th>
                         <th scope="col">Phone Number</th>
+                        <th scope="col">Job Position</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -33,6 +34,7 @@
                                 <td><?= ucfirst($row->name); ?></td>
                                 <td><?= $row->id; ?></td>
                                 <td><?= $row->phonenumber; ?></td>
+                                <td><?= $row->jobposition; ?></td>
                                 <td class="text-center">
                                     <a href="<?php echo site_url('users/edit/' . $row->id); ?>" type="button" class="btn btn-warning"><i class="bi bi-pencil-square me-1"></i> Edit User</a>
                                     <?php if ($row->roles == 'admin') { ?>
