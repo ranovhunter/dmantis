@@ -62,6 +62,7 @@ class Users extends MY_Controller {
         if ($this->input->post('submit')) {
             $this->form_validation->set_rules('txt_name', 'User Name', 'trim|xss_clean|required');
             $this->form_validation->set_rules('txt_phone', 'Phone Number', 'trim|xss_clean');
+            $this->form_validation->set_rules('txt_job', 'Job Position', 'trim|xss_clean|required');
             if ($this->data['userdata']['sess-role'] == 'admin') {
                 $this->form_validation->set_rules('txt_userid', 'User ID', 'trim|xss_clean|required');
             } else {
@@ -73,6 +74,7 @@ class Users extends MY_Controller {
                     'id' => $this->input->post('txt_userid'),
                     'name' => $this->input->post('txt_name'),
                     'phonenumber' => $this->input->post('txt_phone'),
+                    'jobposition' => $this->input->post('txt_job'),
                     'insert_user' => $this->session->userdata('sess-id'),
                     'insert_date' => date("Y-m-d H:i:s")
                 );
@@ -105,10 +107,12 @@ class Users extends MY_Controller {
         if ($this->input->post('submit')) {
             $this->form_validation->set_rules('txt_name', 'User Name', 'trim|xss_clean|required');
             $this->form_validation->set_rules('txt_phone', 'Phone Number', 'trim|xss_clean');
+            $this->form_validation->set_rules('txt_job', 'Job Position', 'trim|xss_clean|required');
             if ($this->form_validation->run() == TRUE) {
                 $data = array(
                     'name' => $this->input->post('txt_name'),
                     'phonenumber' => $this->input->post('txt_phone'),
+                    'jobposition' => $this->input->post('txt_job'),
                     'update_user' => $this->session->userdata('sess-id'),
                     'update_date' => date("Y-m-d H:i:s")
                 );

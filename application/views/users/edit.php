@@ -18,8 +18,15 @@
             </div>
             <div class="col-md-4">
                 <div class="form-floating">
-                    <input type="number" name="txt_phone" class="form-control" id="floatingPhoneNumber" placeholder="Phone Number" value ="<?= set_value('txt_phone',$rec_user->phonenumber); ?>">
+                    <input type="number" name="txt_phone" class="form-control" id="floatingPhoneNumber" placeholder="Phone Number" value ="<?= set_value('txt_phone', $rec_user->phonenumber); ?>">
                     <label for="floatingAssetNumber">Phone Number</label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <input type="text" name="txt_job" class="form-control" id="floatingJobPosition" placeholder="Job Position" value ="<?= set_value('txt_job', $rec_user->jobposition) ?>" required>
+                    <label for="floatingDetails">Job Position</label>
+                    <div class="invalid-feedback">Please enter Job Position</div>
                 </div>
             </div>
             <div class="text-center">
