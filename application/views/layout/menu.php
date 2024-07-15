@@ -32,5 +32,11 @@
                 <span class="nav-link-text">Items</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link <?= $active_menu == 'report' ? '' : 'collapsed'; ?>" href="<?= site_url('report'); ?>">
+                <i class="bi bi-file-earmark-text text-primary"></i>
+                <span class="nav-link-text">Reports</span>
+            </a>
+        </li>
     </ul>
 </aside><!-- End Sidebar-->
