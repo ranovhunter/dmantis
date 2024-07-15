@@ -43,7 +43,9 @@ class MY_Controller extends CI_Controller {
         define('IMG_UPLOADED', ASSETS_PATH . 'uploads/images/');
         define('TIMEZONE', $this->get_config('app_default_timezone'));
         define('UPLOAD_PATH_ITEM', realpath(APPPATH . '../assets/upload/item'));
+        define('UPLOAD_PATH_REPORT', realpath(APPPATH . '../assets/upload/report'));
         define('ITEM_PATH', ASSETS_PATH . 'upload/item/');
+        define('REPORT_PATH', ASSETS_PATH . 'upload/report/');
         define('UPLOAD_PATH_LOCATION', realpath(APPPATH . '../assets/upload/location'));
         define('LOCATION_PATH', ASSETS_PATH . 'upload/location/');
         define('UPLOAD_PATH_DOC', realpath(APPPATH . '../assets/upload/bast'));

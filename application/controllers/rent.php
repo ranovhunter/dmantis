@@ -168,7 +168,7 @@ class Rent extends MY_Controller {
 
             echo '<div class = "text-center">';
             echo '<button type = "submit" class = "btn btn-primary" name = "submit" value = "submit">Confirm Received</button>';
-            echo '&nbsp;<a href="'.site_url('rent/report/'.$result->id).'" class = "btn btn-warning"><i class="bi bi-exclamation-circle me-1"></i>Report</a>';
+            echo '&nbsp;<a href="' . site_url('rent/report/' . $result->id) . '" class = "btn btn-warning"><i class="bi bi-exclamation-circle me-1"></i>Report</a>';
             echo '</div>';
             echo '</form>';
         } else {
@@ -224,8 +224,63 @@ class Rent extends MY_Controller {
         $this->data ['page'] = $this->load->view($this->get_page('report'), $this->data, true);
         $this->render();
     }
-    function print(){
-        $this->load->view('rent/print');
+
+    function print() {
+        $this->load->model('report_model', 'report');
+        $rent_id = $this->uri->segment(3);
+        $rent_detail = $this->rent->get_data(null, array('id' => $rent_id), null, null, null, null, 'row');
+        if ($this->input->post('submit') && $rent_detail != array()) {
+            $data['rec_data']['report_number'] = $this->report->get_total_report() + 1;
+            $data['rec_data']['date'] = extract_date(date("Y-m-d H:i:s"));
+            $data['rec_data']['name'] = $rent_detail->rent_user_name;
+            $data['rec_data']['userid'] = $rent_detail->rent_user;
+            $data['rec_data']['position'] = $rent_detail->jobposition;
+            $data['rec_data']['location'] = $this->input->post('txt_location');
+            $data['rec_data']['detail'] = $this->input->post('txt_detail');
+            $data['rec_data']['determined'] = $this->input->post('txt_determined');
+            $data['rec_data']['dposition'] = $this->input->post('txt_dposition');
+            $data['rec_data']['acknowledge'] = $this->input->post('txt_acknowledge');
+            $data['rec_data']['aposition'] = $this->input->post('txt_aposition');
+            $data['rec_data']['condition'] = $this->input->post('cmb_condition');
+            $data['rec_data']['charged'] = explode(";", $this->input->post('txt_charged'));
+            $config = array(
+                'upload_path' => UPLOAD_PATH_REPORT,
+                'allowed_types' => 'jpg|jpeg|png',
+                'overwrite' => true,
+                'remove_spaces' => true
+            );
+            $this->load->library('upload', $config);
+            if ($this->upload->do_upload('img')) {
+                $report_insert = array(
+                    'rent_id' => $rent_id,
+                    'location' => $data['rec_data']['location'],
+                    'detail' => $data['rec_data']['detail'],
+                    'charged' => $this->input->post('txt_charged'),
+                    'determined' => $data['rec_data']['determined'],
+                    'dposition' => $data['rec_data']['dposition'],
+                    'acknowledge' => $data['rec_data']['acknowledge'],
+                    'aposition' => $data['rec_data']['aposition'],
+                    'reason' => $data['rec_data']['condition'],
+                    'report_date' => date('Y-m-d H:i:s'),
+                    'report_user' => $this->session->userdata('sess-id')
+                );
+                $uploaddata = $this->upload->data();
+                $info = pathinfo($_FILES ['img'] ['name']);
+                $rawname = 'R_' . date('ymdHis');
+                $report_insert['filename'] = $rawname . '.' . $info ['extension'];
+                rename($uploaddata ['full_path'], $uploaddata ['file_path'] . $report_insert['filename']);
+                $data['rec_data']['filename'] = $report_insert['filename'];
+                $this->load->view('rent/print', $data);
+                $this->report->add_data($report_insert);
+                $this->item->edit_data(array('icondition' => $report_insert['reason']), array('id' => $rent_detail->item_id));
+                $this->rent->edit_data(array('rstatus' => 0), array('id' => $rent_id));
+                $this->session->set_flashdata('info_messages', ' Report Successfully Created..');
+            } else {
+                redirect(site_url('rent/report/' . $rent_id));
+            }
+        } else {
+            redirect(site_url('rent'));
+        }
     }
 
 }

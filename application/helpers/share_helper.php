@@ -91,7 +91,7 @@ if (!function_exists('parse_into_single_array')) {
             foreach ($array as $row) {
                 $counter = 1;
                 if (is_array($row)) {
-                    $counter ++;
+                    $counter++;
                     foreach ($row as $idx => $val) {
                         if ($counter === $level) {
                             if ($idx === $key) {
@@ -219,7 +219,7 @@ if (!function_exists('array_to_object')) {
 if (!function_exists('object_to_array')) {
 
     function object_to_array($data) {
-        if ((!is_array($data)) and ( !is_object($data)))
+        if ((!is_array($data)) and (!is_object($data)))
             return $data;
 
         $data = (array) $data;
@@ -512,40 +512,7 @@ if (!function_exists('resized_image')) {
     }
 
 }
-if (!function_exists('setup_seo')) {
 
-    /**
-     * is_exists
-     * this function in to Setup SEO
-     *
-     * @author hunter.nainggolan
-     *         @date 04/06/2014
-     * @param string $title        	
-     * @param string $desc        	
-     * @param string $image        	
-     * @return array
-     */
-    function setup_seo($title, $desc, $image, $url) {
-        $data [0] ['property'] = 'fb:app_id';
-        $data [0] ['content'] = '2824483027562674';
-        $data [1] ['property'] = 'og:title';
-        $data [1] ['content'] = str_replace(array(' ', '/', '?', '(', ')'), ' ', $title);
-        $data [2] ['property'] = 'og:description';
-        $data [2] ['content'] = $desc;
-        $data [3] ['property'] = 'og:image';
-        $data [3] ['content'] = $image;
-        $data [4] ['property'] = 'og:url';
-        $data [4] ['content'] = $url;
-        $data [5] ['property'] = 'og:site_name';
-        $data [5] ['content'] = 'Whats on In';
-        $data [6] ['property'] = 'og:type';
-        $data [6] ['content'] = 'article';
-        $data [7] ['property'] = 'og:locale';
-        $data [7] ['content'] = 'en_US';
-        return $data;
-    }
-
-}
 if (!function_exists('is_exists')) {
 
     /**
@@ -567,50 +534,6 @@ if (!function_exists('is_exists')) {
 
 }
 
-if (!function_exists('folder_user')) {
-
-    /**
-     * function folder_user
-     * check is folder upload path user id exist.
-     * if not, create folder user and subfolder main and thumbs
-     *
-     * @author hunter.nainggolan
-     *         @date February 12th, 2013
-     *        
-     * @param string $uid
-     *        	userid uploader
-     * @return void
-     */
-    function folder_user($uid) {
-        $filename = realpath(APPPATH . '../assets/uploads/' . $uid);
-        $user = 'assets/uploads/' . $uid;
-        $image = 'assets/uploads/' . $uid . '/images';
-        $main = 'assets/uploads/' . $uid . '/images/main';
-        $thumb = 'assets/uploads/' . $uid . '/images/thumbs';
-        $audio = 'assets/uploads/' . $uid . '/audios';
-        $video = 'assets/uploads/' . $uid . '/videos';
-        $video_main = 'assets/uploads/' . $uid . '/videos/main';
-        $video_thumb = 'assets/uploads/' . $uid . '/videos/thumbs';
-        $document = 'assets/uploads/' . $uid . '/documents';
-        $document_main = 'assets/uploads/' . $uid . '/documents/main';
-        $document_thumb = 'assets/uploads/' . $uid . '/documents/thumbs';
-
-        if (!is_dir($filename)) {
-            mkdir($user);
-            mkdir($image);
-            mkdir($main);
-            mkdir($thumb);
-            mkdir($audio);
-            mkdir($video);
-            mkdir($video_main);
-            mkdir($video_thumb);
-            mkdir($document);
-            mkdir($document_main);
-            mkdir($document_thumb);
-        }
-    }
-
-}
 
 if (!function_exists('extractString')) {
 
@@ -689,6 +612,7 @@ if (!function_exists('convertNumToMonth')) {
      * @return string $rupiah
      */
     function convertNumToMonth($value, $lang = 'id') {
+        $value = (int)$value;
         $result = '';
         $month_id = array(1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember');
         $month_en = array(1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December');
@@ -697,25 +621,6 @@ if (!function_exists('convertNumToMonth')) {
     }
 
 }
-if (!function_exists('fakturFormat')) {
-
-    /**
-     * fakturFormat
-     * convert to efaktur valid format
-     *
-     * @package share_helper 
-     * @author hunter.nainggolan <hunter.nainggolan@gmail.com>
-     * @copyright (c) October 2015, Hunter Nainggolan
-     * @param string $string        	
-     * @return string $rupiah
-     */
-    function fakturFormat($fjenis, $fstatus, $fnumber) {
-        $word = substr_replace($fnumber, '.', 5, 0);
-        return $fjenis . $fstatus . '.' . substr_replace($word, '-', 3, 0);
-    }
-
-}
-
 
 if (!function_exists('getTimeList')) {
 
@@ -939,6 +844,30 @@ if (!function_exists('display_image')) {
         } else {
             return '';
         }
+    }
+
+}
+if (!function_exists('extract_date')) {
+
+    /**
+     * extract_date
+     * extract date from String
+     *
+     * @package share_helper 
+     * @author hunter.nainggolan <hunter.nainggolan@gmail.com>
+     * @copyright (c) April 2021, Hunter Nainggolan
+     * @param string $string        	
+     * @return string $decoded_string
+     */
+    function extract_date($date) {
+        $result = array();
+        $datee = strtotime($date);
+        $result['year'] = date('Y', $datee);
+        $result['month'] = date('m', $datee);
+        $result['day'] = date('d', $datee);
+        $result['month_name'] = convertNumToMonth($result['month'], 'id');
+
+        return $result;
     }
 
 }
