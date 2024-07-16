@@ -137,9 +137,7 @@ class Users extends MY_Controller {
         $this->data ['page_title'] = 'Administration';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->load->model('rent_model', 'rent');
-        $this->data['rec_data'] = $this->user->get_data(null, array('id' => $this->session->userdata['sess-id']), null, null, null, null, 'row');
-        debug($this->data['rec_data']);
-        exit();
+        $this->data['rec_data'] = $this->rent->get_data(null, array('rent_user' => $id));
         $this->data ['page'] = $this->load->view($this->get_page('rent'), $this->data, true);
         $this->render();
     }
