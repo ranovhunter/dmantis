@@ -230,7 +230,7 @@ class Rent extends MY_Controller {
         $rent_id = $this->uri->segment(3);
         $rent_detail = $this->rent->get_data(null, array('id' => $rent_id), null, null, null, null, 'row');
         if ($this->input->post('submit') && $rent_detail != array()) {
-            $data['rec_data']['report_number'] = $this->report->get_total_report() + 1;
+            $data['rec_data']['report_number'] = str_pad($this->report->get_total_report() + 1, 3, '0', STR_PAD_LEFT);;
             $data['rec_data']['date'] = extract_date(date("Y-m-d H:i:s"));
             $data['rec_data']['name'] = $rent_detail->rent_user_name;
             $data['rec_data']['userid'] = $rent_detail->rent_user;
