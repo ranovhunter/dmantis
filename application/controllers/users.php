@@ -132,12 +132,16 @@ class Users extends MY_Controller {
     }
 
     function rent() {
-        $id = $this->uri->segment(3);
-        $this->data ['page_icon'] = 'icomoon-icon-list';
-        $this->data ['page_title'] = 'Administration';
-        $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->data['max_rows'] =9;
         $this->load->model('rent_model', 'rent');
-        $this->data['rec_data'] = $this->rent->get_data(null, array('rent_user' => $id));
+        $this->data['userid'] = $this->uri->segment(3);
+        $this->data['active_menu'] = 'history';
+        $this->data ['html_title'] = 'History';
+        $page = $this->uri->segment(4);
+        $this->data['offset'] = get_offset($page, $this->data['max_rows']);
+        $this->data['rec_user'] = $this->muser->get_data(null, array('id' => $this->data['userid'], 'roles' => 'user'), null, null, null, null, 'row');
+        $this->data ['list_data'] = $this->rent->get_data(null, array('rent_user' => $this->data['userid']), $this->data['max_rows'], $this->data['offset'],'rstatus DESC');
+        $this->data['pagination'] = $this->build_pagination(base_url() . 'users/rent/' . $this->data['userid'] . '/', 4, $this->rent->total_rows, $this->data['max_rows'], $this->data['numlinks']);
         $this->data ['page'] = $this->load->view($this->get_page('rent'), $this->data, true);
         $this->render();
     }

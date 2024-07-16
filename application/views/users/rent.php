@@ -1,49 +1,72 @@
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Rent History </h5>
-        <?php
-        if (!empty($error_messages)) {
-            echo $error_messages;
-        }
-        ?>
-        <?= $form_validation_errors; ?>
+        <h5 class="card-title"><?= $rec_user->name; ?> - Rent History</h5>
         <div class="table-responsive">
-            <table class="table table-hover">
-                <thead class="thead-light">
+            <!-- Table with hoverable rows -->
+            <table class="table table-hover table-bordered">
+                <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Item Description</th>
-                        <th scope="col">Condition</th>
+                        <th scope="col">Picture</th>
+                        <th scope="col" class="sort">Item Description</th>
                         <th scope="col">Request Date</th>
                         <th scope="col">Return Date</th>
-                        <th scope="col">Area Name</th>
-                        <th scope="col"></th>
+                        <th scope="col">Report Date</th>
+                        <th scope="col">Status</th>
                     </tr>
                 </thead>
-                <tbody class="list">
-                    <?php
-                    if (!empty($rec_data)) {
-                        $i = 1;
+                <tbody>
+                    <?php if (empty($list_data)) { ?>
+                        <tr class="text-center">
+                            <td colspan="3"><i>No History Record..</i></td>
+                        </tr>
+                        <?php
+                    } else {
                         ?>
-                        <?php foreach ($rec_data as $row) { ?>
-                            <tr>
-                                <td><?= $i; ?></td>
+                        <?php foreach ($list_data as $row) { ?>
+                            <?php $image = $row->filename != '' ? ITEM_PATH . $row->filename : IMG_PATH . 'default-tools.png'; ?>
+                            <tr class="text-center">
+                                <td><img style="width: 8rem;" class="img img-responsive" src="<?= $image; ?>"/></td>
                                 <td>
-                                    <?= $row->item_name; ?><br/>
-                                    <?= $row->item_size > 0 ? 'Size : ' . $row->item_size : ''; ?>
+                                    <?= $row->item_name; ?>
+                                    <?= $row->item_size > 0 ? '<br/> Size : ' . $row->item_size : ''; ?>
                                 </td>
-                                <td><?= $row->icondition; ?></td>
                                 <td><?= $row->request_date; ?></td>
                                 <td><?= $row->return_date; ?></td>
-                                <td><?= $row->area_name; ?></td>
+                                <td><?= $row->report_date; ?></td>
+                                <td class="text-center">
+                                    <?php
+                                    $class = "";
+                                    $text = "";
+                                    switch ($row->rstatus) {
+                                        case 3:
+                                            $class = 'warning';
+                                            $text = 'Requested';
+                                            break;
+                                        case 2:
+                                            $class = 'success';
+                                            $text = 'Ready';
+                                            break;
+                                        case 1:
+                                            $class = 'primary';
+                                            $text = 'Active';
+                                            break;
+                                        default :
+                                            $class = 'secondary';
+                                            $text = 'Returned';
+                                            break;
+                                    }
+                                    ?>
+                                    <a type="button" class="btn btn-<?= $class; ?>"><?= $text; ?></a>
+                                </td>
                             </tr>
                             <?php
-                            $i++;
                         }
                     }
                     ?>
                 </tbody>
             </table>
+            <?= $pagination; ?>
         </div>
+        <!-- End Table with hoverable rows -->
     </div>
 </div>
