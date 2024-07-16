@@ -68,6 +68,7 @@ class Item extends MY_Controller {
                     'qrcode' => 'ITM' . date('ymdHis'),
                     'size' => $this->input->post('txt_size'),
                     'icondition' => $this->input->post('cmb_condition'),
+                    'istatus' => 1,
                     'area_id' => $this->input->post('cmb_area'),
                     'insert_user' => $this->session->userdata('sess-id'),
                     'insert_date' => date("Y-m-d H:i:s")

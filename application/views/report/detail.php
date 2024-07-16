@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <img src="<?= REPORT_PATH . $report_data->filename; ?>" class="img img-responsive" />
+                <img src="<?= REPORT_PATH . $report_data->filename; ?>" class="img img-responsive" style="max-height: 400px" />
             </div>
 
         </form><!-- End floating Labels Form -->

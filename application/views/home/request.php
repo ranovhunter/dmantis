@@ -58,7 +58,7 @@ if (!empty($error_messages)) {
                 <h4 class="modal-title w-100">Success</h4>	
             </div>
             <div class="modal-body">
-                <p class="text-center">Item Successfully add to Cart</p>
+                <p class="text-center">Cart successfully updated</p>
             </div>
         </div>
     </div>

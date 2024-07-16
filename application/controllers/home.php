@@ -103,7 +103,7 @@ class Home extends MY_Controller {
         $scart = $this->session->userdata('cart');
         unset($scart[$item_id]);
         $this->session->set_userdata(array('cart' => $scart));
-        $this->session->set_flashdata('info_messages', 'Cart Empty Successfully');
+        $this->session->set_flashdata('info_messages', 'Item remove Successfully');
         redirect(site_url('home/cart/' . $userid));
     }
 

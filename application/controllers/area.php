@@ -16,7 +16,7 @@ class Area extends MY_Controller {
         $this->layout_dir = 'layout/';
         $this->page_dir = 'area/';
         $this->load->model('area_model', 'area');
-        $this->data['active_menu'] = 'dashboard';
+        $this->data['active_menu'] = 'area';
     }
 
     function index() {
