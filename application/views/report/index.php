@@ -11,6 +11,7 @@
                 <thead>
                     <tr class="text-center">
                         <th scope="col" class="text-center">#</th>
+                        <th scope="col">Item Description</th>
                         <th scope="col">Condition</th>
                         <th scope="col">Location</th>
                         <th scope="col">Report Date</th>
@@ -26,15 +27,17 @@
                     } else {
                         ?>
                         <?php
+                        $i = 1;
                         foreach ($report_data as $row) {
                             ?>
                             <tr>
-                                <td class="text-center"><?= $row->id; ?></td>
+                                <td class="text-center"><?= $i++; ?></td>
+                                <td><?= $row->item_name; ?><?= $row->item_size > 0 ? '</br><i>Size : ' . $row->item_size . '</i>' : ''; ?></td>
                                 <td><?= $row->reason; ?></td>
                                 <td><?= $row->location; ?></td>
                                 <td><?= $row->report_date; ?></td>
                                 <td class="text-center">
-                                    <a href="<?php echo site_url('report/detail/' . $row->rent_id); ?>" type="button" class="btn btn-primary"><i class="bi bi-card-list me-1"></i> View Detail</a>
+                                    <a href="<?php echo site_url('report/detail/' . $row->id); ?>" type="button" class="btn btn-primary"><i class="bi bi-card-list me-1"></i> View Detail</a>
                                 </td>
                             </tr>
                             <?php

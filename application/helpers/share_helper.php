@@ -612,7 +612,7 @@ if (!function_exists('convertNumToMonth')) {
      * @return string $rupiah
      */
     function convertNumToMonth($value, $lang = 'id') {
-        $value = (int)$value;
+        $value = (int) $value;
         $result = '';
         $month_id = array(1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember');
         $month_en = array(1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December');
@@ -871,7 +871,54 @@ if (!function_exists('extract_date')) {
     }
 
 }
+if (!function_exists('convertToRoman')) {
 
+    /**
+     * convertToRoman
+     * convert integer to Roman Format
+     *
+     * @package share_helper 
+     * @author hunter.nainggolan <hunter.nainggolan@gmail.com>
+     * @copyright (c) July 2024, Hunter Nainggolan
+     * @param string $integer        	
+     * @return string $RomanNumber
+     */
+    function convertToRoman($integer) {
+        // Convert the integer into an integer (just to make sure)
+        $integer = intval($integer);
+        $result = '';
+
+        // Create a lookup array that contains all of the Roman numerals.
+        $lookup = array('M' => 1000,
+            'CM' => 900,
+            'D' => 500,
+            'CD' => 400,
+            'C' => 100,
+            'XC' => 90,
+            'L' => 50,
+            'XL' => 40,
+            'X' => 10,
+            'IX' => 9,
+            'V' => 5,
+            'IV' => 4,
+            'I' => 1);
+
+        foreach ($lookup as $roman => $value) {
+            // Determine the number of matches
+            $matches = intval($integer / $value);
+
+            // Add the same number of characters to the string
+            $result .= str_repeat($roman, $matches);
+
+            // Set the integer to be the remainder of the integer and the value
+            $integer = $integer % $value;
+        }
+
+        // The Roman numeral should be built, return it
+        return $result;
+    }
+
+}
 
 
 

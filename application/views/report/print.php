@@ -38,9 +38,10 @@
                     <p style='font-style: italic'>Contractor&amp; Mining Developer</p>
                 </div>
             </div>
+
             <div>
                 <p style='text-align:center;font-weight: bold;font-size: 18pt;'>BERITA ACARA <?= $rec_data['condition'] == 'broken' ? 'KERUSAKAN' : 'KEHILANGAN'; ?></p>
-                <p style='font-weight: bold; text-align:center;'>No. <?= $rec_data['report_number']; ?>-BA-BDMA/<?= convertToRoman($rec_data['date']['month']); ?>-<?= $rec_data['date']['year']; ?></p>
+                <p style='font-weight: bold; text-align:center;'>No. <?= str_pad($rec_data['report_number'], 3, '0', STR_PAD_LEFT); ?>-BA-BDMA/<?= convertToRoman($rec_data['date']['month']); ?>-<?= $rec_data['date']['year']; ?></p>
                 <br/>
                 <br/>
                 <table border=0 cellspacing=0 cellpadding=0 style='border:none'>
@@ -197,7 +198,7 @@
 
     }
     window.onafterprint = function () {
-        window.location.href = "<?= site_url('rent/return/' . $rec_data['userid']); ?>";
+        window.location.href = "<?= site_url('report/detail/' . $rec_data['report_id']); ?>";
     }
 
 </script>
