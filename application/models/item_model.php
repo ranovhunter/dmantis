@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Class Item_model
  * created by : Hunter Nainggolan <hunter.nainggolan@gmail.com>
- * date : Dec 18th, 2019
+ * date : Dec 18th, 2023
  */
 class Item_model extends MY_Model {
 
@@ -19,7 +19,7 @@ class Item_model extends MY_Model {
      * function add_data
      * to add data to site table
      * @author hunter.nainggolan
-     * @date April 4, 2015
+     * @date April 4, 2023
      * @access public
      * 
      * @param array $data  
@@ -42,7 +42,7 @@ class Item_model extends MY_Model {
      * edit_data
      * to change data in site table
      * @author hunter.nainggolan
-     * @date April 4, 2015
+     * @date April 4, 2023
      * @access public
      * 
      * @param array $data
@@ -65,7 +65,7 @@ class Item_model extends MY_Model {
      * delete_data
      * to delete data from site table
      * @author hunter.nainggolan
-     * @date April 4, 2015
+     * @date April 4, 2023
      * @access public
      * 
      * @param array $where
@@ -83,12 +83,32 @@ class Item_model extends MY_Model {
         }
     }
 
+    /**
+     * get_search
+     * to search data from site table
+     * @author hunter.nainggolan
+     * @date April 4, 2023
+     * @access public
+     * 
+     * @param array $keyword, $limit, $offset
+     * @return result_array
+     */
     public function get_search($keyword, $limit, $offset) {
         $sql = "Select * from v_item where id like '%" . $keyword . "%' or name like '%" . $keyword . "%' or asset_number like '%" . $keyword . "%' or serial_number like '%" . $keyword . "%' LIMIT $limit OFFSET $offset";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
 
+    /**
+     * get_tools_by_condition
+     * to retrieve tools by condition from site table
+     * @author hunter.nainggolan
+     * @date April 4, 2023
+     * @access public
+     * 
+     * @param array $condition
+     * @return total_tools
+     */
     public function get_tools_by_condition($condition = 'all') {
         $where = null;
         switch ($condition) {
@@ -111,6 +131,16 @@ class Item_model extends MY_Model {
         return $result->total_tools;
     }
 
+    /**
+     * get_by_id
+     * to retrieve tools by id from site table
+     * @author hunter.nainggolan
+     * @date April 4, 2023
+     * @access public
+     * 
+     * @param array $id
+     * @return result_array
+     */
     public function get_by_id($id) {
         $sql = "Select * from item where id IN (" . $id . ")";
         $query = $this->db->query($sql);
@@ -120,6 +150,6 @@ class Item_model extends MY_Model {
 }
 
 /**
- * End of file purchaseorder_model.php
- * Location: ./application/models/purchaseorder_model.php
+ * End of file item_model.php
+ * Location: ./application/models/item_model.php
  */

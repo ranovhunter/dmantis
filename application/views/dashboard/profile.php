@@ -1,10 +1,8 @@
 <section class="section profile">
     <div class="row">
         <div class="col-xl-4">
-
             <div class="card">
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
                     <img src="<?= IMG_PATH; ?>user.png" alt="Profile" class="rounded-circle">
                     <h2><?= $userdata['sess-name']; ?></h2>
                     <h3><?= $userdata['sess-role']; ?></h3>
@@ -75,14 +73,10 @@
                                     <button type="submit" class="btn btn-primary" name="submit" value="submit">Change Password</button>
                                 </div>
                             </form><!-- End Change Password Form -->
-
                         </div>
-
                     </div><!-- End Bordered Tabs -->
-
                 </div>
             </div>
-
         </div>
     </div>
 </section>

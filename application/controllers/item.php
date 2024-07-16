@@ -3,10 +3,10 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- *  Purchasing
+ *  Item
  *
  *  @author Hunter Ninggolan
- *  @date March 16th, 2015
+ *  @date March 16th, 2023
  */
 class Item extends MY_Controller {
 
@@ -194,7 +194,7 @@ class Item extends MY_Controller {
 }
 
 /**
-     * End of file purchaseorder.php
-     * Location : ./application/controllers/purchaseorder.php
+     * End of file item.php
+     * Location : ./application/controllers/item.php
      */
     

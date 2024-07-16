@@ -3,10 +3,10 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- *  Category
+ *  Report
  *
  *  @author Hunter Ninggolan
- *  @date March 16th, 2015
+ *  @date July 15, 2024
  */
 class Report extends MY_Controller {
 
@@ -62,6 +62,6 @@ class Report extends MY_Controller {
 }
 
 /**
- * End of file modules.php
- * Location : ./application/controllers/modules.php
+ * End of file report.php
+ * Location : ./application/controllers/report.php
  */

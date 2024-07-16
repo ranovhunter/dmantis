@@ -3,10 +3,10 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- *  Dashboar
+ *  Dashboard
  *
- *  @author Hunter Ninggolan
- *  @date June 10th, 2019
+ *  @author Hunter Nainggolan
+ *  @date June 10th, 2023
  */
 class Dashboard extends MY_Controller {
 
@@ -36,14 +36,11 @@ class Dashboard extends MY_Controller {
         $this->data['all_tools'] = $this->item->get_tools_by_condition();
         $this->data['rec_req_rent'] = $this->rent->get_req_user_rent();
         $this->data['count_req'] = $this->rent->total_rows;
-//        $this->load->model('user_item_model', 'user_item');
-//        $this->data['list_item'] = $this->user_item->get_data(null, array('user_id' => $this->session->userdata('sess-id')));
         $this->data ['page'] = $this->load->view($this->get_page(), $this->data, true);
         $this->render();
     }
 
     function profile() {
-        //debug($_POST);exit();
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'MY Profile';
         $this->load->model('user_model', 'user');
@@ -82,6 +79,6 @@ class Dashboard extends MY_Controller {
 }
 
 /**
- * End of file home.php
- * Location : ./application/controllers/home.php
+ * End of file dashboard.php
+ * Location : ./application/controllers/dashboard.php
  */

@@ -3,9 +3,9 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * Class Info_model
+ * Class Rent_model
  * created by : Hunter Nainggolan <hunter.nainggolan@gmail.com>
- * date : April 04th, 2019
+ * date : April 04th, 2023
  */
 class Rent_model extends MY_Model {
 
@@ -17,9 +17,9 @@ class Rent_model extends MY_Model {
 
     /**
      * function add_data
-     * to add data to company table
+     * to add data to rent table
      * @author hunter.nainggolan
-     * @date April 4, 2019
+     * @date April 4, 2023
      * @access public
      * 
      * @param array $data  
@@ -40,9 +40,9 @@ class Rent_model extends MY_Model {
 
     /**
      * edit_data
-     * to change data in company table
+     * to change data in rent table
      * @author hunter.nainggolan
-     * @date April 4, 2015
+     * @date April 4, 2023
      * @access public
      * 
      * @param array $data
@@ -63,9 +63,9 @@ class Rent_model extends MY_Model {
 
     /**
      * delete_data
-     * to delete data from company table
+     * to delete data from rent table
      * @author hunter.nainggolan
-     * @date April 4, 2015
+     * @date April 4, 2023
      * @access public
      * 
      * @param array $where
@@ -83,29 +83,64 @@ class Rent_model extends MY_Model {
         }
     }
 
+    /**
+     * get_req_user_rent
+     * to retrieve user data from rent table
+     * @author hunter.nainggolan
+     * @date July 10, 2024
+     * @access public
+     * 
+     * @return array
+     */
     public function get_req_user_rent() {
         $query = $this->db->query('call get_request_rent');
         $this->total_rows = $query->num_rows();
         return $query->result_array();
     }
 
+    /**
+     * get_appr_user_rent
+     * to retrieve user data from rent table
+     * @author hunter.nainggolan
+     * @date July 10, 2024
+     * @access public
+     * 
+     * @return array
+     */
     public function get_appr_user_rent() {
         $query = $this->db->query('call get_approved_rent');
         $this->total_rows = $query->num_rows();
         return $query->result_array();
     }
 
+    /**
+     * get_active_user_rent
+     * to retrieve user data from rent table
+     * @author hunter.nainggolan
+     * @date July 10, 2024
+     * @access public
+     * 
+     * @return array
+     */
     public function get_active_user_rent() {
         $query = $this->db->query('call get_active_rent');
         $this->total_rows = $query->num_rows();
         return $query->result_array();
     }
 
+    /**
+     * get_rent_by_qr
+     * to retrieve user data from rent table
+     * @author hunter.nainggolan
+     * @date July 10, 2024
+     * @access public
+     * 
+     * @return array
+     */
     public function get_rent_by_qr($userid, $qrcode) {
         $query = $this->db->query("select * from view_rent where qrcode = '" . $qrcode . "' and rstatus=1 and rent_user='" . $userid . "' limit 0,1");
         return $query->result() == array() ? array() : $query->result()[0];
     }
-
 }
 
 /**

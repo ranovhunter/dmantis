@@ -18,7 +18,6 @@
         <?php $this->load->view('layout/header'); ?>
         <?php $this->load->view('layout/menu'); ?>
         <main id="main" class="main">
-            <?php $this->load->view('layout/subheader'); ?>
             <?php $this->load->view('layout/content'); ?>
         </main>
         <?php $this->load->view('layout/footer'); ?>  

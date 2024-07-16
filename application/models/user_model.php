@@ -3,9 +3,9 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * Class Info_model
+ * Class User_model
  * created by : Hunter Nainggolan <hunter.nainggolan@gmail.com>
- * date : April 04th, 2015
+ * date : April 04th, 2023
  */
 class User_model extends MY_Model {
 

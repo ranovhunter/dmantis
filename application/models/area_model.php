@@ -3,9 +3,9 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * Class Item_model
+ * Class Area_model
  * created by : Hunter Nainggolan <hunter.nainggolan@gmail.com>
- * date : Dec 5th, 2019
+ * date : Dec 5th, 2023
  */
 class Area_model extends MY_Model {
 
@@ -18,7 +18,7 @@ class Area_model extends MY_Model {
      * function add_data
      * to add data to site table
      * @author hunter.nainggolan
-     * @date April 4, 2015
+     * @date April 4, 2023
      * @access public
      * 
      * @param array $data  
@@ -41,7 +41,7 @@ class Area_model extends MY_Model {
      * edit_data
      * to change data in site table
      * @author hunter.nainggolan
-     * @date April 4, 2015
+     * @date April 4, 2023
      * @access public
      * 
      * @param array $data
@@ -64,7 +64,7 @@ class Area_model extends MY_Model {
      * delete_data
      * to delete data from site table
      * @author hunter.nainggolan
-     * @date April 4, 2015
+     * @date April 4, 2023
      * @access public
      * 
      * @param array $where
@@ -82,21 +82,29 @@ class Area_model extends MY_Model {
         }
     }
 
-    function get_all_cat(){
-        $parent_category = $this->get_data(null,array('parent_id'=>0));
+    /**
+     * get_all_cat
+     * to get all area data from area table
+     * @author hunter.nainggolan
+     * @date July 10, 2024
+     * @access public
+     * 
+     * @return $list_category
+     */
+    function get_all_cat() {
+        $parent_category = $this->get_data(null, array('parent_id' => 0));
         $list_category = array();
-        foreach($parent_category as $row){
+        foreach ($parent_category as $row) {
             $list_category[$row->id]['id'] = $row->id;
             $list_category[$row->id]['name'] = $row->name;
             $list_category[$row->id]['detail'] = $row->detail;
-            $list_category[$row->id]['child'] = $this->get_data(null,array('parent_id'=>$row->id));
+            $list_category[$row->id]['child'] = $this->get_data(null, array('parent_id' => $row->id));
         }
         return $list_category;
     }
-
 }
 
 /**
- * End of file item_model.php
- * Location: ./application/models/item_model.php
+ * End of file area_model.php
+ * Location: ./application/models/area_model.php
  */

@@ -31,7 +31,6 @@
                     </div>
                 </div>
                 <input type="submit" name="submit" value="Reset Password" class="btn btn-primary pull-right" />
-
             </form>
         </div>
     </div>

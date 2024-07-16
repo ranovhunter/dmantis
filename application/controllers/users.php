@@ -3,9 +3,9 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- *  Dashboar
+ *  Users
  *
- *  @author Hunter Ninggolan
+ *  @author Hunter Nainggolan
  *  @date June 10th, 2019
  */
 class Users extends MY_Controller {
@@ -148,6 +148,6 @@ class Users extends MY_Controller {
 }
 
 /**
- * End of file home.php
- * Location : ./application/controllers/home.php
+ * End of file users.php
+ * Location : ./application/controllers/users.php
  */

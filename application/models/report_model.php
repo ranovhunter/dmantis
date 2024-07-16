@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Class Report_model
  * created by : Hunter Nainggolan <hunter.nainggolan@gmail.com>
- * date : Dec 5th, 2019
+ * date : Dec 5th, 2023
  */
 class Report_model extends MY_Model {
 
@@ -83,6 +83,15 @@ class Report_model extends MY_Model {
         }
     }
 
+    /**
+     * get_total_report
+     * to retrieve user data from report table
+     * @author hunter.nainggolan
+     * @date July 10, 2024
+     * @access public
+     * 
+     * @return array
+     */
     public function get_total_report() {
         $result = $this->get_data('count(id) AS total_report', null, null, null, null, null, 'row');
         return $result->total_report;

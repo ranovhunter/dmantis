@@ -10,10 +10,6 @@
             echo $info_messages;
         }
         ?>
-        <!--        <form action="" method="post" class="form-control">
-                    <input type="text" class="form-control" name="item_qr" placeholder="Scan Barcode here" autofocus />
-                    <input type="hidden" name="submit" value="submit"/>
-                </form>-->
         <div class="table-responsive">
             <form action="<?= site_url('rent/request/' . $user_id); ?>" method="post" class="form-control">
                 <table class="table table-hover">

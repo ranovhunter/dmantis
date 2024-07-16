@@ -3,10 +3,10 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- *  Category
+ *  Area
  *
- *  @author Hunter Ninggolan
- *  @date March 16th, 2015
+ *  @author Hunter Nainggolan
+ *  @date March 16th, 2023
  */
 class Area extends MY_Controller {
 
@@ -109,6 +109,6 @@ class Area extends MY_Controller {
 }
 
 /**
- * End of file modules.php
- * Location : ./application/controllers/modules.php
+ * End of file area.php
+ * Location : ./application/controllers/area.php
  */

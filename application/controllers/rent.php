@@ -3,10 +3,10 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- *  Purchasing
+ *  Rent
  *
- *  @author Hunter Ninggolan
- *  @date March 16th, 2015
+ *  @author Hunter Nainggolan
+ *  @date March 16th, 2023
  */
 class Rent extends MY_Controller {
 

@@ -2,6 +2,12 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ *  Login
+ *
+ *  @author Hunter Nainggolan
+ *  @date June 10th, 2023
+ */
 class Login extends MY_Controller {
 
     function __construct() {
@@ -23,8 +29,6 @@ class Login extends MY_Controller {
                 $rec_user = $this->muser->get_data(null, array('id' => $this->input->post('txt_userid')), null, null, null, null, 'row');
                 if ($this->muser->total_rows == 1) {
                     if (sha1($_POST ['password']) == $rec_user->password) {
-                      
-                            //debug($rec_user);exit();
                             $this->session->set_userdata(array(
                                 'sess-id' => $rec_user->id,
                                 'sess-name' => $rec_user->name,
@@ -36,7 +40,6 @@ class Login extends MY_Controller {
                             redirect(site_url('dashboard'));
                         
                     } else {
-                        //$kkk = md5($_POST ['password']);
                         $this->data ['form_validation_errors'] = wrap_text('Your password doesn\'t match');
                     }
                 } else {

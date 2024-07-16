@@ -2,6 +2,12 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ *  Home
+ *
+ *  @author Hunter Nainggolan
+ *  @date July 11, 2024
+ */
 class Home extends MY_Controller {
 
     function __construct() {
@@ -106,10 +112,9 @@ class Home extends MY_Controller {
         $insertdata = $this->session->userdata('cart');
         if ($insertdata) {
             $this->load->model('rent_model', 'rent');
-            //Insert into database
             foreach ($insertdata as $row) {
                 $arr_data = array(
-                    'item_id' => $row, //Belum di kirim
+                    'item_id' => $row,
                     'request_date' => date('Y-m-d H:i:s'),
                     'rstatus' => 3,
                     'icondition' => 'good',
