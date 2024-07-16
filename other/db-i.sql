@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.4.22-MariaDB : Database - dmantis
+SQLyog Professional v12.5.1 (64 bit)
+MySQL - 10.4.32-MariaDB : Database - dmantis
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.22-MariaDB : Database - dmantis
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`dmantis` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`dmantis` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `dmantis`;
 
@@ -29,7 +29,7 @@ CREATE TABLE `areas` (
   `update_date` datetime DEFAULT NULL,
   `update_user` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `areas` */
 
@@ -58,12 +58,12 @@ CREATE TABLE `ci_sessions` (
   `user_data` text NOT NULL,
   PRIMARY KEY (`session_id`),
   KEY `last_activity_idx` (`last_activity`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `ci_sessions` */
 
 insert  into `ci_sessions`(`session_id`,`ip_address`,`user_agent`,`last_activity`,`user_data`) values 
-('eac038f7689c3ca1ccba4cb29b99d322','::1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',1721031092,'a:7:{s:9:\"user_data\";s:0:\"\";s:7:\"sess-id\";s:5:\"admin\";s:9:\"sess-name\";s:5:\"Admin\";s:9:\"sess-role\";s:5:\"admin\";s:15:\"sess-personalid\";N;s:13:\"sess-loggedin\";b:1;s:14:\"sess-starttime\";s:19:\"2024-07-15 08:30:59\";}');
+('7effb56d880d456ed564b5f5caf2c98d','::1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',1721051779,'a:7:{s:9:\"user_data\";s:0:\"\";s:7:\"sess-id\";s:5:\"admin\";s:9:\"sess-name\";s:5:\"Admin\";s:9:\"sess-role\";s:5:\"admin\";s:15:\"sess-personalid\";N;s:13:\"sess-loggedin\";b:1;s:14:\"sess-starttime\";s:19:\"2024-07-15 20:51:04\";}');
 
 /*Table structure for table `configs` */
 
@@ -77,7 +77,7 @@ CREATE TABLE `configs` (
   `insert_date` datetime DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
   PRIMARY KEY (`config_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `configs` */
 
@@ -119,7 +119,7 @@ CREATE TABLE `item` (
   `update_date` datetime DEFAULT NULL,
   `update_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `item` */
 
@@ -184,7 +184,7 @@ CREATE TABLE `rent` (
   `reject_user` varchar(25) DEFAULT NULL,
   `reject_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `rent` */
 
@@ -213,7 +213,7 @@ CREATE TABLE `report` (
   `report_date` date DEFAULT NULL,
   `report_user` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `report` */
 
@@ -238,7 +238,7 @@ CREATE TABLE `users` (
   `update_date` datetime DEFAULT NULL,
   `update_user` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `users` */
 
@@ -267,7 +267,6 @@ BEGIN
 FROM
   view_rent where rstatus = 1
 GROUP BY rent_user;
-
 	END */$$
 DELIMITER ;
 
@@ -288,7 +287,6 @@ BEGIN
 FROM
   view_rent where rstatus = 2
 GROUP BY rent_user;
-
 	END */$$
 DELIMITER ;
 
@@ -309,7 +307,6 @@ BEGIN
 FROM
   view_rent where rstatus = 3
 GROUP BY rent_user;
-
 	END */$$
 DELIMITER ;
 
@@ -362,6 +359,26 @@ DROP TABLE IF EXISTS `view_rent`;
  `jobposition` varchar(52) 
 )*/;
 
+/*Table structure for table `view_report` */
+
+DROP TABLE IF EXISTS `view_report`;
+
+/*!50001 DROP VIEW IF EXISTS `view_report` */;
+/*!50001 DROP TABLE IF EXISTS `view_report` */;
+
+/*!50001 CREATE TABLE  `view_report`(
+ `id` int(11) ,
+ `rent_id` int(11) ,
+ `reason` enum('incomplete','broken','lost') ,
+ `filename` varchar(255) ,
+ `detail` text ,
+ `location` varchar(50) ,
+ `report_date` date ,
+ `report_user` varchar(255) ,
+ `request_date` datetime ,
+ `rent_user_name` varchar(255) 
+)*/;
+
 /*View structure for view view_item */
 
 /*!50001 DROP TABLE IF EXISTS `view_item` */;
@@ -375,6 +392,13 @@ DROP TABLE IF EXISTS `view_rent`;
 /*!50001 DROP VIEW IF EXISTS `view_rent` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_rent` AS (select `r`.`id` AS `id`,`r`.`item_id` AS `item_id`,`r`.`rstatus` AS `rstatus`,`r`.`icondition` AS `icondition`,`r`.`request_date` AS `request_date`,`r`.`rent_date` AS `rent_date`,`r`.`return_date` AS `return_date`,`r`.`rent_user` AS `rent_user`,`v`.`name` AS `item_name`,`v`.`size` AS `item_size`,`v`.`qrcode` AS `qrcode`,`v`.`filename` AS `filename`,`v`.`area_name` AS `area_name`,`u`.`name` AS `rent_user_name`,`u`.`phonenumber` AS `phonenumber`,`u`.`jobposition` AS `jobposition` from ((`rent` `r` left join `view_item` `v` on(`r`.`item_id` = `v`.`id`)) left join `users` `u` on(`r`.`rent_user` = `u`.`id`))) */;
+
+/*View structure for view view_report */
+
+/*!50001 DROP TABLE IF EXISTS `view_report` */;
+/*!50001 DROP VIEW IF EXISTS `view_report` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_report` AS (select `r`.`id` AS `id`,`r`.`rent_id` AS `rent_id`,`r`.`reason` AS `reason`,`r`.`filename` AS `filename`,`r`.`detail` AS `detail`,`r`.`location` AS `location`,`r`.`report_date` AS `report_date`,`r`.`report_user` AS `report_user`,`vr`.`request_date` AS `request_date`,`vr`.`rent_user_name` AS `rent_user_name` from (`report` `r` left join `view_rent` `vr` on(`r`.`rent_id` = `vr`.`id`))) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

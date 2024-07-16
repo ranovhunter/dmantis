@@ -101,6 +101,7 @@ class User_model extends MY_Model {
         }
         return $this->num_rows;
     }
+    
 
 }
 
