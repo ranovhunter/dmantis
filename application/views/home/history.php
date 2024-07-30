@@ -17,8 +17,8 @@
                 </thead>
                 <tbody>
                     <?php if (empty($list_data)) { ?>
-                        <tr class="text-center">
-                            <td colspan="3"><i>No History Record..</i></td>
+                        <tr>
+                            <td colspan="7"><i>No History Record..</i></td>
                         </tr>
                         <?php
                     } else {

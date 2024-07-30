@@ -1,12 +1,16 @@
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">List <?= ucfirst($curr_poss); ?> Inventory</h5>
+        <h5 class="card-title">List <?= ucfirst($curr_poss); ?> Rent</h5>
 
         <!-- Default Tabs -->
         <?php $this->load->view('rent/linktab'); ?>
         <div class="tab-content pt-2" id="myTabjustifiedContent">
             <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
-
+                <form action="<?= site_url('rent/scan'); ?>" method="post" class="form-control">
+                    <input type="text" class="form-control" name="user_qr" placeholder="Scan User Barcode here" autofocus />
+                    <input type="hidden" name="type" value="return"/>
+                    <input type="hidden" name="submit" value="submit"/>
+                </form>
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead>
@@ -22,7 +26,7 @@
                         <tbody>
                             <?php if (empty($rec_active_rent)) { ?>
                                 <tr>
-                                    <td colspan="3"><i>No Active Rent</i></td>
+                                    <td colspan="6"><i>No Active Rent</i></td>
                                 </tr>
                                 <?php
                             } else {

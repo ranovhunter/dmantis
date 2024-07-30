@@ -11,7 +11,8 @@
                     <tr class="text-center">
                         <th scope="col" class="text-center">#</th>
                         <th scope="col">Name</th>
-                        <th scope="col">User ID</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">ID Number (NRP)</th>
                         <th scope="col">Phone Number</th>
                         <th scope="col">Job Position</th>
                         <th scope="col">Action</th>
@@ -33,9 +34,11 @@
                                 <td class="text-center"><?= $i++; ?></td>
                                 <td><?= ucfirst($row->name); ?></td>
                                 <td><?= $row->id; ?></td>
+                                <td><?= $row->nrp; ?></td>
                                 <td><?= $row->phonenumber; ?></td>
                                 <td><?= $row->jobposition; ?></td>
                                 <td class="text-center">
+                                    <a target="_blank" href="<?php echo QR_UPLOADED . $row->id . '.png'; ?>" type="button" class="btn btn-success"><i class="bi bi-qr-code me-1"></i> View User QR</a>
                                     <a href="<?php echo site_url('users/edit/' . $row->id); ?>" type="button" class="btn btn-warning"><i class="bi bi-pencil-square me-1"></i> Edit User</a>
                                     <?php if ($row->roles == 'admin') { ?>
                                         <a onclick="resetPassword(<?= $row->id; ?>)" class="btn btn-secondary" data-bs-target="#modalReset" data-bs-toggle="modal" href="#reset" data-bs-toggle="tooltip" data-bs-placement="top" title="Reset Password"><i class="bi bi-key"></i> Reset Password</a>

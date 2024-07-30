@@ -78,7 +78,7 @@ class MY_Controller extends CI_Controller {
         // setup for data paging and view
         $this->data ['max_rows'] = $this->get_config('paging_rowlimit');
         $this->data ['numlinks'] = $this->get_config('paging_numlinks');
-        $this->data['current_url'] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $this->data['current_url'] = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $this->data['info_messages'] = $this->session->flashdata('info_messages') ? get_messages(wrap_text($this->session->flashdata('info_messages')), 'alert-success') : NULL;
         $this->data['err_messages'] = $this->session->flashdata('err_messages') ? get_messages(wrap_text($this->session->flashdata('err_messages')), 'alert-danger') : NULL;
         $this->data['module'] = $this->router->fetch_class();

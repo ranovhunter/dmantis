@@ -59,32 +59,41 @@ class Users extends MY_Controller {
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Administration';
         $this->data ['page_icon'] = 'icomoon-icon-list';
+        $this->load->library('Ciqrcode');
         if ($this->input->post('submit')) {
             $this->form_validation->set_rules('txt_name', 'User Name', 'trim|xss_clean|required');
             $this->form_validation->set_rules('txt_phone', 'Phone Number', 'trim|xss_clean');
             $this->form_validation->set_rules('txt_job', 'Job Position', 'trim|xss_clean|required');
-            if ($this->data['userdata']['sess-role'] == 'admin') {
-                $this->form_validation->set_rules('txt_userid', 'User ID', 'trim|xss_clean|required');
-            } else {
+            $this->form_validation->set_rules('txt_nrp', 'NRP', 'trim|xss_clean|required');
+            $this->form_validation->set_rules('txt_gl', 'NRP', 'trim|xss_clean');
+            if ($this->data['userdata']['sess-role'] != 'admin') {
                 $this->form_validation->set_rules('txt_email', 'Email Address', 'trim|xss_clean|required');
             }
 
             if ($this->form_validation->run() == TRUE) {
                 $data = array(
-                    'id' => $this->input->post('txt_userid'),
+                    'nrp' => $this->input->post('txt_nrp'),
                     'name' => $this->input->post('txt_name'),
                     'phonenumber' => $this->input->post('txt_phone'),
                     'jobposition' => $this->input->post('txt_job'),
+                    'groupleader' => $this->input->post('txt_gl'),
+                    'id' => 'U' . date('ymdHis'),
                     'insert_user' => $this->session->userdata('sess-id'),
                     'insert_date' => date("Y-m-d H:i:s")
                 );
-                $cek = $this->muser->get_data('id', array('id' => $data['id']), null, null, null, null, 'row');
+                $where = "roles = 'user' AND (id = '" . $data['id'] . "' OR nrp = '" . $data['id'] . "')";
+                $cek = $this->muser->get_data('id', $where, null, null, null, null, 'row');
                 $is_exist = $cek == array() ? false : true;
                 $data['roles'] = ($this->data['userdata']['sess-role'] == 'admin') ? 'user' : 'admin';
                 if ($is_exist) {
                     $this->data ['error_messages'] = get_messages('User Already Registered');
                 } else {
                     if ($this->muser->add_data($data)) {
+                        $params['data'] = $data['id'];
+                        $params['level'] = 'H';
+                        $params['size'] = 20;
+                        $params['savename'] = QR_PATH . DIRECTORY_SEPARATOR . $data['id'] . '.png';
+                        $this->ciqrcode->generate($params);
                         $this->session->set_flashdata('info_messages', 'Users Registered Successful');
                         redirect('users');
                     } else {
@@ -108,19 +117,29 @@ class Users extends MY_Controller {
             $this->form_validation->set_rules('txt_name', 'User Name', 'trim|xss_clean|required');
             $this->form_validation->set_rules('txt_phone', 'Phone Number', 'trim|xss_clean');
             $this->form_validation->set_rules('txt_job', 'Job Position', 'trim|xss_clean|required');
+            $this->form_validation->set_rules('txt_nrp', 'NRP', 'trim|xss_clean|required');
+            $this->form_validation->set_rules('txt_gl', 'NRP', 'trim|xss_clean');
             if ($this->form_validation->run() == TRUE) {
                 $data = array(
                     'name' => $this->input->post('txt_name'),
                     'phonenumber' => $this->input->post('txt_phone'),
                     'jobposition' => $this->input->post('txt_job'),
+                    'nrp' => $this->input->post('txt_nrp'),
+                    'groupleader' => $this->input->post('txt_gl'),
                     'update_user' => $this->session->userdata('sess-id'),
                     'update_date' => date("Y-m-d H:i:s")
                 );
-                if ($this->muser->edit_data($data, array('id' => $id))) {
-                    $this->session->set_flashdata('info_messages', 'Users Updated Successful');
-                    redirect('users');
+                $where_cek = "nrp ='".$data['nrp']."' and id <> '".$id."'";
+                $cek = $this->muser->get_data('id', $where_cek , null, null, null, null, 'row');
+                if ($cek == array()) {
+                    if ($this->muser->edit_data($data, array('id' => $id))) {
+                        $this->session->set_flashdata('info_messages', 'Users Updated Successful');
+                        redirect('users');
+                    } else {
+                        $this->data ['error_messages'] = get_messages('Failed to add User');
+                    }
                 } else {
-                    $this->data ['error_messages'] = get_messages('Failed to add Area');
+                    $this->data ['error_messages'] = get_messages('NRP has already registered on the System');
                 }
             } else {
                 $this->data ['error_messages'] = validation_errors() ? get_messages(validation_errors()) : '';
@@ -132,7 +151,7 @@ class Users extends MY_Controller {
     }
 
     function rent() {
-        $this->data['max_rows'] =9;
+        $this->data['max_rows'] = 9;
         $this->load->model('rent_model', 'rent');
         $this->data['userid'] = $this->uri->segment(3);
         $this->data['active_menu'] = 'history';
@@ -140,11 +159,12 @@ class Users extends MY_Controller {
         $page = $this->uri->segment(4);
         $this->data['offset'] = get_offset($page, $this->data['max_rows']);
         $this->data['rec_user'] = $this->muser->get_data(null, array('id' => $this->data['userid'], 'roles' => 'user'), null, null, null, null, 'row');
-        $this->data ['list_data'] = $this->rent->get_data(null, array('rent_user' => $this->data['userid']), $this->data['max_rows'], $this->data['offset'],'rstatus DESC');
+        $this->data ['list_data'] = $this->rent->get_data(null, array('rent_user' => $this->data['userid']), $this->data['max_rows'], $this->data['offset'], 'rstatus DESC');
         $this->data['pagination'] = $this->build_pagination(base_url() . 'users/rent/' . $this->data['userid'] . '/', 4, $this->rent->total_rows, $this->data['max_rows'], $this->data['numlinks']);
         $this->data ['page'] = $this->load->view($this->get_page('rent'), $this->data, true);
         $this->render();
     }
+
 }
 
 /**

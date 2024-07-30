@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
 
-        <h5 class="card-title">-</h5>
+        <h5 class="card-title">Report</h5>
 
         <!-- Table with hoverable rows -->
         <?= isset($info_messages) ? $info_messages : ''; ?>
@@ -21,7 +21,7 @@
                 <tbody>
                     <?php if (empty($report_data)) { ?>
                         <tr>
-                            <td colspan="3"><i>No Reports Available</i></td>
+                            <td colspan="6"><i>No Reports Available</i></td>
                         </tr>
                         <?php
                     } else {

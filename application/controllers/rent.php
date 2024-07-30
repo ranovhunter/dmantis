@@ -68,8 +68,7 @@ class Rent extends MY_Controller {
         if ($this->data ['list_data'] == array())
             redirect(site_url('rent'));
         if ($this->input->post('submit')) {
-            $data = $this->input->post('cb_approve');
-
+            $data = $this->input->post('cb_approve')==false?array():$this->input->post('cb_approve');
             foreach ($this->data['list_data'] as $row) {
 
                 if (array_key_exists($row->id, $data)) {
@@ -85,9 +84,11 @@ class Rent extends MY_Controller {
                         'reject_user' => $this->session->userdata('sess-id')
                     );
                     $this->item->edit_data(array('istatus' => 1), array('id' => $row->item_id));
+                    
                 }
                 $this->rent->edit_data($update_data, array('id' => $row->id));
             }
+            
             $this->session->set_flashdata('info_messages', ' Request Approved');
             redirect(site_url('rent'));
         }
@@ -97,6 +98,7 @@ class Rent extends MY_Controller {
 
     function approved() {
         $this->data['user_id'] = $this->uri->segment(3);
+        $this->data['rec_user'] = $this->user->get_data(null, array('id' => $this->data['user_id']), null, null, null, null, 'row');
         $this->data ['curr_poss'] = 'approved';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Item - Index';
@@ -179,6 +181,7 @@ class Rent extends MY_Controller {
 
     function return() {
         $this->data['user_id'] = $this->uri->segment(3);
+        $this->data['rec_user'] = $this->user->get_data(null, array('id' => $this->data['user_id']), null, null, null, null, 'row');
         $this->data ['curr_poss'] = 'return';
         $this->data ['page_icon'] = 'icomoon-icon-list';
         $this->data ['page_title'] = 'Item - Index';
@@ -230,7 +233,8 @@ class Rent extends MY_Controller {
         $rent_id = $this->uri->segment(3);
         $rent_detail = $this->rent->get_data(null, array('id' => $rent_id), null, null, null, null, 'row');
         if ($this->input->post('submit') && $rent_detail != array()) {
-            $data['rec_data']['report_number'] = str_pad($this->report->get_total_report() + 1, 3, '0', STR_PAD_LEFT);;
+            $data['rec_data']['report_number'] = str_pad($this->report->get_total_report() + 1, 3, '0', STR_PAD_LEFT);
+            ;
             $data['rec_data']['date'] = extract_date(date("Y-m-d H:i:s"));
             $data['rec_data']['name'] = $rent_detail->rent_user_name;
             $data['rec_data']['userid'] = $rent_detail->rent_user;
@@ -277,6 +281,34 @@ class Rent extends MY_Controller {
                 $this->session->set_flashdata('info_messages', ' Report Successfully Created..');
             } else {
                 redirect(site_url('rent/report/' . $rent_id));
+            }
+        } else {
+            redirect(site_url('rent'));
+        }
+    }
+
+    function scan() {
+        $this->load->model('muser', 'user');
+        if ($this->input->post('submit')) {
+            $where = "id = '" . $this->input->post('user_qr') . "' OR nrp = '" . $this->input->post('user_qr') . "'";
+            $user = $this->user->get_data(array('id', 'nrp'), $where, null, null, null, null, 'row');
+            if ($user != array()) {
+                switch ($this->input->post('type')) {
+                    case 'request':
+                        redirect(site_url('rent/request/' . $user->id));
+                        break;
+                    case 'approved':
+                        redirect(site_url('rent/approved/' . $user->id));
+                        break;
+                    case 'return':
+                        redirect(site_url('rent/return/' . $user->id));
+                        break;
+                    default :
+                        redirect(site_url('rent'));
+                        break;
+                }
+            } else {
+                redirect(site_url('rent'));
             }
         } else {
             redirect(site_url('rent'));

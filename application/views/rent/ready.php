@@ -13,7 +13,11 @@
         <?php $this->load->view('rent/linktab'); ?>
         <div class="tab-content pt-2" id="myTabjustifiedContent">
             <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
-
+                <form action="<?= site_url('rent/scan'); ?>" method="post" class="form-control">
+                    <input type="text" class="form-control" name="user_qr" placeholder="Scan User Barcode here" autofocus />
+                    <input type="hidden" name="type" value="approved"/>
+                    <input type="hidden" name="submit" value="submit"/>
+                </form>
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead>
@@ -29,7 +33,7 @@
                         <tbody>
                             <?php if (empty($rec_data)) { ?>
                                 <tr>
-                                    <td colspan="3"><i>No Request Rent</i></td>
+                                    <td colspan="6"><i>No Request Rent</i></td>
                                 </tr>
                                 <?php
                             } else {

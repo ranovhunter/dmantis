@@ -9,17 +9,17 @@
         <?= $form_validation_errors; ?>
         <!-- Floating Labels Form -->
         <form action="<?php echo site_url('users/add'); ?>" method="post" role="form" autocomplete="off" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate >
-            <div class="col-md-4">
-                <div class="form-floating">
-                    <input type="text" name="txt_userid" class="form-control" id="floatingEmail" placeholder="Users ID" value ="<?= set_value('txt_userid'); ?>" required>
-                    <label for="floatingAssetNumber">User ID</label>
-                </div>
-            </div>
             <div class="col-md-12">
                 <div class="form-floating">
                     <input type="text" name="txt_name" class="form-control" id="floatingName" placeholder="Name" value ="<?= set_value('txt_name') ?>" required>
-                    <label for="floatingDetails">Name</label>
+                    <label for="floatingDetails">Name*</label>
                     <div class="invalid-feedback">Please enter Item Name!</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-floating">
+                    <input type="text" name="txt_nrp" class="form-control" id="floatingNRP" placeholder="Users ID" value ="<?= set_value('txt_nrp'); ?>">
+                    <label for="floatingNRP">User ID (NRP)</label>
                 </div>
             </div>
             <div class="col-md-4">
@@ -31,7 +31,14 @@
             <div class="col-md-8">
                 <div class="form-floating">
                     <input type="text" name="txt_job" class="form-control" id="floatingJobPosition" placeholder="Job Position" value ="<?= set_value('txt_job') ?>" required>
-                    <label for="floatingDetails">Job Position</label>
+                    <label for="floatingDetails">Job Position*</label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <input type="text" name="txt_gl" class="form-control" id="floatingJobPosition" placeholder="Group Leader" value ="<?= set_value('txt_gl') ?>" required>
+                    <label for="floatingDetails">Group Leader</label>
+                    <div class="invalid-feedback">Please enter Group Leader Name</div>
                 </div>
             </div>
             <div class="text-center">

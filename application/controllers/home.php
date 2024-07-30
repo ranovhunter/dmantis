@@ -26,7 +26,8 @@ class Home extends MY_Controller {
             $this->form_validation->set_error_delimiters("<li>", "</li>");
             $this->form_validation->set_rules('txt_userid', 'User ID', 'trim|xss_clean|required');
             if ($this->form_validation->run()) {
-                $rec_user = $this->muser->get_data(null, array('id' => $this->input->post('txt_userid'), 'roles' => 'user'), null, null, null, null, 'row');
+                $where = "roles = 'user' AND (id = '" . $this->input->post('txt_userid') . "' OR nrp = '" . $this->input->post('txt_userid') . "')";
+                $rec_user = $this->muser->get_data(null, $where, null, null, null, null, 'row');
                 if ($this->muser->total_rows == 1) {
                     redirect(site_url('home/request/' . $rec_user->id));
                 } else {
@@ -132,7 +133,7 @@ class Home extends MY_Controller {
     }
 
     function history() {
-        $this->data['max_rows'] =9;
+        $this->data['max_rows'] = 9;
         $this->load->model('rent_model', 'rent');
         $this->data['userid'] = $this->uri->segment(3);
         $this->data['active_menu'] = 'history';
@@ -142,7 +143,7 @@ class Home extends MY_Controller {
         $this->data['offset'] = get_offset($page, $this->data['max_rows']);
         $this->data['rec_user'] = $this->muser->get_data(null, array('id' => $this->data['userid'], 'roles' => 'user'), null, null, null, null, 'row');
 
-        $this->data ['list_data'] = $this->rent->get_data(null, array('rent_user' => $this->data['userid']), $this->data['max_rows'], $this->data['offset'],'rstatus DESC');
+        $this->data ['list_data'] = $this->rent->get_data(null, array('rent_user' => $this->data['userid']), $this->data['max_rows'], $this->data['offset'], 'rstatus DESC');
         $this->data['pagination'] = $this->build_pagination(base_url() . 'home/history/' . $this->data['userid'] . '/', 4, $this->rent->total_rows, $this->data['max_rows'], $this->data['numlinks']);
         $this->data ['page'] = $this->load->view($this->get_page('history'), $this->data, true);
         $this->render();

@@ -13,13 +13,18 @@
         <?php $this->load->view('rent/linktab'); ?>
         <div class="tab-content pt-2" id="myTabjustifiedContent">
             <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
-
+                <form action="<?= site_url('rent/scan'); ?>" method="post" class="form-control">
+                    <input type="text" class="form-control" name="user_qr" placeholder="Scan User Barcode here" autofocus />
+                    <input type="hidden" name="type" value="request"/>
+                    <input type="hidden" name="submit" value="submit"/>
+                </form>
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr class="text-center">
                                 <th scope="col">User ID</th>
                                 <th scope="col">Name</th>
+                                <th scope="col">NRP</th>
                                 <th scope="col">Phone Number</th>
                                 <th scope="col">Request Date</th>
                                 <th scope="col">Tools Count</th>
@@ -29,7 +34,7 @@
                         <tbody>
                             <?php if (empty($rec_data)) { ?>
                                 <tr>
-                                    <td colspan="3"><i>No Request Rent</i></td>
+                                    <td colspan="7"><i>No Request Rent</i></td>
                                 </tr>
                                 <?php
                             } else {
@@ -38,6 +43,7 @@
                                     <tr>
                                         <td><?= $row['userid']; ?></td>
                                         <td><?= ucfirst($row['user_name']); ?></td>
+                                        <td><?= $row['nrp']; ?></td>
                                         <td><?= $row['phonenumber']; ?></td>
                                         <td><?= $row['request_date']; ?></td>
                                         <td><?= $row['total']; ?></td>

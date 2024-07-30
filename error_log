@@ -1,0 +1,132 @@
+[09-Jul-2024 03:26:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php:76
+Stack trace:
+#0 /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php(76): mysqli_connect()
+#1 /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php(91): CI_DB_mysqli_driver->db_connect()
+#2 /home/demantis/public_html/system/database/DB_driver.php(116): CI_DB_mysqli_driver->db_pconnect()
+#3 /home/demantis/public_html/system/database/DB.php(148): CI_DB_driver->initialize()
+#4 /home/demantis/public_html/system/core/Loader.php(347): DB()
+#5 /home/demantis/public_html/system/core/Loader.php(1172): CI_Loader->database()
+#6 /home/demantis/public_html/system/core/Loader.php(153): CI_Loader->_ci_autoloader()
+#7 /home/demantis/public_html/system/core/Controller.php(52): CI_Loader->initialize()
+#8 /home/demantis/public_html/application/core/MY_Controller.php(13): CI_Controller->__construct()
+#9 /home/demantis/public_html/application/controllers/home.php(8): MY_Controller->__construct()
+#10 /home/demantis/public_html/system/core/CodeIgniter.php(308): Home->__construct()
+#11 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#12 {main}
+  thrown in /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php on line 76
+[16-Jul-2024 04:30:19 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'demantis_main'@'localhost' (using password: YES) in /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php:76
+Stack trace:
+#0 /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php(76): mysqli_connect()
+#1 /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php(91): CI_DB_mysqli_driver->db_connect()
+#2 /home/demantis/public_html/system/database/DB_driver.php(116): CI_DB_mysqli_driver->db_pconnect()
+#3 /home/demantis/public_html/system/database/DB.php(148): CI_DB_driver->initialize()
+#4 /home/demantis/public_html/system/core/Loader.php(347): DB()
+#5 /home/demantis/public_html/system/core/Loader.php(1172): CI_Loader->database()
+#6 /home/demantis/public_html/system/core/Loader.php(153): CI_Loader->_ci_autoloader()
+#7 /home/demantis/public_html/system/core/Controller.php(52): CI_Loader->initialize()
+#8 /home/demantis/public_html/application/core/MY_Controller.php(13): CI_Controller->__construct()
+#9 /home/demantis/public_html/application/controllers/home.php(14): MY_Controller->__construct()
+#10 /home/demantis/public_html/system/core/CodeIgniter.php(308): Home->__construct()
+#11 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#12 {main}
+  thrown in /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php on line 76
+[16-Jul-2024 04:30:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'demantis_main'@'localhost' (using password: YES) in /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php:76
+Stack trace:
+#0 /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php(76): mysqli_connect()
+#1 /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php(91): CI_DB_mysqli_driver->db_connect()
+#2 /home/demantis/public_html/system/database/DB_driver.php(116): CI_DB_mysqli_driver->db_pconnect()
+#3 /home/demantis/public_html/system/database/DB.php(148): CI_DB_driver->initialize()
+#4 /home/demantis/public_html/system/core/Loader.php(347): DB()
+#5 /home/demantis/public_html/system/core/Loader.php(1172): CI_Loader->database()
+#6 /home/demantis/public_html/system/core/Loader.php(153): CI_Loader->_ci_autoloader()
+#7 /home/demantis/public_html/system/core/Controller.php(52): CI_Loader->initialize()
+#8 /home/demantis/public_html/application/core/MY_Controller.php(13): CI_Controller->__construct()
+#9 /home/demantis/public_html/application/controllers/login.php(14): MY_Controller->__construct()
+#10 /home/demantis/public_html/system/core/CodeIgniter.php(308): Login->__construct()
+#11 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#12 {main}
+  thrown in /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php on line 76
+[20-Jul-2024 07:36:52 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: array_key_exists(): Argument #2 ($array) must be of type array, bool given in /home/demantis/public_html/application/controllers/rent.php:75
+Stack trace:
+#0 /home/demantis/public_html/system/core/CodeIgniter.php(359): Rent->request()
+#1 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#2 {main}
+  thrown in /home/demantis/public_html/application/controllers/rent.php on line 75
+[26-Jul-2024 09:26:18 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: array_key_exists(): Argument #2 ($array) must be of type array, bool given in /home/demantis/public_html/application/controllers/rent.php:75
+Stack trace:
+#0 /home/demantis/public_html/system/core/CodeIgniter.php(359): Rent->request()
+#1 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#2 {main}
+  thrown in /home/demantis/public_html/application/controllers/rent.php on line 75
+[26-Jul-2024 09:28:36 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: array_key_exists(): Argument #2 ($array) must be of type array, bool given in /home/demantis/public_html/application/controllers/rent.php:75
+Stack trace:
+#0 /home/demantis/public_html/system/core/CodeIgniter.php(359): Rent->request()
+#1 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#2 {main}
+  thrown in /home/demantis/public_html/application/controllers/rent.php on line 75
+[26-Jul-2024 09:34:42 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: array_key_exists(): Argument #2 ($array) must be of type array, bool given in /home/demantis/public_html/application/controllers/rent.php:75
+Stack trace:
+#0 /home/demantis/public_html/system/core/CodeIgniter.php(359): Rent->request()
+#1 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#2 {main}
+  thrown in /home/demantis/public_html/application/controllers/rent.php on line 75
+[26-Jul-2024 09:37:17 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: array_key_exists(): Argument #2 ($array) must be of type array, bool given in /home/demantis/public_html/application/controllers/rent.php:75
+Stack trace:
+#0 /home/demantis/public_html/system/core/CodeIgniter.php(359): Rent->request()
+#1 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#2 {main}
+  thrown in /home/demantis/public_html/application/controllers/rent.php on line 75
+[26-Jul-2024 09:38:13 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: array_key_exists(): Argument #2 ($array) must be of type array, bool given in /home/demantis/public_html/application/controllers/rent.php:75
+Stack trace:
+#0 /home/demantis/public_html/system/core/CodeIgniter.php(359): Rent->request()
+#1 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#2 {main}
+  thrown in /home/demantis/public_html/application/controllers/rent.php on line 75
+[26-Jul-2024 09:40:00 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: array_key_exists(): Argument #2 ($array) must be of type array, bool given in /home/demantis/public_html/application/controllers/rent.php:75
+Stack trace:
+#0 /home/demantis/public_html/system/core/CodeIgniter.php(359): Rent->request()
+#1 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#2 {main}
+  thrown in /home/demantis/public_html/application/controllers/rent.php on line 75
+[26-Jul-2024 09:40:04 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: array_key_exists(): Argument #2 ($array) must be of type array, bool given in /home/demantis/public_html/application/controllers/rent.php:75
+Stack trace:
+#0 /home/demantis/public_html/system/core/CodeIgniter.php(359): Rent->request()
+#1 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#2 {main}
+  thrown in /home/demantis/public_html/application/controllers/rent.php on line 75
+[26-Jul-2024 02:42:20 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/demantis/public_html/application/controllers/rent.php on line 71
+[26-Jul-2024 02:42:22 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/demantis/public_html/application/controllers/rent.php on line 71
+[26-Jul-2024 09:43:48 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function vardump() in /home/demantis/public_html/application/controllers/rent.php:72
+Stack trace:
+#0 /home/demantis/public_html/system/core/CodeIgniter.php(359): Rent->request()
+#1 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#2 {main}
+  thrown in /home/demantis/public_html/application/controllers/rent.php on line 72
+[26-Jul-2024 09:59:30 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: PROCEDURE demantis_main.get_approved_rent does not exist in /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php:179
+Stack trace:
+#0 /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php(179): mysqli_query()
+#1 /home/demantis/public_html/system/database/DB_driver.php(454): CI_DB_mysqli_driver->_execute()
+#2 /home/demantis/public_html/system/database/DB_driver.php(300): CI_DB_driver->simple_query()
+#3 /home/demantis/public_html/application/models/rent_model.php(111): CI_DB_driver->query()
+#4 /home/demantis/public_html/application/controllers/rent.php(41): Rent_model->get_appr_user_rent()
+#5 /home/demantis/public_html/system/core/CodeIgniter.php(359): Rent->ready()
+#6 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#7 {main}
+  thrown in /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php on line 179
+[26-Jul-2024 09:59:35 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: PROCEDURE demantis_main.get_approved_rent does not exist in /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php:179
+Stack trace:
+#0 /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php(179): mysqli_query()
+#1 /home/demantis/public_html/system/database/DB_driver.php(454): CI_DB_mysqli_driver->_execute()
+#2 /home/demantis/public_html/system/database/DB_driver.php(300): CI_DB_driver->simple_query()
+#3 /home/demantis/public_html/application/models/rent_model.php(111): CI_DB_driver->query()
+#4 /home/demantis/public_html/application/controllers/rent.php(41): Rent_model->get_appr_user_rent()
+#5 /home/demantis/public_html/system/core/CodeIgniter.php(359): Rent->ready()
+#6 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#7 {main}
+  thrown in /home/demantis/public_html/system/database/drivers/mysqli/mysqli_driver.php on line 179
+[26-Jul-2024 14:13:12 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function str_rot13() in /home/demantis/public_html/application/controllers/item.php:26
+Stack trace:
+#0 /home/demantis/public_html/system/core/CodeIgniter.php(359): Item->index()
+#1 /home/demantis/public_html/index.php(188): require_once('/home/demantis/...')
+#2 {main}
+  thrown in /home/demantis/public_html/application/controllers/item.php on line 26

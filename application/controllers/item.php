@@ -61,6 +61,7 @@ class Item extends MY_Controller {
             $this->form_validation->set_rules('txt_name', 'Name', 'trim|xss_clean|required');
             $this->form_validation->set_rules('cmb_area', 'Area', 'trim|xss_clean');
             $this->form_validation->set_rules('cmb_condition', 'Condition', 'trim|xss_clean');
+            $this->form_validation->set_rules('txt_purchase_date', 'Purchase Date', 'trim|xss_clean');
             $this->form_validation->set_rules('txt_size', 'Size', 'trim|xss_clean');
             if ($this->form_validation->run() == TRUE) {
                 $data = array(
@@ -70,6 +71,7 @@ class Item extends MY_Controller {
                     'icondition' => $this->input->post('cmb_condition'),
                     'istatus' => 1,
                     'area_id' => $this->input->post('cmb_area'),
+                    'purchase_date' => $this->input->post('txt_purchase_date'),
                     'insert_user' => $this->session->userdata('sess-id'),
                     'insert_date' => date("Y-m-d H:i:s")
                 );
@@ -132,12 +134,14 @@ class Item extends MY_Controller {
             $this->form_validation->set_rules('txt_name', 'Name', 'trim|xss_clean|required');
             $this->form_validation->set_rules('cmb_area', 'Area', 'trim|xss_clean');
             $this->form_validation->set_rules('cmb_condition', 'Condition', 'trim|xss_clean');
+            $this->form_validation->set_rules('txt_purchase_date', 'Purchase Date', 'trim|xss_clean');
             $this->form_validation->set_rules('txt_size', 'Size', 'trim|xss_clean');
             $data = array(
                 'name' => $this->input->post('txt_name'),
                 'size' => $this->input->post('txt_size'),
                 'icondition' => $this->input->post('cmb_condition'),
                 'area_id' => $this->input->post('cmb_area'),
+                'purchase_date' => $this->input->post('txt_purchase_date'),
                 'update_user' => $this->session->userdata('sess-id'),
                 'update_date' => date("Y-m-d H:i:s")
             );

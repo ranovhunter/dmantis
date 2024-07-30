@@ -41,7 +41,12 @@
                     <label for="floatingSN">Condition</label>
                 </div>
             </div>  
-
+            <div class="col-md-4">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingSN" placeholder="Purchase Date" value ="<?= $rec_data->purchase_date ?>" disabled>
+                    <label for="floatingSN">Purchase Date</label>
+                </div>
+            </div>  
             <?php if ($rec_data->filename != '') { ?>
                 <div class="col-md-4">
                     <div class="form">

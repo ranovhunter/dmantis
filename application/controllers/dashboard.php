@@ -27,7 +27,7 @@ class Dashboard extends MY_Controller {
         $this->load->model('user_model', 'user');
         $this->load->model('item_model', 'item');
         $this->load->model('rent_model', 'rent');
-        $this->data['tools_borrowed'] = $this->item->get_data('count(id) as total', array('istatus' => 0), null, null, null, null, 'row')->total;
+        $this->data['tools_borrowed'] = $this->rent->get_data('count(id) as total', array('rstatus' => 1), null, null, null, null, 'row')->total;
         $this->data['total_user'] = $this->user->get_total_user();
         $this->data['good_tools'] = $this->item->get_tools_by_condition('good');
         $this->data['incomplete_tools'] = $this->item->get_tools_by_condition('incomplete');

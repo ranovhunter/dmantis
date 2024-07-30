@@ -24,7 +24,14 @@
                             <label for="floatingSerialNumber">Size</label>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                     <div class="col-md-4">
+                        <div class="form-floating">
+                            <input type="date" name="txt_purchase_date" class="form-control" id="floatingGR" placeholder="Purchase Date" value ="<?= set_value('txt_purchase_date',$rec_data->purchase_date) ?>">
+                            <label for="floatingGR">Purchase Date</label>
+                            <div class="invalid-feedback">Please Enter Purchase Date!</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-floating mb-3">
                             <select class="form-select" id="floatingSelect" aria-label="Type" name="cmb_condition">
                                 <option <?= $rec_data->icondition == 'good' ? 'selected' : ''; ?> value="good">Good</option>

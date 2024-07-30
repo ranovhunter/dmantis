@@ -9,6 +9,12 @@
         <?= $form_validation_errors; ?>
         <!-- Floating Labels Form -->
         <form action="<?php echo site_url('users/edit/' . $rec_user->id); ?>" method="post" role="form" autocomplete="off" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate >
+            <div class="col-md-4">
+                <div class="form-floating">
+                    <input type="text" name="txt_nrp" class="form-control" id="floatingNRP" placeholder="Users ID" value ="<?= set_value('txt_nrp', $rec_user->nrp); ?>">
+                    <label for="floatingNRP">User ID (NRP)</label>
+                </div>
+            </div>
             <div class="col-md-12">
                 <div class="form-floating">
                     <input type="text" name="txt_name" class="form-control" id="floatingName" placeholder="Name" value ="<?= set_value('txt_name', $rec_user->name) ?>" required>
@@ -27,6 +33,13 @@
                     <input type="text" name="txt_job" class="form-control" id="floatingJobPosition" placeholder="Job Position" value ="<?= set_value('txt_job', $rec_user->jobposition) ?>" required>
                     <label for="floatingDetails">Job Position</label>
                     <div class="invalid-feedback">Please enter Job Position</div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <input type="text" name="txt_gl" class="form-control" id="floatingJobPosition" placeholder="Group Leader" value ="<?= set_value('txt_gl', $rec_user->groupleader) ?>" required>
+                    <label for="floatingDetails">Group Leader</label>
+                    <div class="invalid-feedback">Please enter Group Leader Name</div>
                 </div>
             </div>
             <div class="text-center">

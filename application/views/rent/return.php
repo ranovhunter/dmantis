@@ -1,7 +1,26 @@
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">List <?= ucfirst($curr_poss); ?> Inventory</h5>
-
+        <h5 class="card-title">List <?= ucfirst($curr_poss); ?> Rent</h5>
+        <form class="row g-3 needs-validation" >
+            <div class="col-md-8">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingName" placeholder="Name" value ="<?= $rec_user->name; ?>" readonly>
+                    <label for="floatingDetails">Name</label>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingNrp" placeholder="NRP" value ="<?= $rec_user->nrp; ?>" readonly>
+                    <label for="floatingNrp">NRP</label>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingGL" placeholder="G/L" value ="<?= $rec_user->groupleader; ?>" readonly>
+                    <label for="floatingGL">G/L</label>
+                </div>
+            </div>
+        </form><br/>
         <?php
         if (!empty($err_messages)) {
             echo $err_messages;
