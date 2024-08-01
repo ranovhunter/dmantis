@@ -44,12 +44,20 @@ class Home extends MY_Controller {
     function request() {
         $this->data['active_menu'] = 'dashboard';
         $this->data ['html_title'] = 'Rent';
+        $this->data ['enable_search'] = 'true';
         $this->data['userid'] = $this->uri->segment(3);
         $this->data['rec_user'] = $this->muser->get_data(null, array('id' => $this->data['userid'], 'roles' => 'user'), null, null, null, null, 'row');
         if ($this->data['rec_user'] == array())
             redirect(site_url('home'));
         $this->data['data_cart'] = $this->session->userdata('cart') ? $this->session->userdata('cart') : array();
-        $this->data['list_items'] = $this->item->get_data(null, "icondition IN ('good') and istatus = 1");
+        $where = "icondition IN ('good') and istatus = 1";
+        if ($this->input->post('search')) {
+            $this->form_validation->set_rules('tx_search', 'Search', 'trim|xss_clean|required');
+            if ($this->form_validation->run()) {
+                $where .= " AND name like '%" . $this->input->post('tx_search') . "%'";
+            }
+        }
+        $this->data['list_items'] = $this->item->get_data(null, $where);
         $this->data ['page'] = $this->load->view($this->get_page('request'), $this->data, true);
         $this->render();
     }

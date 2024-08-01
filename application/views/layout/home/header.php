@@ -6,7 +6,6 @@
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
-
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
 
@@ -15,7 +14,6 @@
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="<?= site_url('home/cart/' . $rec_user->id); ?>">
                     <button type="button" class="btn btn-success">
                         <span class="bi bi-cart"></span>
-                        <span>View Cart</span>
                     </button>
                 </a><!-- End Profile Iamge Icon -->
 

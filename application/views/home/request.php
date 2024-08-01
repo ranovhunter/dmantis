@@ -8,8 +8,18 @@
         font-family: "Poppins", sans-serif;
     }
 </style>
-<h1>Request Tools</h1><br/>
-<hr>
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">Request Tools</h2>
+        <form method="POST" action="<?= site_url('home/request/' . $userid); ?>">
+            <input class="form-control" type="text" placeholder="Search" id="tx_search" title="Enter search keyword" name="tx_search" value="<?= set_value('tx_search') ?>" autofocus>
+            <input type="hidden" title="Search" name="search" value="search"/>
+        </form>
+        <script>
+            tx_search.addEventListener(`focus`, () => tx_search.select());
+        </script>
+    </div>
+</div>
 <?php
 if (!empty($err_messages)) {
     echo $err_messages;
@@ -22,7 +32,7 @@ if (!empty($error_messages)) {
 }
 ?>
 <?php foreach ($list_items as $row) { ?>
-    <div class="col-sm-6 col-md-4 col-lg-3">
+    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
         <div class="card card-stats toolscard">
             <?php $image = $row->filename != '' ? ITEM_PATH . $row->filename : IMG_PATH . 'default-tools.png'; ?>
             <img class="card-img-top" src="<?= $image; ?>" alt="Card image cap">
@@ -216,35 +226,35 @@ if (!empty($error_messages)) {
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
-                            function showModal(element) {
-                                var add = element.checked;
-                                var itemID = element.value;
-                                var url = null;
-                                if (add) {
-                                    url = '<?= site_url('home/add_cart/' . $userid); ?>';
-                                } else {
-                                    url = '<?= site_url('home/remove_cart/' . $userid); ?>';
-                                }
-                                $.ajax({
-                                    type: 'POST',
-                                    url: url,
-                                    data: 'itemid=' + itemID,
-                                    success: function (response) {
-                                        if (response) {
-                                            $("#modal-notification").modal('show');
-                                            setTimeout(function () {
-                                                $("#modal-notification").modal('hide');
-                                            }, 1000);
-                                        } else {
-                                            if (element.checked) {
-                                                element.checked = false;
-                                            } else {
-                                                element.checked = true;
-                                            }
-                                        }
-
+                                function showModal(element) {
+                                    var add = element.checked;
+                                    var itemID = element.value;
+                                    var url = null;
+                                    if (add) {
+                                        url = '<?= site_url('home/add_cart/' . $userid); ?>';
+                                    } else {
+                                        url = '<?= site_url('home/remove_cart/' . $userid); ?>';
                                     }
-                                });
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: url,
+                                        data: 'itemid=' + itemID,
+                                        success: function (response) {
+                                            if (response) {
+                                                $("#modal-notification").modal('show');
+                                                setTimeout(function () {
+                                                    $("#modal-notification").modal('hide');
+                                                }, 1000);
+                                            } else {
+                                                if (element.checked) {
+                                                    element.checked = false;
+                                                } else {
+                                                    element.checked = true;
+                                                }
+                                            }
 
-                            }
+                                        }
+                                    });
+
+                                }
 </script>
